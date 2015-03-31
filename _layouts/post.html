@@ -1,15 +1,38 @@
 ---
 layout: default
 ---
-<div class="post">
-
-  <header class="post-header">
-    <h1 class="post-title">{{ page.title }}</h1>
-    <p class="post-meta">{{ page.date | date: "%b %-d, %Y" }}{% if page.author %} • {{ page.author }}{% endif %}{% if page.meta %} • {{ page.meta }}{% endif %}</p>
-  </header>
-
-  <article class="post-content">
-    {{ content }}
-  </article>
-
+<div id="home" class="grid post">
+<div class="unit whole">
+<article>
+	<header>
+		<h1>{{ page.title }}</h1>
+		<p class="meta">
+			<time class="timeago postlist-meta" datetime="{{ page.date | date: "%Y-%m-%d" }}"><i class="fa fa-calendar"></i>{{ page.date | date: "%B %-d, %Y" }}</time>
+			<a class="sharer facebook" href="#" target="_blank" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u='+window.location.href,'_blank','height=300,width=600');return false;"><i class="fa fa-facebook"></i></a>
+			{% if site.twitter %}
+				<a class="sharer twitter" href="#" target="_blank" onclick="window.open('https://twitter.com/share?url='+window.location.href+'&via={{ site.twitter }}','_blank','height=300,width=600');return false;"><i class="fa fa-twitter"></i></a>
+			{% else %}
+				<a class="sharer twitter" href="#" target="_blank" onclick="window.open('https://twitter.com/share?url='+window.location.href,'_blank','height=300,width=600');return false;"><i class="fa fa-twitter"></i></a>
+			{% endif %}
+		</p>
+	</header>
+	<section>
+		{% if page.tags and page.tags.size > 0 %}
+			<div class="tags">
+				Tagged:
+				{% for tag in page.tags %}
+				<span><i class="fa fa-tag"></i>{{ tag }}</span>
+				{% endfor %}
+			</div>
+		{% endif %}
+		{{ content }}
+	</section>
+	{% if site.disqus %}
+	<footer>
+		<p><a href="#" id="showComments">Comments</a></p>
+		<div id="disqus_thread"></div>
+	</footer>
+	{% endif %}
+</article>
+</div>
 </div>

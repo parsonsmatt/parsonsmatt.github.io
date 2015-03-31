@@ -1,0 +1,41 @@
+$dialog-anim-duration	: 0.3s;
+$dialog-anim-out-duration: 0.2s;
+$dialog-anim-diff		: 0.2;
+
+@mixin keyframes($animation-name) {
+  @-webkit-keyframes #{$animation-name} {
+    @content;
+  }
+  @-moz-keyframes #{$animation-name} {
+    @content;
+  }
+  @keyframes #{$animation-name} {
+    @content;
+  }
+}
+
+@mixin animation($str) {
+  -webkit-animation: #{$str};
+  -moz-animation: #{$str};
+  animation: #{$str};
+}
+
+@include keyframes(menuShow){
+	0% {transform: scale(0.3);}
+	100% {transform: scale(1);}
+}
+
+@include keyframes(menuHide){
+	0% {transform: scale(1);}
+	10% {transform: scale(1 - $dialog-anim-diff);}
+	100% {transform: scale(0.4);}
+}
+/* 
+
+
+.#{$namespace}-dialog-anim-hide{
+	@include animation(fadeOutAnim $dialog-anim-out-duration);
+	-webkit-animation-timing-function: ease-out;
+	-o-animation-timing-function: ease-out;
+	animation-timing-function: ease-out;
+} */

@@ -1,20 +1,35 @@
 <!DOCTYPE html>
-<html>
-
-  {% include head.html %}
-
-  <body>
-
-    {% include header.html %}
-
-    <div class="page-content">
-      <div class="wrapper">
+<html xmlns:og="og: http://ogp.me/ns#">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>{{ page.title }} | {{ site.name }}</title>
+        {% if site.links.github %}
+          <meta name="author" content="{{ site.links.github }}">
+        {% endif %}
+        <meta name="title" content="{{ page.title }}" >
+        <link rel="icon" type="image/png" href="{{site.url}}/favicon.png">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        {% include ssn.html %}
+        <!-- Custom CSS -->
+        <link rel="stylesheet" href="/css/style.css">
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    </head>
+    <body class="wrap">
+      <!--[if lt IE 8]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+      <![endif]-->
+      {% include header.html %}
+      <section class="content">
         {{ content }}
-      </div>
-    </div>
-
-    {% include footer.html %}
-
-  </body>
-
+      </section>
+      <footer class="grid site-footer">
+        <p>&copy;&nbsp;{{ site.name }}</p>
+        <p><small>Powered by <a href="http://jekyllrb.com" target="_blank"><em>Jekyll</em></a> using <a href="http://bitwiser.in/bitwiser/" target="_blank"><em>Bitwiser</em></a> theme.</small></p>
+      </footer>
+      {% if site.ga_id %}
+        {% include analytics.html %}
+      {% endif %}
+      <script src="/js/script.js"></script>
+    </body>
 </html>

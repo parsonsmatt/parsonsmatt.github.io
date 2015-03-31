@@ -1,0 +1,25 @@
+<meta property="og:title" content="{{ page.title }}" />
+<meta name="twitter:title" content="{{ page.title }}" />
+{% if page.tags and page.tags.size > 0 %}
+<meta name="keywords" content="{% for tag in page.tags %}{{ tag }}, {% endfor %}" />
+{% elsif site.keywords %}
+<meta name="keywords" content="{{ site.keywords }}" />
+{% endif %}
+{% if page.excerpt %}
+<meta name="description" content="{{ page.excerpt | strip_html }}">
+<meta property="og:description" content="{{ page.excerpt | strip_html }}" />
+<meta name="twitter:description" content="{{ page.excerpt | strip_html }}" />
+<meta property="og:type" content="article" />
+<link rel="canonical" href="{{ site.base_url }}{{ page.url }}" />
+{% else %}
+<link rel="canonical" href="{{ site.base_url }}/" />
+<meta property="og:site_name" content="{{ site.name }}" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="{{ site.base_url }}" />
+<meta name="description" content="{{ site.description }}">
+<meta property="og:description" content="{{ site.description }}" />
+<meta name="twitter:description" content="{{ site.description }}" />
+{% endif %}
+<meta property="og:image" content="{{ site.base_url }}/sharer.png" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:image" content="{{ site.base_url }}/sharer.png" />
