@@ -1,0 +1,44 @@
+---
+layout: post
+title: "So MEAN"
+date:   2014-08-10 15:12:19
+categories: programming
+---
+
+I decided it would be fun to learn the MEAN stack. I'm already developing some level of proficiency with Javascript, and the combination of performance and language/data consistency seems like a good platform with which to launch into developing a full blown webapp. Ruby on Rails will have to wait.
+
+## Developing a Vagrantbox
+
+I started with the `ubuntu/trusty64` box on the vagrantcloud, modified the Vagrantfile for a provisioning script, and forwarded ports 3000 and 80 to 3030 and 8080 on the host.
+
+Bootstrap.sh:
+
+{% highlight sh %}
+#!/bin/sh
+
+# Bootstrap for MEAN box
+# using ubuntu/trusty64 base boxv
+
+# Install nodejs
+sudo add-apt-repository ppa:chris-lea/node.js
+sudo apt-get update
+sudo apt-get install nodejs git gcc make build-essential -y
+
+# Install MongoDB
+sudo apt-get install mongodb -y
+
+# Install Bower
+sudo npm install -g bower
+
+# Install grunt
+sudo npm install -g grunt-cli
+
+# Install mean
+sudo npm install -g meanio
+{% endhighlight %}
+
+This finishes without error, somewhat ominously. I `cd /vagrant/` and `mean init gzclweb`, no errors. `cd gzclweb && sudo npm install`, this time with a bunch of warnings about wanting things of an earlier version than I have installed. Running `grunt` starts everything up (gives an error about missing some c++ bson extensions), starts the server, and accessing localhost:3030 gives the 404 error. It's working!
+
+[This SO question](http://stackoverflow.com/questions/21656420/failed-to-load-c-bson-extension) caused me to add the `sudo apt-get install gcc make build-essential` to the bootstrap.sh above. This fixed the previous errors about bson C++. MEAN is now running fantastically on my vagrantbox.
+
+
