@@ -1,11 +1,11 @@
 ---
 layout: page
-title: About
+title: About Me
 permalink: /about/
 ---
 
-This is the base Jekyll theme. You can find out more info about customizing your Jekyll theme, as well as basic Jekyll usage documentation at [jekyllrb.com](http://jekyllrb.com/)
+Hi! I’m Matt Parsons! I like to do programming, weightlifting, playing music, and playing with my two cats Macho and Tolstoy. I’ve been working with Ruby on Rails and JavaScript for the most time, and I’ve been getting very into Haskell and the more theoretical aspects of computer programming.
 
-You can find the source code for the Jekyll new theme at: [github.com/jglovier/jekyll-new](https://github.com/jglovier/jekyll-new)
+I tend to like abstraction, patterns, and going a little too meta. There’s an underpinning to writing music, learning mathematics, and making beautiful programs that somehow really does it for me. Emergent complexity, chaotic systems, and expressions of passion are my favorite things.
 
-You can find the source code for Jekyll at [github.com/jekyll/jekyll](https://github.com/jekyll/jekyll)
+I’m unabashedly polyamorous, bisexual, and genderqueer.
