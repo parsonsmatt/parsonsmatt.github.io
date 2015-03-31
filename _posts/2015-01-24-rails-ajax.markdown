@@ -22,10 +22,10 @@ If you're viewing this from the future, this will hopefully make things more sen
 
 Create a new Rails app, setup your RVM/rbenv/chruby/etc as you like it, and we're set. In the tradition of basic Rails tutorials, this will be a blog with a Post.
 
-{% highlight bash %}
+```bash
 $ rails generate scaffold Post title:string body:text
 $ rake db:migrate
-{% endhighlight %}
+```
 
 Now we have the default MVC for Posts. Fantastic. Let's make it work ajax-style.
 
