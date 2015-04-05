@@ -1,4 +1,4 @@
-module NewPost where
+module Main where
 
 import Control.Monad
 import Data.Time.Clock      (getCurrentTime, utctDay)
