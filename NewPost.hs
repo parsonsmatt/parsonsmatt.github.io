@@ -6,8 +6,21 @@ import Data.Time.Calendar   (Day, toGregorian)
 import Data.Char            (toLower)
 import Data.List            (find)
 import Data.Maybe           (fromJust)
+import System.Environment   (getArgs) 
+import System.IO            (IOMode(..), hPutStrLn, withFile)
 
 
+-- | This is a very basic program that accepts a single argument (post title)
+-- and creates a new post file with the appropriate name and header 
+-- information.
+main :: IO ()
+main = do
+    args <- getArgs
+    date <- today
+    let rawTitle = concat args
+        fileName = newPostFileName date rawTitle
+    withFile fileName WriteMode $ \handle ->
+        hPutStrLn handle $ header date rawTitle
     
 
 -- | today returns the current day.
