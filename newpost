@@ -1,0 +1,53 @@
+#!/usr/bin/env runhaskell
+
+-- vim: set filetype=haskell :
+
+module NewPost where
+
+import Control.Monad
+import Data.Time.Clock      (getCurrentTime, utctDay)
+import Data.Time.Calendar   (Day, toGregorian)
+import Data.Char            (toLower)
+import System.Environment   (getArgs) 
+import System.IO            (IOMode(..), hPutStrLn, withFile)
+
+-- | This is a very basic program that accepts a single argument (post title)
+-- and creates a new post file with the appropriate name and header 
+-- information.
+main :: IO ()
+main = do
+    args <- getArgs
+    date <- today
+    let rawTitle = concat args
+        fileName = newPostFileName date rawTitle
+    withFile fileName WriteMode $ \handle ->
+        mapM_ (hPutStrLn handle) 
+              [ "---"
+              , "title: \"" ++ rawTitle ++ "\""
+              , "date: " ++ show date
+              , "layout: post"
+              , "categories: programming"
+              , "---"
+              ] 
+    
+
+-- | today returns the current day.
+-- `show day` has format YYYY-MM-DD which is perfect for a Jekyll blog post!
+today :: IO Day
+today = liftM utctDay getCurrentTime
+
+
+-- | newPostFileName 
+newPostFileName :: Day -> String -> String
+newPostFileName time title = concat ["_posts/", show time, "-", slugify title, ".markdown"]
+
+
+-- | Slugify downcases a string and replaces space characters with underscores.
+slugify :: String -> String
+slugify = replace ' ' '_' . map toLower
+
+
+-- | `replace` replaces the first character with the second character in each 
+-- occurence in the given string.
+replace :: Char -> Char -> String -> String
+replace x c = map (\g -> if g == x then c else g)
