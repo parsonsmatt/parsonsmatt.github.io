@@ -6,8 +6,6 @@ import Data.Time.Calendar   (Day, toGregorian)
 import Data.Char            (toLower)
 import Data.List            (find)
 import Data.Maybe           (fromJust)
-import System.Environment   (getArgs) 
-import System.IO            (IOMode(..), hPutStrLn, withFile)
 
 
     

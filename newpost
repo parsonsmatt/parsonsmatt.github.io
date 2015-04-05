@@ -2,7 +2,10 @@
 
 -- vim: set filetype=haskell :
 
-module Main where
+module NewPost.Main where
+
+import System.Environment   (getArgs) 
+import System.IO            (IOMode(..), hPutStrLn, withFile)
 
 import NewPost
 
