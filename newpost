@@ -37,7 +37,8 @@ today :: IO Day
 today = liftM utctDay getCurrentTime
 
 
--- | newPostFileName 
+-- | newPostFileName takes the Day and a title for the post and returns a
+-- string suitable for a filename.
 newPostFileName :: Day -> String -> String
 newPostFileName time title = concat ["_posts/", show time, "-", slugify title, ".markdown"]
 
