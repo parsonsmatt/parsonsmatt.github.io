@@ -38,7 +38,6 @@ header day title = unlines [ "---"
                            , "categories: programming"
                            , "---"
                            ] 
-    
 
 
 -- | `escape` takes a list of pairs of chars and strings, and replaces the
@@ -49,4 +48,4 @@ escape crs str = concat $ foldr ff [] str
                  ff x acc | x `elem` cs = r x : acc
                           | otherwise   = [x] : acc
                  cs = map fst crs
-                 r cx = snd $ fromJust $ find (\(a,_) -> a == cx) crs
+                 r cx = snd $ fromJust $ find ((==cx) . fst) crs
