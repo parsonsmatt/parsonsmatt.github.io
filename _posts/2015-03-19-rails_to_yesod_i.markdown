@@ -30,3 +30,5 @@ In this blog post series, I'll be converting my [MelodyScout](http://www.melodys
 1. Creating a JSON API
 2. Converting the front end to a SPA that consumes the JSON API
 3. Creating a Yesod JSON API that mirrors the MelodyScout API
+
+(EDIT 4-11-2015: this project is actually WAY bigger than I thought it'd be, so it's getting put off til I have way more confidence in Haskell and Yesod.)
