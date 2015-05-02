@@ -9,12 +9,6 @@ I've been working on a small application with the Haskell web framework scotty, 
 
 I'm going to be tagging commits in a repository, so you'll have full code examples to work with. The repository for the first part is [here](https://www.github.com/parsonsmatt/scotty-persistent-example).
 
-## Project Description
-
-I'm trying to mimic a Rails-ish separation of concerns, using a Router-View-Model concept (inspired by [this post](https://www.destroyallsoftware.com/blog/2011/burn-your-controllers)). The basic design of the application is to log weightlifting sessions, and eventually add in some parsing/analytics to provide weightlifting programs and advice. I put together my skeleton for Routing and Views, and it's time to figure out the Model. At the end of this post, we'll have basic CRUD on a web app.
-
-But first, let's just get it working! I'll be employing my favorite development methodology: EDD => Error Driven Development (hrm, that's an unfortunate acronym...).
-
 ## Smoke Test: Just the DB
 
 The [Yesod Book's Persistent chapter](http://www.yesodweb.com/book/persistent) is very good, and has a great starting point for getting it working. The following code snippet is from the Synopsis, and it's what we'll be using to make sure that everything is working with Persistent before worrying too much about integrating with scotty.
@@ -193,6 +187,8 @@ Haskell's inferred type for inHandlerDb is `forall a. SqlPersistM a -> Web.Scott
 
 So, this is working! It's querying the database, returning the count of the posts on that index action and returning a `Maybe BlogPost` when you request a given ID. All of the pieces are here to make a much, *much* nicer solution.
 
+The final version is tagged [scotty](https://github.com/parsonsmatt/scotty-persistent-example/tree/scotty).
+
 ## Pain Points
 
 This wasn't an easy process by any means. Reading the available material was good to get me started, but even incredibly basic querying like "How do I get all records of a type out of the database?" or "How do I get a record of a given type with a certain ID?" is non-obvious to a nooblet like myself. 
@@ -213,4 +209,4 @@ posts <- inHandlerDb $ selectList [] []
 
 This is pretty awesome. But it's extremely difficult to search for implied information like that, and it took me a really long time to figure that out. It appears that `ScopedTypeVariables` extension would allow one to write `posts :: [Entity BlogPost] <- inHandlerDb $ selectList [] []`, which is an extremely nice syntax for what's happening here.
 
-I'll let this be part #1, and I'll write another post on cleaning all of this up and applying it in a real app. If you have any questions, corrections, or comments, please feel free to [email me!](mailto:parsonsmatt@gmail.com)
+I'll let this be part #1, and I'll write another post on cleaning all of this up and applying it in a real(ish) app. If you have any questions, corrections, or comments, please feel free to [email me!](mailto:parsonsmatt@gmail.com)
