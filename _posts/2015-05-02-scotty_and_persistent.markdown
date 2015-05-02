@@ -5,7 +5,9 @@ layout: post
 categories: programming
 ---
 
-I've been working on a small application with the Haskell web framework scotty, and decided to use the package Persistent to provide database access. I had some trouble getting them to work together, and I couldn't find many complete examples that used PostgreSQL.
+I've been working on a small application with the Haskell web framework scotty, and decided to use the package Persistent to provide database access. I had some trouble getting them to work together, and I couldn't find many complete examples that used PostgreSQL. I thought I'd put at least one example online of how I've gotten it to work thus far.
+
+Actually, I lied. I haven't gotten it to work yet. This blog post is as much a rubber-ducky discovery process as it is a guide. If you have any complaints, suggestions, comments, or questions, I'd love to hear them.
 
 I'm going to be tagging commits in a repository, so you'll have full code examples to work with. The repository for the first part is [here](https://www.github.com/parsonsmatt/scotty-persistent-example).
 
