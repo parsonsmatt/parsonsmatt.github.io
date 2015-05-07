@@ -8,4 +8,4 @@ Hi! I’m Matt Parsons! I like to do programming, weightlifting, playing music, 
 
 I tend to like abstraction, patterns, and going a little too meta. There’s an underpinning to writing music, learning mathematics, and making beautiful programs that somehow really does it for me. Emergent complexity, chaotic systems, and expressions of passion are my favorite things.
 
-I’m unabashedly polyamorous, bisexual, and genderqueer.
+I’m polyamorous, bisexual, and genderqueer.
