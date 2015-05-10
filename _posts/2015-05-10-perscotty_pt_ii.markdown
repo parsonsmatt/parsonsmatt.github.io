@@ -100,9 +100,11 @@ This works! Awesome! So, what's going on with those `id`s there? Inspecting the 
 
 Cool! Let's change `id` to `r` in both of those and see what happens...
 
-BOOM! Type errors! Type errors everywhere! While looking at the hackage documentation above, I noticed that all of the normal methods were duplicated in the Web.Scotty.Trans package. Let's swap out the Scotty version of those functions with the ScottyT versions. And now we're getting entirely different type errors! We're missing an instance for `ScottyError`. So let's break the application code into it's own function, give that a type signature, and see what happens.
+## BOOM
 
-Now we're doing `scottyT 3000 id id application` and defining `application` below. The `pool` went out of scope. Let's just be a tiny bit lazy, and comment out the whole body of that function, and just do a basic `"hello world"` for now. We want to get the monad stack working, and database access will be easy as pie after that. Here's what our main function and app functions look like now:
+Type errors! Type errors everywhere! While looking at the hackage documentation above, I noticed that all of the normal methods were duplicated in the Web.Scotty.Trans package. Let's swap out the Scotty version of those functions with the ScottyT versions. And now we're getting entirely different type errors! We're missing an instance for `ScottyError`. So let's break the application code into it's own function, give that a type signature, and see what happens.
+
+Now we're doing `scottyT 3000 r r application` and defining `application` below. The `pool` went out of scope. Let's just be a tiny bit lazy, and comment out the whole body of that function, and just do a basic `"hello world"` for now. We want to get the monad stack working, and database access will be easy as pie after that. Here's what our main function and app functions look like now:
 
 ```haskell
 main = do
