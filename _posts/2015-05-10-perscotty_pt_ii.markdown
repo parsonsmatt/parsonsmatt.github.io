@@ -7,6 +7,8 @@ categories: programming
 
 ## Some updates
 
+(this is part two of three: [one](programming/2015/05/02/scotty_and_persistent.html) and [three](/programming/2015/05/10/perscotty_pt_iii.html) are linked)
+
 The [reddit thread](https://www.reddit.com/r/haskell/comments/34nxtu/scotty_and_persistent_a_beginners_voyage/) about my [previous post](http://www.parsonsmatt.org/programming/2015/05/02/scotty_and_persistent.html) generated good discussion and advice. I'm going to attempt to work through them now.
 
 [This guide](http://taylor.fausak.me/2014/10/21/building-a-json-rest-api-in-haskell/) contains a lot of information on what this all should look like in the end. I'll be taking a decent bit of information from that.
