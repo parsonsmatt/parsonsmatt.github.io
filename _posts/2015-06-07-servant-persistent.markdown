@@ -113,7 +113,6 @@ readerServer cfg = enter (readerToEither cfg) server
 
 app :: Config -> Application
 app cfg = serve userAPI (readerServer cfg)
-
 ```
 
 Now we've got something that returns a WAI `Application`! We're just about ready to run this.
@@ -156,10 +155,10 @@ createPerson p = do
     return $ fromSqlKey newPerson
 ```
 
-In all of these examples, I've used an indirect type. `User` is the database model, and `Person` is what we're interfacing with. If we were directly dealing with `User`s, then this function could be expressed as the one-liner:
+In all of these examples, I've used an indirect type. `User` is the database model, and `Person` is what we're interfacing with. If we were directly dealing with `User`s, then this function could be expressed as the point-free one liner:
 
 ```haskell
-createUser u = runDb (insert u) >>= return . fromSqlKey
+createUser = liftM fromSqlKey . runDb . insert
 ```
 
 And that's it. The API is defined and ready to be served!
@@ -187,8 +186,59 @@ defaultConfig = Config
     }
 ```
 
-Config is a simple record that we stuff into the Reader monad so we can read information from it with `asks`.
+Config is a simple record that we stuff into the Reader monad so we can read information from it with `asks`. We'll use this with the `runDb` function, which is defined in Models.
 
-# Model.hs
+# Models.hs
 
-Model holds the data definitions and functions for querying the database.
+Models holds the data definitions for our data types, and a few functions for running queries against the database. Persistent brings a ton of language extensions into play and uses Template Haskell extensively. For a good introduction to Persistent, see [the chapter](http://www.yesodweb.com/book/persistent) from the Yesod book. Our database model `User` is here:
+
+```haskell
+share [mkPersist sqlSettings, mkMigrate "migrateAll"] [persistLowerCase|
+User
+    name String
+    email String
+    deriving Show
+|]
+```
+
+and our API data type `Person` is here:
+
+```haskell
+data Person = Person
+    { name :: String
+    , email :: String
+    } deriving (Eq, Show, Generic)
+
+instance ToJSON Person
+instance FromJSON Person
+
+userToPerson :: User -> Person
+userToPerson User{..} = Person { name = userName, email = userEmail }
+```
+
+Nothing too fancy! Now we just need to query the database, and we'll be all set. The monad that our application uses is the `ReaderT Config (EitherT ServantErr IO)` monad stack. `runSqlPool` operates in IO, so we'll need to `liftIO` to get it where we want it. Our connection pool is stored in the `Config`, so we'll need to `asks getPool` to access it. `runDb` therefore looks like:
+
+```haskell
+runDb query = do
+   pool <- asks getPool
+   liftIO $ runSqlPool query pool
+```
+
+This can also be written as `runDb query = asks getPool >>= liftIO . runSqlPool query` if you're into one liners.
+
+# Try it out!
+
+All the files are available on the [Github repository](~UPDATEME~). Clone the repository, get it running, and play with it. If you'd like some practice, try the following exercises:
+
+## Add another data model and route!
+
+1. Perhaps this app is a blogging service. Add a `Post` model to the database definition, with a title, body, and a reference to a `User` that authored it. Use Persistent's convenient `json` annotation to automatically derive FromJSON and ToJSON instances.
+2. Add a route to the API to get a user's posts. It should look something like: `users/:id/posts`. After adding the route, read the type error, and see what function you need to add to the server.
+3. Create the function that will retrieve a users posts.
+4. Of course, accessing isn't enough. Create a route/function that will allow someone to create a blog post at `users/:id/posts`. You'll need to access the `ReqBody` and a `Capture` for this.
+
+## Create a join model!
+
+1. People now want to follow other people on the blog. Create a join model `FollowRelation` that stores a `Follower` user reference and a `Follows` user reference.
+2. Add a route to get a user's followers: `users/:id/followers`
+3. Now add a route to follow a user: POST a UserID to `users/:id/follow` that creates a `FollowRelation`
