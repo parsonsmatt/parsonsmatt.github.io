@@ -228,7 +228,7 @@ This can also be written as `runDb query = asks getPool >>= liftIO . runSqlPool 
 
 # Try it out!
 
-All the files are available on the [Github repository](~UPDATEME~). Clone the repository, get it running, and play with it. If you'd like some practice, try the following exercises:
+All the files are available on the [Github repository](https://github.com/parsonsmatt/servant-persistent). Clone the repository, get it running, and play with it. If you'd like some practice, try the following exercises:
 
 ## Add another data model and route!
 
