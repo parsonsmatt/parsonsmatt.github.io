@@ -141,3 +141,6 @@ But for me, I really like the simplicity and composability of more general tools
 Vim does a fantastic job of getting out of the way.
 Even with a ton of plugins and customization, loading vim is lightning fast.
 It integrates extremely well with the Unix shell.
+And I suppose that's what I like the most about it -- it's not opinionated about what I do for compilation, or project management, or operating system, or anything else.
+It's just there to edit text.
+And do a damn good job of it.
