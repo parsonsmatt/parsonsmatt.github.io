@@ -119,9 +119,9 @@ All I did was reuse some existing components in a simple way to enable my curren
 My first programming experience was with Eclipse and Java, last spring.
 In the summer, we were encouraged to use vim or emacs, and I begrudgingly started learning vim. 
 Before, I'd used the student edition of RubyMine for Ruby, and I think Notepad++ for JavaScript.
-If I hadn't learned vim and Unix as welll, I imagine that I'd be trying to learn Code::Blocks or something similar.
+If I hadn't learned vim and Unix as well, I imagine that I'd be trying to learn Code::Blocks or something similar.
 
-I don't want to have to spend a ton of time learning different tools, especially for something bas basic as editing text.
+I don't want to have to spend a ton of time learning different tools, especially for something as basic as editing text.
 I want to leverage highly general tools to accomplish a wide variety of tasks.
 Using Unix as the IDE and vim as the text editor fits that perfectly.
 
