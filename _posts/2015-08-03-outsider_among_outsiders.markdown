@@ -1,6 +1,6 @@
 ---
 title: "Outsider among Outsiders"
-date: 2015-08-03
+date: 2015-08-05
 layout: post
 categories: personal
 ---
@@ -81,3 +81,31 @@ If you see someone on GameDay wearing a team-colored polo, you can guess that th
 If you hear someone talking about the Big Game, you can guess that their in the Football InGroup.
 Once you've noticed these signs indicating group membership, you start to parse their language differently.
 Where "we" might have referred to everyone around, now it starts to mean "my ingroup".
+
+I've used football to serve as a toy in/outgroup example.
+I'm sure you can think of some -- Functional programming, the metal music scene, fans of anime, people that drive a truck, people that drive a Prius, and preferred text editor immediately come to mind.
+The way we signal our ingroup membership varies based on the group, but the in/out dynamic tends to remain the same.
+
+## More than a game
+
+Unfortunately, the ingroup/outgroup effect reduces the world into a binary.
+Like most binaries, this particular dichotomy isn't helpful for understanding or empathy.
+If I say I like vim, and you disagree, that doesn't mean you like emacs -- you might like Sublime Text or Visual Studio.
+But text editor group dynamics tends to devolve into this sort of thing.
+
+When you're in town on the day of a game or competition, people notice who you seem to be supporting.
+If you're not visibly supporting The Enemy, they assume you're on their side.
+Perhaps that's just an Athens thing.
+
+Consider another topic that generates a lot of discussion: sexism.
+It's framed as the misogynistic patriarchy against the feminists.
+Often, feminists will *correctly and justifiably* criticize something.
+This sort of criticism is, in many cases and for many reasons, not received well.
+Ingroup and outgroup signaling take over, and identity politics come into play.
+"I don't see myself as a misogynistic agent of the patriarchy, and criticism is used to say that, so the criticism must be wrong" seems to be a common train of thought.
+
+It's important to recognize the way language and signaling are used to communicate these sorts of ingroup things.
+People don't listen to the OutGroup.
+That's just how we seem to be wired.
+Of all the many times that I've been convinced of my own wrongness, in every case, the other person managed to make me feel like we were in the same in group.
+That I wasn't an outsider to them.
