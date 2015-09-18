@@ -100,6 +100,26 @@ It's strictly an aesthetic thing.
 But, it's still a thing.
 
 I'll be giving these a proper trial and reporting back before deciding on whether or not I'll return them.
-Maybe their 60/30 chinos will be coming back soon and I can return these for a gray variant...
+I'm leaning towards exchanging for their OG pant in gray and just waiting on khakis for a bit.
 
 ## Giro Mobility Trouser
+
+I wasn't expecting a pant to disappoint quite like the Betabrands, but the Giro Mobility Trouser really surpassed (subpassed?) my expectations.
+I didn't even put them on before deciding they were going back.
+The fabric is pretty heavy and doesn't stretch much at all.
+And they have a button fly???
+Who even does that these days?
+
+The fit isn't for you if you don't have skinny legs and hips.
+Mobility was pretty severely restricted in these for that reason, which somewhat defeats the entire point of the pants.
+
+It's a nice color, at least.
+
+# Round Two:
+
+So the first round of chino ordering didn't quite work out.
+I had to try again.
+
+1. [Outlier New OGs]()
+2. [Ministry of Supply Aviator Chinos](http://ministryofsupply.com/products/aviator)
+
