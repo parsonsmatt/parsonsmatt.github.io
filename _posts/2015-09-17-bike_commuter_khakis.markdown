@@ -26,6 +26,7 @@ Alas, I settled for trying the following:
 4. [Outlier Futureworks](http://shop.outlier.cc/shop/retail/futureworks.html)
 5. [Outlier New OGs](http://shop.outlier.cc/shop/retail/new-og.html) (in charcoal, alas)
 6. [Ministry of Supply Aviator Chinos](http://ministryofsupply.com/products/aviator)
+7. [Outlier 60/30 Chinos](http://shop.outlier.cc/shop/retail/chino.html)
 
 I ordered a 34 in each.
 I'm going to evaluate each based on fit, stretchiness, perceived durability.
@@ -129,8 +130,21 @@ I'm leaning towards exchanging for their OG pant in gray and just waiting on kha
 
 ### Test Ride:
 
+These definitely don't have the stretch I want.
+They're certainly light and comfy, and would make a very nice summer pant.
+I just can't get myself to like the pale khaki, and I'll be returning them.
+
 ## Outlier New OGs
 
 ## Ministry of Supply Aviator Chinos
 
+These are really nice!
+At \$118, they're not particularly expensive.
+The material is the same as the Outlier New OGs, which is pretty cool given they're \$100 less.
+The 34" waist is maybe an inch too large on me, but nothing a belt can't fix.
 
+They're a little baggy, even on me.
+There is plenty of room in the hip and thigh, even when squatting.
+The mobility is definitely pretty awesome.
+
+## Outlier 60/30 Chinos
