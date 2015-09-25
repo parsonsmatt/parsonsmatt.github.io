@@ -197,7 +197,7 @@ Check this craziness out. What even is it? It's some kind of graph/maze thing. L
 ```haskell
 traverseBool :: [Bool] -> ListF (Reader Bool) Int -> [Int]
 traverseBool _      NilF       = []
-traverseBool []     (Cons n _) = []
+traverseBool []     (Cons n _) = [n]
 traverseBool (b:bs) (Cons n f) = n : traverseBool bs (f b)
 ```
 
@@ -239,7 +239,7 @@ Well, this is kind of weird. Let's traverse it and see what happens.
 ```haskell
 traverseState :: [Bool] -> ListF (State Bool) Int -> [Int]
 traverseState _      NilF        = []
-traverseState []     (ConsF n _) = n
+traverseState []     (ConsF n _) = [n]
 traverseState (b:bs) (ConsF n s) =
     n : traverseState bs (fst (runState s b))
 ```
@@ -310,4 +310,3 @@ Using the above definition of `DualFree`, the free monad can be thought of as a 
 `ListF` over `State s` gives us unfolding structures.
 
 Unfortunately, I don't know enough of the theory to recognize this from anything else.
-If you have a good idea of what's going on here, please let me know!
