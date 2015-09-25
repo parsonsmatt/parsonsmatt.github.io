@@ -322,3 +322,11 @@ This uses the `Maybe` to avoid having the `Nil` data constructor, which allows i
 This also ensures that even the first element in the list is wrapped in the monad.
 The `ListF` version I wrote associates the monadic actions with the links between values, and this version associates the monadic action with the values themselves.
 
+It's also pretty similar to the cofree comonad:
+
+```haskell
+newtype Cofree h a =
+    Cofree { unCofree :: (a, h (Cofree h a)) }
+```
+
+If you took out the `NilF` constructor, anyway.
