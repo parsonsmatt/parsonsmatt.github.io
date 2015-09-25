@@ -309,5 +309,16 @@ Using the above definition of `DualFree`, the free monad can be thought of as a 
 `ListF` over `Reader r` gives us trees of values.
 `ListF` over `State s` gives us unfolding structures.
 
-Unfortunately, I don't know enough of the theory to recognize this from anything else.
-If you know what this might be, please let me know! :D
+In fact...
+This is (almost!) the list monad transformer "done right!"
+The canonical implementation is:
+
+```haskell
+newtype ListT m a = 
+    ListT { unListT :: m (Maybe (a, ListT m a)) }
+```
+
+This uses the `Maybe` to avoid having the `Nil` data constructor, which allows it to use the `newtype` declaration.
+This also ensures that even the first element in the list is wrapped in the monad.
+The `ListF` version I wrote associates the monadic actions with the links between values, and this version associates the monadic action with the values themselves.
+
