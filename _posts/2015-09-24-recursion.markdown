@@ -310,3 +310,4 @@ Using the above definition of `DualFree`, the free monad can be thought of as a 
 `ListF` over `State s` gives us unfolding structures.
 
 Unfortunately, I don't know enough of the theory to recognize this from anything else.
+If you have a good idea of what's going on here, please let me know!
