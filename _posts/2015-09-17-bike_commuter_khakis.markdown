@@ -110,6 +110,9 @@ These will be sticking around for a while longer, I think.
 
 The higher rise ends up being rather flattering, as well.
 
+These have the best fit in the ankles for biking -- the other pants were all a bit too baggy and needed to be tucked into my socks (or rolled up).
+These were just fine without any modification.
+
 ## Outlier Futureworks
 
 These are a bit of a risky choice.
@@ -126,8 +129,6 @@ The only thing I dislike about them is that the shade of tan used for this pair 
 It's strictly an aesthetic thing.
 But, it's still a thing.
 
-I'm leaning towards exchanging for their OG pant in gray and just waiting on khakis for a bit.
-
 ### Test Ride:
 
 These definitely don't have the stretch I want.
@@ -136,15 +137,35 @@ I just can't get myself to like the pale khaki, and I'll be returning them.
 
 ## Outlier New OGs
 
+The New OGs are fantastic.
+
+The material is excellent, the construction and cut is great.
+They're very flattering and fit perfectly.
+They handled extremely well in my bike ride to campus.
+
+I'm definitely keeping these!
+I needed a nice pair of gray pants, and these fit the bill perfectly.
+Unfortunately, that doesn't answer my khaki question...
+
 ## Ministry of Supply Aviator Chinos
 
 These are really nice!
 At \$118, they're not particularly expensive.
 The material is the same as the Outlier New OGs, which is pretty cool given they're \$100 less.
-The 34" waist is maybe an inch too large on me, but nothing a belt can't fix.
 
-They're a little baggy, even on me.
-There is plenty of room in the hip and thigh, even when squatting.
-The mobility is definitely pretty awesome.
+The 34" ended up being too big, so I returned it for a 32".
 
 ## Outlier 60/30 Chinos
+
+The 60/30 chinos are what I really want.
+They were out of stock when I began this journey, and they finally came back in stock.
+I ordered a pair of the rose tan.
+
+They're -- definitely more on the rose than the tan.
+The color is quite a bit more pink/red than I was expecting.
+I'm unable to capture it with my phone camera, where it looks rather normal and khaki-ish.
+
+The fit, material, and overall construction is excellent, just like the New OGs.
+If anything, they're slightly more comfortable, and feel a bit more durable.
+
+Unfortunately, the pink is just... :( too much. Alas! For they will go back.
