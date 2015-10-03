@@ -78,7 +78,7 @@ The fabric is pretty heavy and doesn't stretch much at all.
 And they have a button fly???
 Who even does that these days?
 
-The fit isn't for you if you don't have skinny legs and hips.
+The fit isn't for you if you don't have very skinny legs and hips.
 Mobility was pretty severely restricted in these for that reason, which somewhat defeats the entire point of the pants.
 
 It's a nice color, at least.
@@ -147,13 +147,27 @@ I'm definitely keeping these!
 I needed a nice pair of gray pants, and these fit the bill perfectly.
 Unfortunately, that doesn't answer my khaki question...
 
+### Test Ride:
+
+Fantastic.
+Absolutely excellent.
+I had the opportunity to bike in the rain, and they were dry after maybe 30 minutes of being indoors.
+
+A+ 10/10 would buy again.
+
 ## Ministry of Supply Aviator Chinos
 
 These are really nice!
 At \$118, they're not particularly expensive.
 The material is the same as the Outlier New OGs, which is pretty cool given they're \$100 less.
+They're just as light and mobile as the New OGs.
+They don't feel quite as well made, but that's somewhat to be expected given the price difference.
 
-The 34" ended up being too big, so I returned it for a 32".
+I ordered the 34" slim at first, thinking that'd be roughly comparable to the 34 in the other brands.
+The 34" ended up being fairly baggy, with ~1-2" extra room in the waist.
+I generally like a fairly close fit, and these really don't provide that.
+
+Unfortunately, the 32" was much too small in the waist, and a perfect fit elsewhere.
 
 ## Outlier 60/30 Chinos
 
@@ -169,3 +183,10 @@ The fit, material, and overall construction is excellent, just like the New OGs.
 If anything, they're slightly more comfortable, and feel a bit more durable.
 
 Unfortunately, the pink is just... :( too much. Alas! For they will go back.
+I'll be paying attention to their releases, and if they make a more regular khaki, then I'll be all over that business.
+
+# And the winner is...
+
+The Novara Krewstown!
+The Outlier 60/30s rose tan was just not great. Otherwise, they're a superior pant.
+The Aviator's didn't fit me very well, which is too bad. They're also really nice.
