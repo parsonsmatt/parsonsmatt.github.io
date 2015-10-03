@@ -85,6 +85,12 @@ For this reason, I'll go with it!
 
 ### Getting Hello World on the screen...
 
+First, we need to install our dependencies:
+
+```bash
+$ pulp dep install --save purescript-thermite
+```
+
 Well, there's quite a bit of boilerplate...
 
 ```haskell
