@@ -5,7 +5,7 @@ layout: post
 categories: programming
 ---
 
-## Front End Functional Programming
+## Part 1: War of the Hello, Worlds
 
 I'm building a web application with Haskell, and I'd like the front end to be functional as well.
 I could write it all in JavaScript, but that sounds boring.
