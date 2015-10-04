@@ -1,5 +1,5 @@
 ---
-title: "Elm vs PureScript"
+title: "Elm vs PureScript I"
 date: 2015-10-03
 layout: post
 categories: programming
