@@ -118,7 +118,7 @@ If we cared about the event itself, then we could use `E.input` and provide a fu
             pure next
 ```
 
-The `eval` function happens in the State monad, so we can use `get`, `put`, `modify`, etc. like you'd expect.
+Halogen has `get` and `modify` functions for use in the eval functions, which let us either view the current state or modify it.
 Halogen uses the type variable associated with our query algebra to type the eval function.
 Even though we're not using it yet, we still need for the function to evaluate to something of the same type.
 That's why we pass `next` along.
@@ -248,6 +248,11 @@ Let's get back to that `eval` function from the counter pair:
 
 ```haskell
 -- src/Example/Two.purs
+-- first, change the import to the new counter:
+import qualified Example.Counter as Ex1
+
+-- ... the rest of the file...
+
     eval (Reset next) = do
       query (CounterSlot 0) (action Ex1.Reset)
       query (CounterSlot 1) (action Ex1.Reset)
@@ -264,7 +269,7 @@ We need to define a way for the parent component to make children components:
 ```haskell
 -- src/Example/Two.purs
 ui :: forall g p. (Plus g) 
-    => InstalledComponent State Ex1.State Input Ex1.Input g CounterSlot p
+   => InstalledComponent State Ex1.State Input Ex1.Input g CounterSlot p
 ui = install pairUI mkCounter
     where
         mkCounter (CounterSlot _) = createChild Ex1.ui (Ex1.init 0)
@@ -287,3 +292,4 @@ main = -- boilerplate elided...
 We have to use `installedState` since we're dealing with parent/children components.
 
 Alright, that's the first two examples from Elm Architecture in PureScript Halogen!
+I'll be covering the rest in a future installment.
