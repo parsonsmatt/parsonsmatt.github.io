@@ -56,6 +56,7 @@ main = runAff throwException (const (pure unit)) $ do
 
 Halogen expects the Input type to be have kind `* -> *`, and refers to it as a query algebra.
 We'll get more into the details of that in the later examples, but we aren't really using it at the moment.
+I find it helpful to think of the query algebra as a "public interface" for the component.
 
 The `ui` function defines the component that we'll be using, and has two parts: `render` and `eval`.
 `render` defines the layout in terms of the current state.
