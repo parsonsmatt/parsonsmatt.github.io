@@ -20,6 +20,16 @@ As a result, it doesn't work quite as naturally with the Elm architecture exampl
 
 The repository with the code is available [here](https://github.com/parsonsmatt/purs-architecture-tutorial).
 
+# Pre-0: Getting Halogen Running
+
+OK, so Halogen doesn't -- quite work by default! The version available via Bower doesn't work right due to a problem in a dependency of a dependency not being updated for the 0.7 PureScript compiler release, so you have to do the following:
+
+1. Instead of doing `pulp dep install --save purescript-halogen`, put the following entry in the `"dependencies"` part of your `bower.json` file: `"purescript-halogen":  "git@github.com:slamdata/purescript-halogen.git#master"`.
+2. Then do `npm install --save virtual-dom` to get the `virtual-dom` dependency in your project. You should probably have a `package.json` file so this can be more-or-less automated.
+3. Finally, `pulp dep install` will install all the dependencies.
+
+This tutorial is going to target Halogen v0.5, which is not released yet, but seems to only need a bit of optimization and bug fixes before release.
+
 # 0. Hello World!
 
 Since I didn't do it in the previous post, here's "Hello World!" in Halogen:
