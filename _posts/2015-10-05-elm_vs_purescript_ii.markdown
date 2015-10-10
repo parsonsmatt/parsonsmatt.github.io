@@ -24,7 +24,7 @@ The repository with the code is available [here](https://github.com/parsonsmatt/
 
 OK, so Halogen doesn't -- quite work by default! The version available via Bower doesn't work right due to a problem in a dependency of a dependency not being updated for the 0.7 PureScript compiler release, so you have to do the following:
 
-1. Instead of doing `pulp dep install --save purescript-halogen`, put the following entry in the `"dependencies"` part of your `bower.json` file: `"purescript-halogen":  "git@github.com:slamdata/purescript-halogen.git#master"`.
+1. Instead of doing `pulp dep install --save purescript-halogen`, put the following entry in the `"dependencies"` part of your `bower.json` file: `"purescript-halogen":  "slamdata/purescript-halogen#master"`.
 2. Then do `npm install --save virtual-dom` to get the `virtual-dom` dependency in your project. You should probably have a `package.json` file so this can be more-or-less automated.
 3. Finally, `pulp dep install` will install all the dependencies.
 
