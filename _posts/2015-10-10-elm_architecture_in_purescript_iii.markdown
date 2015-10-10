@@ -285,3 +285,98 @@ runEx4 = runUI Ex4.ui (installedState (Ex3.initialState))
 And now we've got our dynamic list of removable embedded counters going.
 
 Next up, we'll be looking at AJAX, effects, and other fun stuff.
+
+## UPDATE: Modularize me, cap'n!
+
+Ok, so I wasn't happy with how unmodular the above example was.
+We had to redefine a whole component just to add a remove button.
+If I wanted another component that had a remove button, I'd have to redo all that work!
+No thanks.
+Instead, I made a higher order component out of it.
+
+There's no meaning for distinguishing between children, because it only has one.
+There's no state involved either, so we'll use Unit for both of them.
+The only query is Remove.
+So let's put that all together!
+
+```haskell
+-- src/Example/RemGeneric.purs
+data QueryP a = Remove a
+
+type ChildSlot = Unit
+
+type StateP = Unit
+
+withRemove :: forall g p s' f'. (Functor g)
+           => ParentComponent StateP s' QueryP f' g ChildSlot p
+withRemove = component render eval
+    where
+        render :: Render StateP QueryP ChildSlot
+        render _ =
+            H.div_ [ H.slot unit
+                   , H.button [ E.onClick $ E.input_ Remove ]
+                              [ H.text "Remove" ]
+                   ]
+        eval :: EvalP QueryP StateP s' QueryP f' g ChildSlot p
+        eval (Remove a) = pure a
+```
+
+Easy! We've got a few extra type variables to represent where the child state and query will go.
+
+Now we'll define some type synonyms to make using the component easier higher up:
+
+```haskell
+type State s f g p =
+    InstalledState StateP s QueryP f g ChildSlot p
+
+type Query f =
+    Coproduct QueryP (ChildF ChildSlot f)
+```
+
+And finally, a function that takes a component, that component's initial state, and returns a new component with a remove button installed into it.
+
+```haskell
+addRemove :: forall s f g p. (Plus g)
+          => Component s f g p 
+          -> s 
+          -> Component (State s f g p) (Query f) g p
+addRemove comp state = install withRemove mkChild
+    where
+        mkChild _ = createChild comp state
+```
+
+Cool! Let's see what the definition for the counter looks like with the remove button added:
+
+```haskell
+-- src/Example/CounterRemPrime.purs
+type State g p = Rem.State Counter.State Counter.Input g p
+type Query = Rem.Query Counter.Input
+
+ui :: forall g p. (Plus g)
+   => Component (Rem.State Counter.State Counter.Input g p)
+                (Rem.Query Counter.Input) g p
+ui = Rem.addRemove Counter.ui (Counter.init 0)
+```
+
+More type synonyms! And a fairly nice one liner function to wrap the counter.
+
+The code for the list itself is essentially unchanged.
+We do have to import the `RemGeneric` as well as the `CounterRemPrime` module to be able to use the `RemGeneric.Input` type, but the type declarations hardly change at all.
+Running a diff on the two files gets us these changes:
+
+```bash
+λ diff Four.purs FourPrime.purs
+13c13,14
+< import qualified Example.CounterRem as Counter
+---
+> import qualified Example.CounterRemPrime as Counter
+> import qualified Example.RemGeneric as Rem
+39c40
+<                  Left (Counter.Remove _) ->
+---
+>                  Left (Rem.Remove _) ->
+```
+
+(omitting the parts where the `State` vs `StateMiddle` were all that changed)
+
+
