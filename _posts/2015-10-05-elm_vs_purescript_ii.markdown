@@ -303,3 +303,10 @@ We have to use `installedState` since we're dealing with parent/children compone
 
 Alright, that's the first two examples from Elm Architecture in PureScript Halogen!
 I'll be covering the rest in a future installment.
+
+### Other Posts in the series:
+
+
+1. [Elm vs PureScript I: War of the Hello, Worlds](http://www.parsonsmatt.org/programming/2015/10/03/elm_vs_purescript.html)
+2. [Elm Architecture in PureScript III: Dynamic Lists of Counters](http://www.parsonsmatt.org/programming/2015/10/10/elm_architecture_in_purescript_iii.html)
+3. [Elm Architecture in PureScript IV: Effects](http://www.parsonsmatt.org/programming/2015/10/11/elm_architecture_in_purescript_iv:_effects.html)

@@ -380,3 +380,8 @@ Running a diff on the two files gets us these changes:
 (omitting the parts where the `State` vs `StateMiddle` were all that changed)
 
 
+### Other posts in the series:
+
+1. [Elm vs PureScript I: War of the Hello, Worlds](http://www.parsonsmatt.org/programming/2015/10/03/elm_vs_purescript.html)
+2. [Elm vs PureScript II](http://www.parsonsmatt.org/programming/2015/10/05/elm_vs_purescript_ii.html)
+3. [Elm Architecture in PureScript IV: Effects](http://www.parsonsmatt.org/programming/2015/10/11/elm_architecture_in_purescript_iv:_effects.html)

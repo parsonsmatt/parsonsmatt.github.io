@@ -146,3 +146,10 @@ The `index.html` page needs to be modified to include a link to `React` in the h
 
 So that's a comparison on "Hello World" for the two.
 Elm's quite a bit simpler, but we'll see how PureScript's more powerful language plays out in the more complex examples.
+
+### Other posts in this series:
+
+
+1. [Elm vs PureScript II](http://www.parsonsmatt.org/programming/2015/10/05/elm_vs_purescript_ii.html)
+2. [Elm Architecture in PureScript III: Dynamic Lists of Counters](http://www.parsonsmatt.org/programming/2015/10/10/elm_architecture_in_purescript_iii.html)
+3. [Elm Architecture in PureScript IV: Effects](http://www.parsonsmatt.org/programming/2015/10/11/elm_architecture_in_purescript_iv:_effects.html)
