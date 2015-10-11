@@ -11,6 +11,8 @@ In the last post, I covered higher order components and making dynamic lists of 
 We're going to get into effects and AJAXing with this.
 It's almost entirely like you might expect, given the previous posts, but we'll finally start to specialize that `g` functor!
 
+As always, the code is available in [this repository](https://github.com/parsonsmatt/purs-architecture-tutorial)
+
 ## Gif loader!
 
 I'm pretty excited for this. Counters are boring and now I can get cat gifs delivered?
