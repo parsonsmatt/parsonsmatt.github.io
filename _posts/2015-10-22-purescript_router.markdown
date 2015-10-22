@@ -384,13 +384,14 @@ redirects :: forall eff. Driver QueryP eff
           -> Routes
           -> Aff (Effects eff) Unit
 redirects driver _ =
-  driver <<< Coproduct <<< Left <<< action <<< Goto
+  driver <<< left <<< action <<< Goto
 -- or, if you prefer writing it all out,
 -- redirects driver _ Home = 
---   driver (Coproduct (Left (action (Goto Home))))
+--   driver (left (action (Goto Home))))
 -- etc...
 ```
 
+We're using the `left` function from the `Coproduct`, which is shorthand for `Coproduct <<< Left`
 
 Change the `main` definition to use `installedState` instead of normal state:
 
