@@ -246,7 +246,7 @@ data Input a = Noop a
 
 type State = Unit
 
-type Slot = Unit
+data Slot = Slot
 
 ui :: forall g. (Functor g) => Component State Input g
 ui = component render eval
