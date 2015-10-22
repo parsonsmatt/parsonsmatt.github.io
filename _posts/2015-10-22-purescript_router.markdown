@@ -12,6 +12,8 @@ Let's dive in and learn how to use it!
 Now, fair warning, this is alpha software and bleeding edge.
 This tutorial may be out of date by the time I post it!
 
+The code for this project is available in [this repository](https://github.com/parsonsmatt/purescript-routing-example).
+
 ## Defining Routes
 
 The first step is defining our routes. We're making a website for logging weightlifting sessions, so we're concerned with three things:
