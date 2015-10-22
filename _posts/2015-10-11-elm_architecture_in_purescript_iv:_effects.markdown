@@ -53,7 +53,7 @@ We've replaced the `g` functor with `Aff (GifEffects ())` to indicate that we'll
 The render function is boring, so we'll get right to the `eval` function.
 
 ```haskell
-ui :: forall p. Component State Input (Aff (GifEffects ())) p
+ui :: Component State Input (Aff (GifEffects ()))
 ui = component render eval
   where
     render :: -- *yawn* let's skip to eval
