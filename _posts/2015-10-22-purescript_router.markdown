@@ -1,9 +1,11 @@
 ---
-title: "purescript-routing Tutorial"
+title: "Using purescript-routing with purescript-halogen"
 date: 2015-10-22
 layout: post
 categories: programming
 ---
+
+## A tutorial
 
 Not only has SlamData came up with [purescript-halogen](https://github.com/slamdata/purescript-halogen), they've also got a nice routing library [`purescript-routing`](https://github.com/slamdata/purescript-routing).
 While I'll be demonstrating it with the `purescript-halogen` library, it's actually library agnostic and should work with anything.
