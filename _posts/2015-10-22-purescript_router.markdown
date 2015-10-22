@@ -149,6 +149,10 @@ ui = component render eval
 So URLs and plain anchor tags can now act as a way to drive our application.
 The routing library is pretty low level still -- there's a good bit of room available for a higher level routing library specifically for Halogen.
 
+Note that the Home link still goes to the home page, even though the link is `#/home`.
+That's because it goes to the last defined route in the event that no routes match.
+It's a good idea to make the last route a catch-all 404 type thing.
+
 Now, we've got a basic Sessions route.
 Let's expand that to have some basic CRUD actions: index and show.
 Show takes an identifier (`Int` in this case), while Index just shows everything.
