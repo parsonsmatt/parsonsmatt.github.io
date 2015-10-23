@@ -13,9 +13,9 @@ sass:
 paginate: 5
 paginate_path: "page:num"
 ##The website description (to be used in meta tags)
-description: Put website description for your home page. (about 50 words or more)
+description: Personal blog of Matthew Parsons
 ##Some frequently used keywords on your website
-keywords: some, relevant, keywords, for, usage, in metatags
+keywords: programming, music, haskell, weightlifting
 
 ##Some commonly used links
 links:
@@ -27,4 +27,4 @@ links:
 ##put desired image in img/ directory and set the value accordingly. If not defined, a placeholder image will be used.
 about_image: me.png
 ##comment this if you want full width posts with no sidebar
-sidebar: on
+# sidebar: on
