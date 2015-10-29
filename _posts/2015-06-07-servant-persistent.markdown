@@ -90,10 +90,10 @@ type PersonAPI =
 The `:<|>` is an `Alternative` type operator. It can be read as "or": The type of this route is either 'get all users at `/users` **or** get a single user at `/users/:name`'. `Capture "name" String` is how we specify that we want this to be a named capture, and we'll `read` it as a String. Servant has a lot of types built in, and you're able to define your own.
 
 ```haskell
-    :<|> "users" :> ReqBody '[JSON] Person :> Post '[JSON] Integer
+    :<|> "users" :> ReqBody '[JSON] Person :> Post '[JSON] Int64
 ```
 
-Lastly, this one specifies that we'll accept a `POST` request at `/users`. The `ReqBody` will accept JSON encoding of a Person, and will return an Integer.
+Lastly, this one specifies that we'll accept a `POST` request at `/users`. The `ReqBody` will accept JSON encoding of a Person, and will return an `Int64`.
 
 ## Implementing the Server
 

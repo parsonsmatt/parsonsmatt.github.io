@@ -20,15 +20,6 @@ As a result, it doesn't work quite as naturally with the Elm architecture exampl
 
 The repository with the code is available [here](https://github.com/parsonsmatt/purs-architecture-tutorial).
 
-# Pre-0: Getting Halogen Running
-
-OK, so Halogen doesn't -- quite work by default! The version available via Bower doesn't work right due to a problem in a dependency of a dependency not being updated for the 0.7 PureScript compiler release, so you have to do the following:
-
-1. Do `pulp dep install --save purescript-halogen#master`, to install Halogen from master branch.
-2. Then do `npm install --save virtual-dom` to get the `virtual-dom` dependency in your project. You should probably have a `package.json` file so this can be more-or-less automated.
-
-This tutorial is going to target Halogen v0.5, which is not released yet, but seems to only need a bit of optimization and bug fixes before release.
-
 # 0. Hello World!
 
 Since I didn't do it in the previous post, here's "Hello World!" in Halogen:
@@ -37,13 +28,13 @@ Since I didn't do it in the previous post, here's "Hello World!" in Halogen:
 -- src/Example/Zero.purs
 data Input a = Input a
 
-ui :: forall g p. (Functor g) => Component Unit Input g p
+ui :: forall g. (Functor g) => Component Unit Input g
 ui = component render eval
-    where
-        render state =
-            H.div_ [ H.h1 [] [ H.text "Hello, World!" ] ]
-        eval :: Eval Input Unit Input g
-        eval (Input a) = pure a
+  where
+    render state =
+      H.div_ [ H.h1_ [ H.text "Hello, World!" ] ]
+    eval :: Eval Input Unit Input g
+    eval (Input a) = pure a
 
 -- src/Main.purs
 import qualified Example.Zero as Ex0
@@ -55,6 +46,7 @@ main = runAff throwException (const (pure unit)) $ do
 
 Halogen expects the Input type to be have kind `* -> *`, and refers to it as a query algebra.
 We'll get more into the details of that in the later examples, but we aren't really using it at the moment.
+I find it helpful to think of the query algebra as a "public interface" for the component.
 
 The `ui` function defines the component that we'll be using, and has two parts: `render` and `eval`.
 `render` defines the layout in terms of the current state.
@@ -64,8 +56,7 @@ The type signature for `ui` is a bit intimidating, but it's not too bad:
 
 * `Unit` is the state that this component is responsible for.
 * `Input` is the query algebra we'll be using in the component.
-* `g` is the functor that the component operates in (like `Eff`, `Aff`, etc.)
-* `p` is the type of slots of children components.
+* `g` is the functor/monad that the component operates in (like `Eff`, `Aff`, etc.)
 
 This is easy enough, so let's move on to the first interactive example: Counter!
 
@@ -90,41 +81,42 @@ Our query algebra is just like Elm but with the extra type parameter.
 
 ```haskell
 type State =
-    { count :: Int
-    }
+  { count :: Int
+  }
 
 data Input a
-    = Increment a
-    | Decrement a
+  = Increment a
+  | Decrement a
 ```
 
 And now, the `ui` function!
 
 ```haskell
-ui :: forall g p. (Functor g) => Component State Input g p
+ui :: forall g. (Functor g) => Component State Input g
 ui = component render eval
-    where
-        render :: Render State Input p
-        render state =
-            H.div_ [ H.button [ E.onClick $ E.input_ Decrement ] 
-                              [ H.text "-" ]
-                   , H.p_ [ H.text (show state.count)]
-                   , H.button [ E.onClick $ E.input_ Increment ] 
-                              [ H.text "+" ]
-                   ]
+  where
+    render state =
+      H.div_ 
+        [ H.button [ E.onClick $ E.input_ Decrement ] 
+                   [ H.text "-" ]
+        , H.p_ [ H.text (show state.count)]
+        , H.button [ E.onClick $ E.input_ Increment ] 
+                   [ H.text "+" ]
+        ]
 ```
 
 We're using `E.input_` to send an event to the `eval` function.
 If we cared about the event itself, then we could use `E.input` and provide a function that would accept the event information and provide a value on the `Input`.
+We don't, so we'll skip that for now.
 
 ```haskell
-        eval :: Eval Input State Input g
-        eval (Increment next) = do
-            modify (\state -> state { count = state.count + 1 }) 
-            pure next
-        eval (Decrement next) = do
-            modify (\state -> state { count = state.count - 1 })
-            pure next
+    eval :: Eval Input State Input g
+    eval (Increment next) = do
+      modify (\state -> state { count = state.count + 1 }) 
+      pure next
+    eval (Decrement next) = do
+      modify (\state -> state { count = state.count - 1 })
+      pure next
 ```
 
 Halogen has `get` and `modify` functions for use in the eval functions, which let us either view the current state or modify it.
@@ -164,12 +156,12 @@ So, let's get started!
 newtype CounterSlot = CounterSlot Int
 -- ord/eq instances for CounterSlot
 
-type State =
-    { topCounter :: CounterSlot
-    , bottomCounter :: CounterSlot
-    }
+type StateP =
+  { topCounter :: CounterSlot
+  , bottomCounter :: CounterSlot
+  }
 
-init :: State
+init :: StateP
 init = { topCounter: CounterSlot 0, bottomCounter: CounterSlot 1 }
 ```
 
@@ -187,39 +179,83 @@ data Input a = Reset a
 
 Since the counters are keeping track of their own internal state, all we need to do is know when to reset them.
 
-Now, let's write the component function! Since we're working with a Parent component, we'll want to use a type signature that represents that information:
+Before we write the parent component, we'll want to define some type synonyms to make it easier to refer to the component.
 
 ```haskell
-pairUI :: forall g p. (Functor g) 
-       => ParentComponent State Ex1.State Input Ex1.Input g CounterSlot p
+type State g =
+  InstalledState StateP Ex1.State Input Ex1.Input g CounterSlot
 ```
 
-The `ParentComponent` type constructor takes a mess of arguments:
+So, the real state of our component is going to be an `InstalledState` of our newly defined `StateP` type on top of the `Ex1.State` type.
+We'll also have the `Input` over the `Ex1.Input` query types.
+Finally, we'll mention the `g` functor, and then refer to the `CounterSlot` as the type of slot that the counters will go in.
+Now, to recap:
 
-* `State` is the state of the parent component.
-* `Ex1.State` is the state of the child component.
-* `Input` is the query algebra for the parent component.
-* `Ex1.Input` is the query algebra for the child component.
-* `g` is the functor the whole thing is running on top of
-* `CounterSlot` is the type of the slots of child components in the component.
-* `p` is the type of the slots of child components for the child component.
+```haskell
+type State g
+  = InstalledState -- we're installing a state into another state,
+    StateP         -- our parent state
+    Ex1.State      -- child state
+    Input          -- parent query
+    Ex1.Input      -- child query
+    g              -- functor variable
+    CounterSlot    -- slot for child components
+```
+
+Alright! Next up, we've got our query type synonym.
+It's using some fanciness in the form of coproduct, but it's not too complex.
+
+```haskell
+type Query =
+  Coproduct Input (ChildF CounterSlot Ex1.Input)
+```
+
+Actually, this one is a lot simpler!
+A Coproduct is `newtype Coproduct f g a = Coproduct (Either (f a) (g a))`.
+In actual English, a coproduct is a way of saying "I have a value of type a, and it's either in a functor f or a functor g."
+So, our type synonym is saying something like "The query type is either some value inside the Input functor, or a value inside the slot-indexed child input functor."
+
+It's pretty complex, but the safety and composability make it worth it.
+I promise!
+
+Now, let's write the component function!
+We'll use the type synonyms to simplify the component type:
+
+```haskell
+ui :: forall g. (Plus g) 
+   => Component (State g) Query g
+```
+
+Not bad! Note that we're using `Plus g` instead of just `Functor` because we're doing a parent component now.
 
 On to the function body!
 
 ```haskell
-pairUI = component render eval
+ui = parentComponent render eval
   where
     render state =
-        H.div_ [ H.slot $ state.topCounter
-               , H.slot $ state.bottomCounter
-               , H.button [ E.onClick $ E.input_ Reset ]
-                          [ H.text "Reset!" ]
-               ]
+      H.div_
+        [ H.slot state.topCounter mkCounter
+        , H.slot state.bottomCounter mkCounter
+        , H.button [ E.onClick $ E.input_ Reset ]
+                   [ H.text "Reset!" ]
+        ]
+ 
+    mkCounter :: Unit -> { component :: Component Ex1.State Ex1.Input g, initialState :: Ex1.State }
+    mkCounter _ = { component: Ex1.ui, initialState: Ex1.init 0 }
 ``` 
 
-To put the child components in, we use the `H.slot` function, which accepts something of our `CounterSlot` type.
-That identifies a place in the component where we'll put the child.
+We use `parentComponent` now
+
+The `H.slot` function accepts two arguments:
+
+1. Some value of our `CounterSlot` type that we're using to identify child components,
+2. A function from `Unit` to a record containing the component and initial state.
+
+Halogen uses the function to lazily render the page.
+
 The button sends the `Reset` message, which will get handled by our `eval` function.
+Finally, the fun stuff!
 
 ```haskell
     eval (Reset next) = 
@@ -273,25 +309,11 @@ We provide an identifier for the query, so we know where to look, and an action.
 The action in this case is simply `Reset`, and we don't care about the return value.
 Halogen also defines `request`, which we can use to get some information out of the component.
 
-We need to define a way for the parent component to make children components:
-
-```haskell
--- src/Example/Two.purs
-ui :: forall g p. (Plus g) 
-   => InstalledComponent State Ex1.State Input Ex1.Input g CounterSlot p
-ui = install pairUI mkCounter
-    where
-        mkCounter (CounterSlot _) = createChild Ex1.ui (Ex1.init 0)
-```
-
-Since we don't care about the id of the counter when creating the counters, we can ignore it.
-We use `createChild` to put a component as a child and provide the initial state.
-
-Finally, running the counter works like you might expect:
+Finally, running the counter works pretty smooth:
 
 ```haskell
 -- src/Main.purs
-runEx2 = runUI Ex2.ui (installedState (Ex2.init))
+runEx2 = runUI Ex2.ui (installedState Ex2.init)
 
 main = -- boilerplate elided...
   app <- runEx2
@@ -302,3 +324,11 @@ We have to use `installedState` since we're dealing with parent/children compone
 
 Alright, that's the first two examples from Elm Architecture in PureScript Halogen!
 I'll be covering the rest in a future installment.
+
+### Other Posts in the series:
+
+
+1. [Elm vs PureScript I: War of the Hello, Worlds](http://www.parsonsmatt.org/programming/2015/10/03/elm_vs_purescript.html)
+2. [Elm vs PureScript II](http://www.parsonsmatt.org/programming/2015/10/05/elm_vs_purescript_ii.html)
+2. [Elm Architecture in PureScript III: Dynamic Lists of Counters](http://www.parsonsmatt.org/programming/2015/10/10/elm_architecture_in_purescript_iii.html)
+3. [Elm Architecture in PureScript IV: Effects](http://www.parsonsmatt.org/programming/2015/10/11/elm_architecture_in_purescript_iv:_effects.html)
