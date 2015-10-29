@@ -273,14 +273,16 @@ Let's do something a tiny bit more interesting with it:
 
 ```haskell
 collatz :: Int -> [Int]
-collatz x = traverseState' (even x) (chain x)
+collatz x = traverseState' x (chain x)
   where
-    chain x   = ConsF x (State go)
-    go isEven =
-        if isEven then let val = x `div` 2 
-                        in (chain val, even val)
-                  else let val = 3 * x + 1
-                        in (chain val, odd val)
+    chain n = ConsF n (State go)
+    go y    =
+      if y == 1 
+         then (NilF, y)
+         else let val = if even y 
+                           then y `div` 2 
+                           else 3 * y + 1
+               in (chain val, val)
 ```
 
 This will evaluate the Collatz Conjecture for a given number.
