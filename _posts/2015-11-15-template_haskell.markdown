@@ -237,7 +237,7 @@ precompute xs = do
       precomputedClauses =
         zipWith (\body pattern -> Clause [pattern] (NormalB body) []) fnBodies patterns
       x' = mkName "x"
-      lastClause = [Clause [VarP x'] appBody []]
+      lastClause = [Clause [VarP x'] (NormalB appBody) []]
   -- ...
       clauses = precomputedClauses ++ lastClause
   return [FunD name clauses]
@@ -257,7 +257,7 @@ precompute xs = do
       precomputedClauses = 
         zipWith (\body pattern -> Clause [pattern] body []) fnBodies patterns
       x' = mkName "x"
-      lastClause = [Clause [VarP x'] appBody []]
+      lastClause = [Clause [VarP x'] (NormalB appBody) []]
       appBody = AppE (VarE (mkName "bigBadMathProblem")) (VarE x')
       clauses = precomputedClauses ++ lastClause
   return [FunD name clauses]
