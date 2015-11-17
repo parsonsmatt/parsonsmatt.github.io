@@ -5,6 +5,10 @@ layout: post
 categories: programming
 ---
 
+## A Beginner Tutorial
+
+This tutorial is aimed at people who are beginner-intermediate Haskellers looking to learn the basics of Template Haskell.
+
 I learned about the power and utility of metaprogramming in Ruby.
 Ruby metaprogramming is done by constructing source code with string concatenation and having the interpreter run it.
 There are also some methods that can be used to define methods, constants, variables, etc.
@@ -634,3 +638,5 @@ And we've now metaprogrammed a bunch of boilerplate away!
 We've looked at the docs for Template Haskell, figured out how to construct values in Haskell's AST, and worked out how to do some work at compile time, as well as automate some boilerplate.
 I'm excited to learn more about the magic of defining quasiquoters and more advanced Template Haskell constructs, but even a super basic "build expressions and declarations using data constructors" approach is very useful.
 Hopefully, you'll find this as useful as I did.
+
+
