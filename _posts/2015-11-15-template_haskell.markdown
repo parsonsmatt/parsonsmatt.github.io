@@ -279,7 +279,7 @@ Let's look at a little more complicated example.
 
 We're excited to be using the excellent `users` library with the `persistent` backend for the web application we're working on (source code located [here, if you're curious](https://github.com/parsonsmatt/QuickLift/)).
 It handles all kinds of stuff for us, taking care of a bunch of boilerplate and user related code.
-It expects, as it's first argument, a value that can be unwrapped and used to run a Persistent query.
+It expects, as its first argument, a value that can be unwrapped and used to run a Persistent query.
 It also operates in the `IO` monad.
 Right now, our application is setup to use a custom monad `AppM` which is defined like:
 
@@ -339,17 +339,19 @@ Nice. To make it a little easier on seeing the AST, we can take it one step furt
 Let's explicitly show all function application by adding parentheses to make everything as explicit as possible.
 
 ```haskell
-listUsersExplicit m = ((>>=) backend) (\b -> liftIO ((listUsers b) m))
+listUsersExplicit m =
+  ((>>=) backend) (\b -> liftIO ((listUsers b) m))
 ```
 
 The general formula that we're going for is:
 
 ```haskell
 derivedFunction arg1 arg2 ... argn =
-  ((>>=) backend) (\b -> liftIO ((...(((function b) arg1) arg2)...) argn))
+  ((>>=) backend) 
+    (\b -> liftIO ((...(((function b) arg1) arg2)...) argn))
 ```
 
-We'll start by creating our `deriveReader` function, which will take as it's first argument the `backend` function name.
+We'll start by creating our `deriveReader` function, which will take as its first argument the `backend` function name.
 
 ```haskell
 deriveReader :: Name -> DecsQ
@@ -370,7 +372,7 @@ deriveReader rd =
 ```
 
 This is our first bit of special syntax.
-The `'destroyUserBackend` is a shorthand way of saying `mkName "destroyUserBackend"`
+The single quote in `'destroyUserBackend` is a shorthand way of saying `mkName "destroyUserBackend"`
 Now, what we need is a function `decForFunc`, which has the signature `Name -> Name -> Q Dec`.
 
 In order to do this, we'll need to get some information about the function we're trying to derive.
