@@ -573,9 +573,9 @@ Then, we'll need to apply all of the values to the `VarE fn` expression.
 Function application binds to the left, so we'll have:
 
 ```haskell
-fn       ~ VarE fn
-fn a     ~ AppE (VarE fn) (VarE a)
-fn a b   ~ AppE (AppE (VarE fn) (VarE a)) (VarE b)
+fn       ~                   VarE fn
+fn a     ~             AppE (VarE fn) (VarE a)
+fn a b   ~       AppE (AppE (VarE fn) (VarE a)) (VarE b)
 fn a b c ~ AppE (AppE (AppE (VarE fn) (VarE a)) (VarE b)) (VarE c)
 ```
 
