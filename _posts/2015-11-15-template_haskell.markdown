@@ -218,7 +218,8 @@ precompute xs = do
   let name = mkName "lookupTable"
       patterns = map intToPat xs
       fnBodies = map precomputeInteger xs
-      precomputedClauses = zipWith (\body pattern -> Clause [pattern] body []) fnBodies patterns
+      precomputedClauses = 
+        zipWith (\body pattern -> Clause [pattern] body []) fnBodies patterns
   -- ......
   return [FunD name clauses]
 ```
@@ -233,7 +234,8 @@ precompute xs = do
   let name = mkName "lookupTable"
       patterns = map intToPat xs
       fnBodies = map precomputeInteger xs
-      precomputedClauses = zipWith (\body pattern -> Clause [pattern] body []) fnBodies patterns
+      precomputedClauses =
+        zipWith (\body pattern -> Clause [pattern] body []) fnBodies patterns
       x' = mkName "x"
       lastClause = [Clause [x'] appBody []]
   -- ...
@@ -252,7 +254,8 @@ precompute xs = do
   let name = mkName "lookupTable"
       patterns = map intToPat xs
       fnBodies = map precomputeInteger xs
-      precomputedClauses = zipWith (\p b -> Clause [p] b []) patterns fnBodies
+      precomputedClauses = 
+        zipWith (\p b -> Clause [p] b []) patterns fnBodies
       x' = mkName "x"
       lastClause = [Clause [x'] appBody []]
       appBody = AppE (VarE (mkName "bigBadMathProblem") (VarE x'))
