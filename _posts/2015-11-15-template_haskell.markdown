@@ -387,6 +387,17 @@ We can fire up `GHCi` and start doing some Template Haskell with the following c
 ```haskell
 λ: :set -XTemplateHaskell 
 λ: import Language.Haskell.TH
+```
+
+
+We can also do the following command, and it'll print out all of the generated code that it makes:
+
+```haskell
+λ: :set -ddump-splices
+```
+Now, let's run `reify` on something simple and see the output!
+
+```haskell
 λ: reify 'id
 
 <interactive>:4:1:
