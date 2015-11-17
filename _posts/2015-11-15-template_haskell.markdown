@@ -471,7 +471,7 @@ fmap :: (a -> b) -> f a -> f b
 ~ (->) ((->) a b) ((->) (f a) (f b))
 ```
 
-Ok, now all of our `ArrowT`s are written infix.
+Ok, now all of our `(->)`s are written in prefix form.
 We'll replace the arrows with `ArrowT`, do explicit parentheses, and put in the `ApplyT` constructors working from the innermost expressions out.
 
 ```haskell
