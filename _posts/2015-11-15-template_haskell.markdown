@@ -219,7 +219,7 @@ precompute xs = do
       patterns = map intToPat xs
       fnBodies = map precomputeInteger xs
       precomputedClauses = 
-        zipWith (\body pattern -> Clause [pattern] body []) fnBodies patterns
+        zipWith (\body pattern -> Clause [pattern] (NormalB body) []) fnBodies patterns
   -- ......
   return [FunD name clauses]
 ```
@@ -235,9 +235,9 @@ precompute xs = do
       patterns = map intToPat xs
       fnBodies = map precomputeInteger xs
       precomputedClauses =
-        zipWith (\body pattern -> Clause [pattern] body []) fnBodies patterns
+        zipWith (\body pattern -> Clause [pattern] (NormalB body) []) fnBodies patterns
       x' = mkName "x"
-      lastClause = [Clause [x'] appBody []]
+      lastClause = [Clause [VarP x'] appBody []]
   -- ...
       clauses = precomputedClauses ++ lastClause
   return [FunD name clauses]
@@ -255,10 +255,10 @@ precompute xs = do
       patterns = map intToPat xs
       fnBodies = map precomputeInteger xs
       precomputedClauses = 
-        zipWith (\p b -> Clause [p] b []) patterns fnBodies
+        zipWith (\body pattern -> Clause [pattern] body []) fnBodies patterns
       x' = mkName "x"
-      lastClause = [Clause [x'] appBody []]
-      appBody = AppE (VarE (mkName "bigBadMathProblem") (VarE x'))
+      lastClause = [Clause [VarP x'] appBody []]
+      appBody = AppE (VarE (mkName "bigBadMathProblem")) (VarE x')
       clauses = precomputedClauses ++ lastClause
   return [FunD name clauses]
 ```
@@ -545,9 +545,9 @@ decForFunc reader fn = do
   return (FunD fnName [Clause varPat (NormalB final) []])
 ```
 
-arity acquired. Now, we'll want to get a list of new variable names corresponding with the function arguments.
+Arity acquired. Now, we'll want to get a list of new variable names corresponding with the function arguments.
 When we want to be hygienic with our variable names, we use the function `newName` which creates a totally unique variable name with the string prepended to it.
-We want (1 - arity) new names, since we'll be using the bound value from the reader function for the other one.
+We want (arity - 1) new names, since we'll be using the bound value from the reader function for the other one.
 We'll also want a name for the value we'll bind out of the lambda.
 
 ```haskell
