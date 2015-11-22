@@ -78,7 +78,7 @@ public class List<T> {
   }
 
   public static List<T> Nil() {
-    return new List(null, null);
+    return new List<T>(null, null);
   }
 
   public static List<T> Cons(T val, List<T> rest) {
@@ -121,7 +121,7 @@ l = Cons 1 (Cons 2 (Cons 3 Nil))
 ```
 
 In Haskell, you apply arguments to things by putting them next to each other.
-So `List` is a type constructor, and `List Integer` is the type variable `Interger` applied to the type constructor `List`.
+So `List` is a type constructor, and `List Integer` is the type `Interger` applied to the type constructor `List`.
 Likewise, `Cons 3 Nil` is the data constructor `Cons` with the values `3` and `Nil` applied to it.
 
 Let's simplify, though.
@@ -296,7 +296,7 @@ data Maybe a
 `Nothing`, however, is added to it, so the type `Maybe a` has `1 + a` inhabitants.
 
 `List`, likewise, gives us even more information: in addition to the elements,
-we have them in a linear order, *and* we have their count.
+we have them in a linear order, *and* we have a count of how many elements there are in the list.
 
 There are two more common contexts.
 We'll get to see how added information gives us more power and also more complexity.
@@ -315,13 +315,13 @@ newtype Reader r a
 
 Here, we're defining a new type, calling it `Reader`
 We know how to compute the possible implementations of a function-arrow -- exponentiation!
-So for a `Reader r a` function, we know we have `r ^ a` implementations.
+So for a `Reader r a` function, we know we have `a ^ r` implementations.
 
 Adding read-only information to a function, then, exponentially increases the possible ways for the function to work.
 
 ### State
 
-State is a context where we have some state information that may change with each function.
+Stateful computation is modeled in Haskell as a function that takes some state as input, and produces a result value and a new state.
 We define it like:
 
 ```haskell
@@ -344,26 +344,28 @@ Talk about a huge increase in complexity!
 
 ## Functor
 
-A functor is a combination of some context and a function `map` that allows us to lift a function into that context.
-The `map` function can't access any information in the context, and it's not allowed to change the context.
+A functor is a combination of some context and a function `fmap` that allows us to lift a function into that context.
+The `fmap` function can't access any information in the context, and it's not allowed to change the context.
 A more formal way of expressing that are the *Functor Laws*:
 
-1. `map id === id`
-2. `map (f . g) === map f . map g`
+1. `fmap id === id`
+2. `fmap (f . g) === fmap f . fmap g`
 
-We can write a `map` for all of the above contexts:
+(where `id` is the identity function and returns its argument unchanged)
+
+We can write a `fmap` for all of the above contexts:
 
 ```haskell
-map :: (a -> b) -> List a -> List b
-map _ Nil              = Nil
-map f (Cons head rest) = Cons (f head) (map f rest)
+fmap :: (a -> b) -> List a -> List b
+fmap _ Nil              = Nil
+fmap f (Cons head rest) = Cons (f head) (fmap f rest)
 
-map :: (a -> b) -> Either e a -> Either e b
-map _ (Left e)  = Left e
-map f (Right a) = Right (f a)
+fmap :: (a -> b) -> Either e a -> Either e b
+fmap _ (Left e)  = Left e
+fmap f (Right a) = Right (f a)
 
-map :: (a -> b) -> (e, a) -> (e, b)
-map f (e, a) = (e, f a)
+fmap :: (a -> b) -> (e, a) -> (e, b)
+fmap f (e, a) = (e, f a)
 ```
 
 We're not used to thinking of functions as context, so Reader and State might seem tricky at first.
@@ -371,8 +373,8 @@ We'll do a bit of type-driven development to figure out what we need exactly.
 I'll start by pattern matching on the `Reader` data constructor, and I know we'll need a `Reader` constructor at the end, so we can put that together.
 
 ```haskell
-map :: (a -> b) -> Reader r a -> Reader r b
-map f (Reader readerFn) = Reader (\env -> _)
+fmap :: (a -> b) -> Reader r a -> Reader r b
+fmap f (Reader readerFn) = Reader (\env -> _)
 ```
 
 That `_` has the type `b`, as GHC happily tells us.
@@ -382,16 +384,19 @@ Finally, we have `f`, a function with signature `f :: a -> b`.
 If we do `readerFn env`, that gives us a value of type `a`, and we can do `f (readerFn env)` to get a value of type `b`.
 
 ```haskell
-map :: (a -> b) -> Reader r a -> Reader r b
-map f (Reader readerFn) =
+fmap :: (a -> b) -> Reader r a -> Reader r b
+fmap f (Reader readerFn) =
   Reader (\env -> f (readerFn env))
 ```
+
+Note that the function we're mapping over `Reader` doesn't get to see the environment.
+It has no access to the *context* of the computation, just the result value.
 
 Finally, `State` is like:
 
 ```haskell
-map :: (a -> b) -> State s a -> State s b
-map f (State stateFn) =
+fmap :: (a -> b) -> State s a -> State s b
+fmap f (State stateFn) =
   State (\s -> 
     let (a, s') = stateFn s
      in (f a, s')
@@ -402,9 +407,12 @@ We take the old state function, and make a new state function.
 This new function first applies the state to the old state function, and gets the new state and result out.
 It applies the function `f` to the result of the stateful computation.
 
+Like `Reader`, the `f` function is completely unaware of the state.
+
+
 ## Applicative
 
-The map function that functors get is pretty limited.
+The fmap function that functors get is pretty limited.
 It doesn't get to know anything about the context, so all it can do is transform each element.
 The Applicative class introduce the `<*>` operator, pronounced "apply".
 The `<*>` allows us to start taking advantage of the information present in the context.
@@ -413,51 +421,77 @@ We also get `pure` -- a generic way to lift something into the Applicative conte
 `pure` and `<*>` have to follow a big rule: 
 
 ```haskell
-pure f <*> a === map f a
+pure f <*> a === fmap f a
 ```
 
 Let's start with the basics: if we have `Identity (a -> b)` and `<*>` it with `Identity a`, then we'll get an `Identity b` back.
 There's no extra information to consider, so we don't have anything extra to *do* with our applicative powers.
+Check out the implementation:
+
+```haskell
+instance Applicative Identity where
+  pure = Identity
+  Identity f <*> a = fmap f a
+```
 
 For `Maybe`, we gain a tiny bit of new power.
-With Functor, we definitely had to have a function to map over the value.
+With `Maybe a`, we have the information contained in `a`, and one extra bit of information: `Nothing`.
+
+```haskell
+instance Applicative Maybe where
+  pure = Just
+  Just f  <*> m = fmap f m
+  Nothing <*> _ = Nothing
+```
+
+With Functor, we definitely had to have a function to fmap over the value.
 With Applicative, we can potentially do `Nothing <*> Just 'a'`, which results in `Nothing`.
 We've gained a way to change the structure!
+
+Functors weren't allowed to change the structure of the thing being mapped over.
+Applicatives are.
+When we're applying, we get a new bit of information, and we'll want to find out how to use that information effectively.
 
 Let's consider `List`, now.
 We have two bits of information: the number of elements in a list, and the order of elements in the list.
 If we use the number of elements in the list as our extra information, then we can combine the number of elements in some way in the result list.
-If we use the order of elements, then we can zip the two lists together with function application.
+If we use the order of elements, then we can zip the two lists together with function application, pairing the function at index `i` with the value at index `i`.
 Let's implement both!
 
-For a ZipList, we have to remember that `pure f <*> a === map f a` when considering our `pure` definition.
+For a ZipList, we have to remember that `pure f <*> a === fmap f a` when considering our `pure` definition.
 If we have a single function that we want to zip a list with, then we need to make an infinite list of that function.
 
 ```haskell
-pure :: a -> List a
-pure = repeat
+newtype ZipList a = ZipList { unZipList :: [a] }
+
+instance Applicative ZipList where
+  pure a = ZipList (repeat a)
 ```
 
-The `<*>` operator, if given an empty list of functions, returns the list of things to be applied to.
-If we've got a list of functions to apply to an empty list, then we return the empty list.
-Finally, if we've got two non-empty lists, we pair the function and element and continue on.
+The only sensible behavior when zipping two lists together is to truncate the result list to the length of the shorter list, so we'll return `Nil` if we reach the end of either list.
 
 ```haskell
-(<*>) :: List (a -> b) -> List a -> List b
-Nil       <*> as        = as
-Cons f fs <*> Nil       = Nil
-Cons f fs <*> Cons a as = Cons (f a) (fs <*> as)
+  ZipList Nil <*> _           = Nil
+  _           <*> ZipList Nil = Nil
 ```
 
-We've used the *order* of elements to alter the structure of the list.
-In this case, though, the structure of the list that is receiving the application does not change.
-With `Maybe`, we were able to change the structure.
+Finally, if we have a function and an element, we apply the function to the element and continue zipping.
+
+```haskell
+  ZipList (Cons f fs) <*> ZipList (Cons a as) =
+    ZipList (Cons (f a) (fs <*> as))
+```
+
+Here, we're using the *ordering* of the lists to inform our application.
+If either list is shorter than the other, then we truncate the list.
+While we're using the ordering of the lists to do application, we're not *changing* the ordering of the list.
+This doesn't seem like we're fully taking advantage of the information present in the list.
+
 Perhaps if we use the *count* of elements rather than their order, we can have a more powerful impact.
-Let's implement that version of the functions.
 
 Since the length of the list is a number, we can potentially do numeric operations with the two numbers.
 We can't have negative or fractional numbers, so we're back to natural numbers, and that means we can choose between addition, multiplication, and exponentiation.
-We also have to consider that `pure f <*> as === map f as`.
+We also have to consider that `pure f <*> as === fmap f as`.
 
 For that reason, we're limited in which operation we can choose.
 A `pure f <*> as` can't change the length of the list, otherwise it violates the law above.
@@ -466,7 +500,7 @@ There is another law which states that applicatives must be associative, which r
 So the combination of the *operation using the information of the context* and the *means of lifting a value* form a monoid.
 
 With `+`, the unit is `0`, and a list of length `0` is `Nil`.
-`pure _ = Nil` does not satisfy `pure f <*> as === map f as`, so `+` can't be used.
+`pure _ = Nil` does not satisfy `pure f <*> as === fmap f as`, so `+` can't be used.
 What about multiplication?
 
 Multiplication with natural numbers forms a monoid, where the unit is 1.
@@ -487,22 +521,22 @@ Nil <*> _   = Nil
 _   <*> Nil = Nil
 ```
 
-If we have a single function, this corresponds to `pure f`, and so must be equivalent to `map f`.
+If we have a single function, this corresponds to `pure f`, and so must be equivalent to `fmap f`.
 
 ```haskell
 Cons f Nil <*> Cons a as =
-  Cons (f a) (map f as)
--- or, since map/<*> neeed to be equivalent,
+  Cons (f a) (fmap f as)
+-- or, since fmap/<*> neeed to be equivalent,
   Cons (f a) (pure f <*> as)
 -- or,
   Cons (f a) (Cons f Nil <*> as)
 ```
 
-if we have multiple functions... then we'll need to map each function over the target list and combine the results.
+if we have multiple functions... then we'll need to fmap each function over the target list and combine the results.
 
 ```haskell
 fs <*> as =
-  concatMap (\f -> map f as) fs
+  concatMap (\f -> fmap f as) fs
 ```
 
 We've now mathematically derived both of the Applicative instances for lists, based on an understanding of the information content available in the type.
@@ -563,8 +597,6 @@ data Weather = Sunny | Raining | Cold
 data Transport = Bike | Car
 data Clothing = BigCoat | Jacket | StretchyPants
 
-type Decisions a = Reader Weather a
-
 chooseTransport :: Reader Weather Transport
 chooseTransport =
   Reader (\env ->
@@ -614,8 +646,17 @@ Finally, we apply the resulting function to the resulting value.
 Reader had 729 implementations, but that didn't really affect much.
 Instead, it was nicer to think about it in terms of a decision tree that was ruled by a single decision.
 
-State is similar, but since we are able to update the state as we go along, we're able to build a decision tree on the fly, where each function in the applicative sequence
+State is similar, but since we are able to update the state as we go along, we're able to build a decision tree on the fly, where each function in the applicative sequence gets to update the state.
+
+{{ write an example where the state changes }}
+
+To wrap up, a functor is a context where we can map over, but we can't look at the context, and we can't change the context.
+An Applicative allows our contexts to interact independently of the values contained in the contexts.
+This is a lot more power! 
+But it's still perhaps a bit more limited than we might want.
+
+What if we want to alter the context based on the values produced by the computation?
 
 ## Monad
 
-## Map, Join, Return
+## fmap, Join, Return
