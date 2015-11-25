@@ -5,7 +5,11 @@ layout: post
 categories: programming
 ---
 
-## Not a monad tutorial!
+## Recapping...
+
+[The previous post](http://www.parsonsmatt.org/programming/2015/11/24/an_intuition_on_context.html) discussed how information can be stored in types.
+This information forms a "computational context" that we can take advantage of in new and interesting ways.
+Now, we're going to see how that relates to the functor/applicative/monad stuff.
 
 ## Functor
 
@@ -18,12 +22,27 @@ A more formal way of expressing that are the *Functor Laws*:
 
 (where `id` is the identity function and returns its argument unchanged)
 
-We can write a `fmap` for all of the above contexts:
+The functor type class definition is presented here:
+
+```haskell
+class Functor f where
+  fmap :: (a -> b) -> f a -> f b
+  -- or, since function arrows associate to the right,
+  fmap :: (a -> b) -> (f a -> f b)
+```
+
+We define a function that takes a normal function as input, and returns a new function that operates over the context.
+
+We can write an `fmap` for all of the contexts in the prior post:
 
 ```haskell
 fmap :: (a -> b) -> List a -> List b
 fmap _ Nil              = Nil
 fmap f (Cons head rest) = Cons (f head) (fmap f rest)
+
+fmap :: (a -> b) -> Maybe a -> Maybe b
+fmap _ Nothing  = Nothing
+fmap f (Just a) = Just (f a)
 
 fmap :: (a -> b) -> Either e a -> Either e b
 fmap _ (Left e)  = Left e
@@ -33,31 +52,41 @@ fmap :: (a -> b) -> (e, a) -> (e, b)
 fmap f (e, a) = (e, f a)
 ```
 
-We're not used to thinking of functions as context, so Reader and State might seem tricky at first.
-We'll do a bit of type-driven development to figure out what we need exactly.
-I'll start by pattern matching on the `Reader` data constructor, and I know we'll need a `Reader` constructor at the end, so we can put that together.
+There's an intuition of functors/monads as *containers*, and this intuition works for the above types.
+The intuition breaks down when we start thinking about Reader and State, which are functions.
+Thinking of a function as a container is pretty difficult, and there are other functors where the container metaphor breaks down completely.
+
+Let's define `fmap` for Reader.
+It's not as trivial as the above, where we just pattern match directly on the constructor and apply the `f`.
+We'll take a little detour of using typed-holes to discover the implementation.
+We know already that we'll be constructing a `Reader` as the return type, so we can go ahead and fill that in.
 
 ```haskell
 fmap :: (a -> b) -> Reader r a -> Reader r b
-fmap f (Reader readerFn) = Reader (\env -> _)
+fmap f readFn = Reader _f
 ```
 
-That `_` has the type `b`, as GHC happily tells us.
-So `readerFn` is a function with the signature `readerFn :: r -> a`.
-And `env` is a value of type `r`.
-Finally, we have `f`, a function with signature `f :: a -> b`.
-If we do `readerFn env`, that gives us a value of type `a`, and we can do `f (readerFn env)` to get a value of type `b`.
+That `_f` has the type `r -> b`, as GHC is happy to tell us.
+`readFn` is a `Reader r a`, and we've got a `runReader` function with the signature `Reader r a -> (r -> a)`.
+Lastly, we have an `a -> b`.
+We'll introduce an `r` using a lambda!
 
 ```haskell
-fmap :: (a -> b) -> Reader r a -> Reader r b
-fmap f (Reader readerFn) =
-  Reader (\env -> f (readerFn env))
+fmap f readFn = Reader (\r -> _f)
+```
+
+Now we can do `runReader readFn` to get an `r -> a`, apply the `r` to the function to get an `a`, and apply `a` to the `f` to get a `b`.
+
+```haskell
+fmap f readFn = Reader (\r -> f (runReader readFn r))
+-- or,
+fmap f readFn = Reader (f . runReader readFn)
 ```
 
 Note that the function we're mapping over `Reader` doesn't get to see the environment.
 It has no access to the *context* of the computation, just the result value.
 
-Finally, `State` is like:
+`State` is like:
 
 ```haskell
 fmap :: (a -> b) -> State s a -> State s b
@@ -72,7 +101,8 @@ We take the old state function, and make a new state function.
 This new function first applies the state to the old state function, and gets the new state and result out.
 It applies the function `f` to the result of the stateful computation.
 
-Like `Reader`, the `f` function is completely unaware of the state.
+The `f` function in all of these functors is completely unaware of the context.
+It's not allowed to alter the context, and it's not allowed to be informed by the context.
 
 ## Applicative
 
@@ -86,6 +116,14 @@ We also get `pure` -- a generic way to lift something into the Applicative conte
 
 ```haskell
 pure f <*> a === fmap f a
+```
+
+The class definition looks like this:
+
+```haskell
+class (Functor f) => Applicative f where
+  pure :: a -> f a
+  (<*>) :: f (a -> b) -> f a -> f b
 ```
 
 Let's start with the basics: if we have `Identity (a -> b)` and `<*>` it with `Identity a`, then we'll get an `Identity b` back.
@@ -117,7 +155,7 @@ Applicatives are.
 When we're applying, we get a new bit of information, and we'll want to find out how to use that information effectively.
 
 Let's consider `List`, now.
-We have two bits of information: the number of elements in a list, and the order of elements in the list.
+We have two bits of information in the context of the list: the number of elements in a list, and the order of elements in the list.
 If we use the number of elements in the list as our extra information, then we can combine the number of elements in some way in the result list.
 If we use the order of elements, then we can zip the two lists together with function application, pairing the function at index `i` with the value at index `i`.
 Let's implement both!
@@ -154,20 +192,19 @@ This doesn't seem like we're fully taking advantage of the information present i
 Perhaps if we use the *count* of elements rather than their order, we can have a more powerful impact.
 
 Since the length of the list is a number, we can potentially do numeric operations with the two numbers.
-We can't have negative or fractional numbers, so we're back to natural numbers, and that means we can choose between addition, multiplication, and exponentiation.
+We can't have negative or fractional lengths of lists, so we're back to natural numbers, and that means we can try addition and multiplication.
+Exponentiation might be a thing, but let's not get too crazy.
 We also have to consider that `pure f <*> as === fmap f as`.
 
 For that reason, we're limited in which operation we can choose.
 A `pure f <*> as` can't change the length of the list, otherwise it violates the law above.
 That means that, whatever operation we do, the `pure` function must correspond to a unit.
-There is another law which states that applicatives must be associative, which rules out exponentiation.
 So the combination of the *operation using the information of the context* and the *means of lifting a value* form a monoid.
+Fortunately, addition and multiplication both form a monoid with natural numbers.
 
 With `+`, the unit is `0`, and a list of length `0` is `Nil`.
 `pure _ = Nil` does not satisfy `pure f <*> as === fmap f as`, so `+` can't be used.
-What about multiplication?
-
-Multiplication with natural numbers forms a monoid, where the unit is 1.
+Our next choice is multiplication, which has a unit of 1.
 This means that our `pure` function will return a list of length 1.
 
 ```haskell
@@ -222,7 +259,7 @@ What does this end up looking like? Well, `<$>` is map, so we'll do `+` to all t
 [(1 +), (4 +), (3 +)] <*> [6, 8, 7]
 ```
 
-Then we do `(1+)` to each of the possible values, and combine the resulting lists together.
+Now, we pair of each function with each possible element in the result list, and calculate all of the possibilities for the number.
 
 What about Reader and State?
 How can they take advantage of their contextual information to do neat stuff?
