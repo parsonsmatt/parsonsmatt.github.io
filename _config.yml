@@ -39,6 +39,10 @@ links:
   email: hello@parsonsmatt.org
   github: parsonsmatt
 
+##The website description (to be used in meta tags)
+description: Personal blog of Matthew Parsons
+##Some frequently used keywords on your website
+keywords: programming, music, haskell, weightlifting
 
 # Sass
 sass:
