@@ -10,6 +10,9 @@ baseurl:            ""
 #baseurl:            "" #For Root Domain
 permalink:          /:year/:month/:day/:title.html
 
+gems:
+    - jekyll-redirect-from
+
 paginate: 10
 paginate_path: "page:num"
 # Markdown
