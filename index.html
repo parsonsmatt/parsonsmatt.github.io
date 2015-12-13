@@ -3,7 +3,7 @@ layout: default
 ---
 <header class="masthead">
   <h1 class="masthead-title">
-    <a href="{{ site.baseurl }}/">{{ site.name }}<span>&#39;s blog</span></a>
+    <a href="{{ site.baseurl }}/">{{ site.name }}</a>
   </h1>
   <nav class="masthead-nav">
     {% for nav in site.nav %}
@@ -12,10 +12,10 @@ layout: default
   </nav>
 </header>
 <div class="content list">
-{% if site.posts.size == 0 %}
+  {% if site.posts.size == 0 %}
   <h2>No post found</h2>
-{% else %}
-{% for post in site.posts %}
+  {% else %}
+  {% for post in paginator.posts %}
   <div class="list-item">
     <h2 class="list-post-title">
       <a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a>
@@ -24,6 +24,15 @@ layout: default
       <time>{{ post.date | date_to_string }}</time>
     </div>
   </div>
-{% endfor %}
-{% endif %}
+  {% endfor %}
+  {% endif %}
+</div>
+<div class="unit whole paginator">
+	{% if paginator.previous_page %}
+	<a href="{{ paginator.previous_page_path }}" class="previous">Previous</a>
+	{% endif %}
+	<span>Page: {{ paginator.page }} of {{ paginator.total_pages }}</span>
+	{% if paginator.next_page %}
+	<a href="{{ paginator.next_page_path }}" class="next">Next</a>
+	{% endif %}
 </div>

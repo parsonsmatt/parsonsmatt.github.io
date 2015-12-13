@@ -1,0 +1,56 @@
+---
+title: "Haskell progressions"
+date: 2015-04-02
+layout: post
+category: programming
+---
+
+I just finished the highly recommended [CIS194](https://www.cis.upenn.edu/~cis194/spring13/) course! It's very interesting to go back to my earlier questions when I started the whole process of learning Haskell back in November or so, and compare them to my code now. I cleaned up some of the older answers, just to compare more explicitly the difference.
+
+Old:
+
+```haskell
+skips :: [a] -> [[a]]
+skips [] = []
+skips xs = map deIndex (map (deIndex) (flatten xs))
+
+deIndex :: (Integral a) => [(a,b)] -> [b]
+deIndex x = map snd x
+
+flatten :: [b] -> [[(Int, (Int, b))]]
+flatten xs = map dropIndex $ buildList xs
+
+-- Drops elements in the list if they're divisible by the number.
+dropIndex :: (Int,[a]) -> [(Int,a)]
+dropIndex (n,xs) = filter (\(x,_) -> x `mod` n == 0) (index xs)
+
+-- Takes a list, indexes it, expands it into a list of lists, and
+-- indexes the top level list.
+buildList :: [a] -> [(Int, [(Int, a)])]
+buildList = index . expandList . index
+
+-- Takes a list and converts it into a list of lists, each of which
+-- is the original list.
+expandList :: [a] -> [[a]]
+expandList xs = map (\x -> xs) xs
+
+-- Takes a list and indexes the items.
+index :: [a] -> [(Int,a)]
+index = zip [1..]
+```
+
+And lately:
+
+```haskell
+skips :: [a] -> [[a]]
+skips xs = zipWith takeEvery [1..length xs] (repeat xs)
+
+takeEvery :: Int -> [a] -> [a]
+takeEvery n xs 
+    | n > length xs = []
+    | otherwise     = xs !! (n-1) : takeEvery n (drop n xs)
+```
+
+So much cleaner! So much more elegant! It's rather obvious that I was still thinking imperatively in November and was having a hard time grasping the functional approach.
+
+Per Chris Allen's [learnhaskell](https://github.com/bitemyapp/learnhaskell) repository, my next step is the [NICTA course](https://github.com/NICTA/course). I'm certainly excited to see how that progresses.
