@@ -24,6 +24,8 @@ highlighter: pygments
 nav:
   - name:           "About"
     href:           "/about"
+  - name: "tutorials"
+    href: "/tutorials"
 
   - name: "Twitter"
     href: "//www.twitter.com/mattoflambda"
