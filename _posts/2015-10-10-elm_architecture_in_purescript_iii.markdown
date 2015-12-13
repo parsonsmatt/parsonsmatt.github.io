@@ -7,7 +7,7 @@ categories: programming
 
 ## Dynamic Lists of Counters
 
-On the [last post](http://www.parsonsmatt.org/programming/2015/10/05/elm_vs_purescript_ii.html), we implemented a pair of counters.
+On the [last post](http://www.parsonsmatt.org/2015/10/05/elm_vs_purescript_ii.html), we implemented a pair of counters.
 Now, we'll generalize that out to a dynamic list of counters, and later, give them all remove buttons.
 In the process, we'll learn how to combine components, stack them, peek on them, and otherwise deal with them appropriately.
 
@@ -307,6 +307,6 @@ All in all, this level of componentiziation is fairly easy! Defining the type sy
 
 ### Other posts in the series:
 
-1. [Elm vs PureScript I: War of the Hello, Worlds](http://www.parsonsmatt.org/programming/2015/10/03/elm_vs_purescript.html)
-2. [Elm vs PureScript II](http://www.parsonsmatt.org/programming/2015/10/05/elm_vs_purescript_ii.html)
-3. [Elm Architecture in PureScript IV: Effects](http://www.parsonsmatt.org/programming/2015/10/11/elm_architecture_in_purescript_iv:_effects.html)
+1. [Elm vs PureScript I: War of the Hello, Worlds](http://www.parsonsmatt.org/2015/10/03/elm_vs_purescript.html)
+2. [Elm vs PureScript II](http://www.parsonsmatt.org/2015/10/05/elm_vs_purescript_ii.html)
+3. [Elm Architecture in PureScript IV: Effects](http://www.parsonsmatt.org/2015/10/11/elm_architecture_in_purescript_iv:_effects.html)

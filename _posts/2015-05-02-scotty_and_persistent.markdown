@@ -7,7 +7,7 @@ categories: programming
 
 ## A beginner's voyage
 
-(this is part one of three: [two](/programming/2015/05/04/perscotty_pt_ii.html) and [three](/programming/2015/05/10/perscotty_pt_iii.html) are linked)
+(this is part one of three: [two](/2015/05/04/perscotty_pt_ii.html) and [three](/2015/05/10/perscotty_pt_iii.html) are linked)
 
 I've been working on a small application with the Haskell web framework scotty, and decided to use the package Persistent to provide database access. I had some trouble getting them to work together, and I couldn't find many complete examples that used PostgreSQL. I thought I'd put at least one example online of how I've gotten it to work thus far.
 

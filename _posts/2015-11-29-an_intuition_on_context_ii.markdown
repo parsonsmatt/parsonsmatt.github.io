@@ -7,7 +7,7 @@ categories: programming
 
 ## Recapping...
 
-[The previous post](http://www.parsonsmatt.org/programming/2015/11/24/an_intuition_on_context.html) discussed how information can be stored in types.
+[The previous post](http://www.parsonsmatt.org/2015/11/24/an_intuition_on_context.html) discussed how information can be stored in types.
 This information forms a "computational context" that we can take advantage of in new and interesting ways.
 Now, we're going to see how that relates to the functor/applicative/monad stuff.
 
