@@ -73,7 +73,7 @@ runDb :: forall b (t :: (* -> *) -> * -> *) (m :: * -> *).
          (MonadTrans t, MonadReader Config m, MonadIO (t m)) 
          => SqlPersistT IO b -> t m b
 ```
-Which is a little more type sorcery than I am comfortable with. Taylor's example has the following type:
+Which is a little more type sorcery than I am comfortable with<sup>[1](#1)</sup>. Taylor's example has the following type:
 
 ```haskell
 runDb :: (MonadTrans t, MonadIO (t ConfigM))
@@ -82,3 +82,8 @@ runDb :: (MonadTrans t, MonadIO (t ConfigM))
 Instead of accepting any `MonadReader Config m`, we only want to accept `ConfigM`. `ConfigM` is an instance of `MonadReader Config` already, as derived in the newtype declaration. It turns out, that's all that needs to be done, and now we have a working database connection that we can easily use in our application.
 
 If we want to make additional information available to our application, all we have to do is add another field to the ConfigM type and set that up top. That's rather nice to work with! You can get the current state of the repository [here](https://github.com/parsonsmatt/scotty-persistent-example/tree/finished). Many thanks to Taylor Fausak for the excellent [Building a JSON REST API in Haskell](http://taylor.fausak.me/2014/10/21/building-a-json-rest-api-in-haskell/) post.
+
+<a name="1"></a>\[1\] : (2015-12-13) Now that I've been studying Haskell for a bit longer, I can actually understand this!
+ghc-mod puts the `forall` qualification on there for clarity, even though it doesn't have to.
+We have a function that takes a `SqlPersistT IO b`, and lifts it to run in any monad which is a transformer and has an inner layer of `MonadReader Config`.
+This is obvious to me now, but certainly wasn't at the time.
