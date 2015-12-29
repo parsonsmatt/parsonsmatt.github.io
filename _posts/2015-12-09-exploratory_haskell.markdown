@@ -3,6 +3,7 @@ title: "Exploratory Haskell"
 date: 2015-12-09
 layout: post
 categories: programming
+redirect_from: "/programming/2015/12/09/exploratory_haskell.html"
 ---
 
 ## It doesn't have to be so thought out.

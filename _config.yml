@@ -10,6 +10,9 @@ baseurl:            ""
 #baseurl:            "" #For Root Domain
 permalink:          /:year/:month/:day/:title.html
 
+gems:
+    - jekyll-redirect-from
+
 paginate: 10
 paginate_path: "page:num"
 # Markdown
@@ -24,13 +27,15 @@ highlighter: pygments
 nav:
   - name:           "About"
     href:           "/about"
+  - name: "tutorials"
+    href: "/tutorials"
 
   - name: "Twitter"
     href: "//www.twitter.com/mattoflambda"
   - name: "Github"
     href: "//www.github.com/parsonsmatt"
   - name: "Email"
-    href: "hello@parsonsmatt.org"
+    href: "mailto:hello@parsonsmatt.org"
 
 ##Some commonly used links
 links:
