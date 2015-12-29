@@ -16,6 +16,8 @@ This tutorial may be out of date by the time I post it!
 
 The code for this project is available in [this repository](https://github.com/parsonsmatt/purescript-routing-example).
 
+(edit 12-28-15: there was a breaking change in `purescript-generics-0.7` which broke the repository. it has been fixed)
+
 ## Defining Routes
 
 The first step is defining our routes. We're making a website for logging weightlifting sessions, so we're concerned with three things:
@@ -211,7 +213,7 @@ routing = profile
     sessions = Sessions <$> (route "sessions" *> parseCRUD)
 ```
 
-Much nicer! It's starting to become clear that there's a lot of room for making conveniences on top of this, especially for a routing component library... 
+Much nicer! It's starting to become clear that there's a lot of room for making conveniences on top of this, especially for a routing component library...
 
 Now we need to update the route matching function:
 
@@ -338,14 +340,14 @@ Ok, with all that out of the way, it's time to revise our router component defin
 We'll use our new type synonyms and make it a parent component.
 
 ```haskell
-ui :: forall g. (Plus g) 
+ui :: forall g. (Plus g)
    => Component (StateP g) QueryP g
 ui = parentComponent render eval
   where
     render state =
       L.defaultLayout
         [ H.h1_ [ H.text state.currentPage ]
-        , H.p_ 
+        , H.p_
           [ H.text "QuickLift is a quick and easy way to log your weightlifting sessions."
           ]
         , viewPage state.currentPage
@@ -388,7 +390,7 @@ redirects :: forall eff. Driver QueryP eff
 redirects driver _ =
   driver <<< left <<< action <<< Goto
 -- or, if you prefer writing it all out,
--- redirects driver _ Home = 
+-- redirects driver _ Home =
 --   driver (left (action (Goto Home))))
 -- etc...
 ```
