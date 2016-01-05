@@ -238,6 +238,9 @@ The typeclass hierarchy is better.
 The record system is awesome.
 Some syntax is much better (no `$` needed before `do` or lambdas!), some is much worse (`<<<` is the default composition operator, though the lens package exports `..`).
 
+PureScript also has a really good router, which Elm and GHCJS didn't really have at the time I started.
+Routers are important for making SPAs useful and not counterintuitive -- the back button is your friend, and URLs are what makes the web great.
+
 I'm using [Halogen](https://github.com/slamdata/purescript-halogen), which is a *beast* of a library.
 I'm going to briefly cover the architecture and design, but you'll want to refer to my [Elm Architecture in PureScript](http://www.parsonsmatt.org/2015/10/05/elm_vs_purescript_ii.html) series, the [official introduction](https://github.com/slamdata/purescript-halogen#introduction), and the [excellent set of examples](https://github.com/slamdata/purescript-halogen/tree/master/examples) if you want to know what's going on in more depth.
 
