@@ -33,11 +33,14 @@ body {
 }
 
 a {
-  color: #bbc;
-  text-decoration: underline;
+  color: #bbe;
+  text-decoration: none;
 
   &:hover,
   &:focus {
+    text-decoration: underline;
+  }
+  .content.post {
     text-decoration: underline;
   }
 }
