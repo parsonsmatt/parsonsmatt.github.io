@@ -33,8 +33,8 @@ body {
 }
 
 a {
-  color: #aab;
-  text-decoration: none;
+  color: #bbc;
+  text-decoration: underline;
 
   &:hover,
   &:focus {
@@ -372,7 +372,7 @@ tbody tr:nth-child(odd) th {
   }
 }
 
-/* Solarized Dark 
+/* Solarized Dark
 
 For use with Jekyll and Pygments
 
