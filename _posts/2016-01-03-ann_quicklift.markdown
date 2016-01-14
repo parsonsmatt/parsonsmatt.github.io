@@ -244,6 +244,15 @@ Routers are important for making SPAs useful and not counterintuitive -- the bac
 I'm using [Halogen](https://github.com/slamdata/purescript-halogen), which is a *beast* of a library.
 I'm going to briefly cover the architecture and design, but you'll want to refer to my [Elm Architecture in PureScript](http://www.parsonsmatt.org/2015/10/05/elm_vs_purescript_ii.html) series, the [official introduction](https://github.com/slamdata/purescript-halogen#introduction), and the [excellent set of examples](https://github.com/slamdata/purescript-halogen/tree/master/examples) if you want to know what's going on in more depth.
 
+### Note to the future:
+
+The PureScript ecosystem is evolving extremely rapidly, and it's likely that the code in the `blogpost` branch will bitrot.
+I've tightened the dependencies in the `bower.json` file, but PureScript and `pulp` themselves might evolve and break the project.
+I'll try to keep it updated and building, but for posterity, this is the version information that makes it go:
+
+- PureScript v0.7.6.3 or v0.8 RC 1
+- `pulp` versions 4.4 and 7.0.0 tested
+
 ## `Main.purs`
 
 The Main module kicks off the application, router, and digs an auth token out of LocalStorage.
