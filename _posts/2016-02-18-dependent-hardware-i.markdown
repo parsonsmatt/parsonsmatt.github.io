@@ -1,5 +1,5 @@
 ---
-title: "Dependendently Typed Hardware"
+title: "Hardware Simulation in Idris I"
 date: 2016-02-18
 layout: post
 categories: programming
