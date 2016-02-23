@@ -1,6 +1,6 @@
 ---
 title: "Proving With Types"
-date: 2016-02-23
+date: 2016-02-22
 layout: post
 categories: programming
 ---
