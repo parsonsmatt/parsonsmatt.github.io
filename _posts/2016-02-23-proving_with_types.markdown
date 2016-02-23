@@ -246,7 +246,7 @@ type List a = Either () (a, List a)
 But we can imagine that this is the case.
 Now that we have it in terms of `Either` and `(,)`, we can write it as a logical proposition:
 
-$$List_{A} = (() \lor A) \land List_{A}$$
+$$List_{A} = () \lor (A \land List_{A})$$
 
 Now, we can plug that directly in to the type signature for `head`, which we'll put here in logical form:
 
@@ -254,7 +254,7 @@ $$head : List_{A} \implies A$$
 
 Replacing $List A$ with the definition of list:
 
-$$((() \lor A) \land List_{A}) \implies A$$
+$$() \lor (A \land List_{A}) \implies A$$
 
 Now we can use the `and` elimination rule as listed above to get rid of the $List_{A}$ term:
 
