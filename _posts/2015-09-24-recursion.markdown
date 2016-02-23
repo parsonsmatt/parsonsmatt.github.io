@@ -250,7 +250,9 @@ It seems like we should be able to kick off the computation with a single Bool a
 Let's try passing the state down.
 
 ```haskell
-traverseState' :: Bool -> ListF (State Bool) Int -> [Int]
+-- specializing the type:
+-- traverseState' :: Bool -> ListF (State Bool) Int -> [Int]
+traverseState' :: s -> ListF (State s) a -> [a]
 traverseState' _ NilF        = []
 traverseState' b (ConsF n s) =
     let (list, state) = runState s b
@@ -260,7 +262,9 @@ traverseState' b (ConsF n s) =
 And if we want to remember the state history,
 
 ```haskell
-traverseState'' :: Bool -> ListF (State Bool) Int -> [(Int, Bool)]
+-- specialized:
+-- traverseState'' :: Bool -> ListF (State Bool) Int -> [(Int, Bool)]
+traverseState'' :: s -> ListF (State s) a -> [(a, s)]
 traverseState'' _ NilF = []
 traverseState'' b (ConsF n s) =
     let (list, state) = runState s b
@@ -269,6 +273,7 @@ traverseState'' b (ConsF n s) =
 
 Cool!
 So now we can drop a seed value into a chain of stateful computations and the result will be a list of the return values of each computation.
+Those type signatures are actually a bit more specific than they need to be: we can replace the signature with `traverseState' :: a -> ListF (State a) b -> [b]`
 Let's do something a tiny bit more interesting with it:
 
 ```haskell
@@ -277,10 +282,10 @@ collatz x = traverseState' x (chain x)
   where
     chain n = ConsF n (State go)
     go y    =
-      if y == 1 
+      if y == 1
          then (NilF, y)
-         else let val = if even y 
-                           then y `div` 2 
+         else let val = if even y
+                           then y `div` 2
                            else 3 * y + 1
                in (chain val, val)
 ```
@@ -316,7 +321,7 @@ This is (almost!) the list monad transformer "done right!"
 The canonical implementation is:
 
 ```haskell
-newtype ListT m a = 
+newtype ListT m a =
     ListT { unListT :: m (Maybe (a, ListT m a)) }
 ```
 
@@ -332,3 +337,5 @@ newtype Cofree h a =
 ```
 
 If you took out the `NilF` constructor, anyway.
+
+> Thanks to Gary Fixler for notifying me that the type signature in `traverseState` was wrong!
