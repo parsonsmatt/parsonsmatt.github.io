@@ -277,7 +277,7 @@ Finally, we can do the last `and` elimination, and boil this down all the way.
 $$\neg A \lor A$$
 
 Classical logic includes an axiom called [The Law of Excluded Middle](https://en.wikipedia.org/wiki/Law_of_excluded_middle).
-This law allows us to assume that $A$ is true if $\neg A \lor A$.
+This law tells us that the proposition $A \lor \neg A$ is always true, for any $A$.
 Intuitionistic logic -- which tries to make logic from the bare minimum -- is unable to prove this, and does not accept it as an axiom.
 
 Classically, we'd read that:
@@ -301,3 +301,5 @@ Like, literal, actual, _reasoning_.
 Not just 'thinking', but logical, clear, structured reasoning about how the code is working and what it means.
 
 If you're interested in learning more, I'd highly recommend reading [Type Theory and Formal Proof: An Introduction](http://www.amazon.com/Type-Theory-Formal-Proof-Introduction/dp/110703650X).
+
+(thanks to @hdgarrood on Twitter for posting some corrections!)
