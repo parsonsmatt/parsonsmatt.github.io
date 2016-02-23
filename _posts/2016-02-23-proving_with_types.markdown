@@ -260,38 +260,40 @@ Now we can use the `and` elimination rule as listed above to get rid of the $Lis
 
 $$() \lor A \implies A$$
 
-We can rewrite propositions with an implication using the following pattern: $P \implies Q \equiv \neg P \land Q$.
-So we can remove the $\implies$ in the above, replacing it with:
+And, we're stuck.
+We can't eliminate the $A \lor ()$ since the `or` rule requires more information than we have.
+Considering what is meant by `or`: "I have evidence that either $A$ or $B$ is true."
+If we don't know what evidence we have, then we certainly can't say that $A$ is true.
 
-$$\neg (() \lor A) \lor A$$
+If we had an $A$ available in the environment, then we could prove the $A$ that we're looking for.
 
-There's a neat trick called [De Morgan's Law](https://en.wikipedia.org/wiki/De_Morgan%27s_laws) which lets us move the negation inside of the parentheses.
-Note that, in classical logic, all four of the laws hold.
-When talking about type theory, only three do!
-However, we're using one of the ones that are still right, so we're good to go.
+Consider:
 
-$$\neg () \land \neg A \lor A$$
+- Add an A: $(() \lor A) \land A \implies A$
+- And elimination: $A \implies A$
+- Tautology -- we win!
 
-Finally, we can do the last `and` elimination, and boil this down all the way.
+This is equivalent to changing `head`'s type signature to:
 
-$$\neg A \lor A$$
+```haskell
+head :: [a] -> a -> a
+head []     a = a
+head (x:xs) _ = x
+```
 
-Classical logic includes an axiom called [The Law of Excluded Middle](https://en.wikipedia.org/wiki/Law_of_excluded_middle).
-This law tells us that the proposition $A \lor \neg A$ is always true, for any $A$.
-Intuitionistic logic -- which tries to make logic from the bare minimum -- is unable to prove this, and does not accept it as an axiom.
+Alternatively, we could change that final bit to:
 
-Classically, we'd read that:
+$$() \lor A \implies () \lor A$$
 
-> Either A is true, or Not A is true.
+which is also tautologically true.
+$A \lor ()$ is equivalent to `Either () a` is equivalent to `Maybe a`, so we'd have:
 
-and if you accept that $A$ can be either true or false, that seems like it makes sense.
+```haskell
+head :: [a] -> Maybe a
+```
 
-The intuitionistic version of logic instead reads that like:
-
-> I have a proof that:
-> Either I have evidence that A is true, or I don't have evidence that A is true.
-
-and this also makes a lot of sense: if you don't know whether or not you have evidence for A's truth, then you can't assume that A is true!
+By breaking down `head`s real type signature, we've proven that it is partial.
+Furthermore, by altering the final step in the proof, we can work backwards and determine what a total solution would look like.
 
 # Victory!
 
@@ -302,4 +304,6 @@ Not just 'thinking', but logical, clear, structured reasoning about how the code
 
 If you're interested in learning more, I'd highly recommend reading [Type Theory and Formal Proof: An Introduction](http://www.amazon.com/Type-Theory-Formal-Proof-Introduction/dp/110703650X).
 
-(thanks to @hdgarrood on Twitter for posting some corrections!)
+(thanks to @hdgarrood on Twitter for posting some corrections! brackets are hard)
+
+(thanks to /u/ouchthats on Reddit for correcting my faulty use of a logic... damn LEM showing up everywhere! As it happens, reasoning and logic are difficult to get exactly right, but they're the only things we *can* get exactly right!)
