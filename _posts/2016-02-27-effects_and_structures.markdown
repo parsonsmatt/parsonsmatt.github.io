@@ -434,7 +434,7 @@ If you're feeling frisky, you can get a little more type class magic going by us
 This lets us write:
 
 ```haskell
-fizzBuzz :: (Functor f, Foldable t) => t (Integer -> String) -> f Integer -> f String
+fizzBuzz :: (Functor f, Foldable t) => t (Integer -> Maybe String) -> f Integer -> f String
 fizzBuzz rules = fmap (fromMaybe <$> show <*> fold rules)
 ```
 
