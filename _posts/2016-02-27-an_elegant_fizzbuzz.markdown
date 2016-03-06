@@ -189,7 +189,7 @@ A monoid is a neat little idea from abstract algebra that shows up almost everyw
 A monoid is a collection of three things:
 
 1. A set of objects
-2. An associative binary operation (that is, `a <> (b <> c) = (a <> b) <> c`)
+2. An associative binary operation (that is, $a \diamond (b \diamond c) = (a \diamond b) \diamond c$)
 3. An identity value for the operation (that is, `a <> mempty = a` and `mempty <> a = a`)
 
 Boolean values and `&&` form a monoid, where the set is `{True, False}`, the operation is `&&`, and the identity is `True`.
