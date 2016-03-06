@@ -190,7 +190,7 @@ A monoid is a collection of three things:
 
 1. A set of objects
 2. An associative binary operation (that is, $a \diamond (b \diamond c) = (a \diamond b) \diamond c$)
-3. An identity value for the operation (that is, `a <> mempty = a` and `mempty <> a = a`)
+3. An identity value for the operation (that is, $a \diamond id = a$ and $id \diamond a = a$)
 
 Boolean values and `&&` form a monoid, where the set is `{True, False}`, the operation is `&&`, and the identity is `True`.
 Strings and `++` form a monoid, where `""` (the empty string) is the identity element.
@@ -333,13 +333,20 @@ Compare the type signature of `(.) :: (b -> c) -> (a -> b) -> (a -> c)` with:
 
 ```haskell
 instance Functor ((->) r) where
-  fmap :: (a -> b) -> (r -> a) -> (r -> b)
-  fmap f g = f . g
+    fmap :: (a -> b) -> (r -> a) -> (r -> b)
+    fmap f g = f . g
 ```
 
 Now, we get to the Applicative instance...
-where `pure` is `const` and `(f <*> g)` is `\x -> f (g x) x`!
-The pattern `f <$> g <*> h` with explicit parentheses is `(f <$> g) <*> x`, which is then `\x -> f (g x) (h x)`, which is how we get `fromMaybe <$> show <*> fold rules`.
+
+```haskell
+instance Applicative ((->) r) where
+    pure = const
+    f <*> g = \x -> f (g x) x
+```
+
+The pattern `f <$> g <*> h` with explicit parentheses is `(f <$> g) <*> x`.
+When we expand that out, we get `\x -> f (g x) (h x)`, which is how we get `fromMaybe <$> show <*> ruleSet`.
 
 I don't know about you, but when I was working on this, my brain just about exploded.
 There's one last fun bit of abstract nonsense...
