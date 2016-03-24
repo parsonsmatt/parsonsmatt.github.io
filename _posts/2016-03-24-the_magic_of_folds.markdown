@@ -420,7 +420,7 @@ map f xs = foldr (\x acc -> f x : acc) []
 A `map` law is that composing two maps is the same as a single map with the two functions composed.
 In fancy math,
 
-$$map f \dot map g = map (f \dot g)$$
+$$map f \circ map g = map (f \circ g)$$
 
 In Haskell,
 
