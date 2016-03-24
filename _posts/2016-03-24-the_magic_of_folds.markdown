@@ -272,7 +272,7 @@ foldl (+) (((0 + 1) + 2) + 3) []
 
 Interesting! This has nearly the same shape as what `foldr` ended up looking like, but the parentheses are nested differently.
 With `foldr`, we directly replace `[]` with our `z` value.
-`foldl` prepends the `z` value to the list and just drops the `[]` entirely, so our `foldr` "replace the `:` with `k`" trick needs to be adjusted slightyl.
+`foldl` prepends the `z` value to the list and just drops the `[]` entirely, so our `foldr` "replace the `:` with `k`" trick needs to be adjusted slightly.
 
 With addition, it doesn't really matter, since you can swap arguments and parentheses around.
 Let's try it with subtraction and see the difference:
