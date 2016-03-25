@@ -414,7 +414,7 @@ Laziness can be tricky to understand at first, since it defies all of our intuit
 Consider the implementation of `map` using `foldr`:
 
 ```haskell
-map f xs = foldr (\x acc -> f x : acc) []
+map f xs = foldr (\x acc -> f x : acc) [] xs
 ```
 
 A `map` law is that composing two maps is the same as a single map with the two functions composed.
