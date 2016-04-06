@@ -307,6 +307,6 @@ All in all, this level of componentiziation is fairly easy! Defining the type sy
 
 ### Other posts in the series:
 
-1. [Elm vs PureScript I: War of the Hello, Worlds]({ post_url 2015-10-03-elm_vs_purescript })
-2. [Elm vs PureScript II]({ post_url 2015-10-05-elm_vs_purescript_ii })
-3. [Elm Architecture in PureScript IV: Effects]({ post_url 2015-10-11-elm_architecture_in_purescript_iv_effects })
+1. [Elm vs PureScript I: War of the Hello, Worlds]({% post_url 2015-10-03-elm_vs_purescript %})
+2. [Elm vs PureScript II]({% post_url 2015-10-05-elm_vs_purescript_ii %})
+3. [Elm Architecture in PureScript IV: Effects]({% post_url 2015-10-11-elm_architecture_in_purescript_iv_effects %})
