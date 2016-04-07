@@ -5,6 +5,8 @@ layout: post
 categories: programming
 ---
 
+Note: The code in this repository is for `servant-0.4`. The new version of Servant is slightly different. The code for this post is preserved in the GitHub repository under the `servant-0.4` branch. There'll be an updated post with the new version of Servant coming up.
+
 ## A Brief Example
 
 When people talk about why they like Haskell, the type system always comes out as a big win. Everything from inference, to refactorability, to compile-time checking. The more you can program into the type system, the more benefit you gain from it -- and there have been some compelling demonstrations lately.
@@ -13,7 +15,7 @@ When people talk about why they like Haskell, the type system always comes out a
 
 Servant is still rather new, and there wasn't yet an example on connecting a Servant API with a database. [Persistent](http://www.yesodweb.com/book/persistent) leverages the type system similarly, and the combination of the two makes for a compelling example on the power of Haskell.
 
-The code for this post is available in the following github repository: [parsonsmatt/servant-persistent](http://www.github.com/parsonsmatt/servant-persistent)
+The code for this post is available in the following github repository: [parsonsmatt/servant-persistent](http://www.github.com/parsonsmatt/servant-persistent/tree/servant-0.4)
 
 # Main.hs
 
@@ -228,7 +230,7 @@ This can also be written as `runDb query = asks getPool >>= liftIO . runSqlPool 
 
 # Try it out!
 
-All the files are available on the [Github repository](https://github.com/parsonsmatt/servant-persistent). Clone the repository, get it running, and play with it. If you'd like some practice, try the following exercises:
+All the files are available on the [Github repository](https://github.com/parsonsmatt/servant-persistent/tree/servant-0.4). Clone the repository, get it running, and play with it. If you'd like some practice, try the following exercises:
 
 ## Add another data model and route!
 
