@@ -20,7 +20,6 @@ Along the way, I'll make notes on what will likely be factored out into it's own
 
 Here are the relevant links:
 
-- [QuickLift](http://quicklift.parsonsmatt.org) can be checked out here.
 - [The backend repository](https://github.com/parsonsmatt/quicklift/tree/blogpost)
 - [The PureScript frontend repository](https://github.com/parsonsmatt/ql-purs/tree/blogpost)
 
