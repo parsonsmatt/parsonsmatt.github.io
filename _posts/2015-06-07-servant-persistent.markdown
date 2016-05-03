@@ -5,6 +5,8 @@ layout: post
 categories: programming
 ---
 
+NOTE: This tutorial is for `servant-0.4`. The repository is currently set up for `servant-0.5`, and I'm writing a follow up blog post on it.
+
 ## A Brief Example
 
 When people talk about why they like Haskell, the type system always comes out as a big win. Everything from inference, to refactorability, to compile-time checking. The more you can program into the type system, the more benefit you gain from it -- and there have been some compelling demonstrations lately.
@@ -13,7 +15,7 @@ When people talk about why they like Haskell, the type system always comes out a
 
 Servant is still rather new, and there wasn't yet an example on connecting a Servant API with a database. [Persistent](http://www.yesodweb.com/book/persistent) leverages the type system similarly, and the combination of the two makes for a compelling example on the power of Haskell.
 
-The code for this post is available in the following github repository: [parsonsmatt/servant-persistent](http://www.github.com/parsonsmatt/servant-persistent)
+The code for this post is available in the following GitHub repository: [parsonsmatt/servant-persistent](http://www.github.com/parsonsmatt/servant-persistent/tree/servant-0.4).
 
 # Main.hs
 
