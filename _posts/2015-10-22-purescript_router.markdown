@@ -5,6 +5,13 @@ layout: post
 categories: programming
 ---
 
+Updated on 2016-06-12:
+
+The blog post describes an old version of Halogen and the router. It has been
+updated to the 0.8 release of Halogen and 0.4 of the router. The changes are
+pretty small and are entirely in [this github
+commit](https://github.com/parsonsmatt/purescript-routing-example/pull/2/commits/e9c3325fc3d3bbaaadda65054044f1e05fe6b6aa).
+
 ## A tutorial
 
 Not only has SlamData came up with [purescript-halogen](https://github.com/slamdata/purescript-halogen), they've also got a nice routing library [`purescript-routing`](https://github.com/slamdata/purescript-routing).
