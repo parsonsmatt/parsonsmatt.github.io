@@ -75,7 +75,7 @@ As usual, we start with the language extensions and imports.
 ```haskell
 forwardRequest :: Request -> IO WaiProxyResponse
 forwardRequest _ = 
-    pure . WPRProxyDest . ProxyDest "127.0.0.1" $ 4567
+    pure (WPRProxyDest (ProxyDest "127.0.0.1" 4567))
 ```
 
 `forwardRequest` is a function we'll use to return a [`WaiProxyResponse`](https://www.stackage.org/haddock/lts-6.4/http-reverse-proxy-0.4.3/Network-HTTP-ReverseProxy.html#t:WaiProxyResponse).
@@ -175,8 +175,8 @@ api :: Proxy (API :<|> Raw)
 api = Proxy
 
 app :: Manager -> Application
-app manager = serve api $ server :<|> 
-    waiProxyTo forwardRequest defaultOnExc manager
+app manager = serve api 
+    (server :<|> waiProxyTo forwardRequest defaultOnExc manager)
 ```
 
 The `api` proxy is required to tell Servant what our API type is supposed to look like.
