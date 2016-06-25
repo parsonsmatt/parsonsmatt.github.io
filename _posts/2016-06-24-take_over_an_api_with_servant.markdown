@@ -125,7 +125,7 @@ Nice!
 # Commandeering a Route
 
 Next up, we'll take over the `cat` route.
-The code for this section is in the `cat-takeover` branch on GitHub.
+The code for this section is in the [`cat-takeover` branch on GitHub](https://github.com/parsonsmatt/incremental-servant/tree/cat-takeover).
 Our first step is to define our API type for Servant:
 
 ```haskell
@@ -203,7 +203,9 @@ We just took over a route without any loss of service or touching the underlying
 
 # DOGS
 
-Let's knock out the dogs route now. Then the original app will only be serving as an entry point!
+Let's knock out the dogs route now.
+The code for that is [here](https://github.com/parsonsmatt/incremental-servant/tree/dog-takeover).
+Then the original app will only be serving as an entry point!
 
 It's actually a really minimal change! We'll add two language pragmas so we can derive generic instances, import the generic machinery, and that's almost the whole of it!
 
@@ -237,7 +239,7 @@ And that's all! We'll reload the code in GHCi and see that the `dogs` route has 
 The second to last remaining bit is to grab the index page.
 Let's do it!
 
-(this code is in the `index` branch on GitHub)
+(this code is in the [`index` branch on GitHub](https://github.com/parsonsmatt/incremental-servant/tree/index))
 
 We'll use the excellent [`lucid`](https://www.stackage.org/lts-6.4/package/lucid-2.9.5) library for HTML templating rather than a bare string.
 This means we'll need to add `lucid` and `servant-lucid` to the cabal file, and add the relevant imports.
