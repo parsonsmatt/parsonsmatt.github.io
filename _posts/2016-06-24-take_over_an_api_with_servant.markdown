@@ -150,7 +150,7 @@ instance ToJSON Cat where
         object [ "cat" .= mew ]
 ```
 
-Serialization and deserialization is often the more annoying parts of writing a web app.
+Serialization and deserialization are often some of the more annoying parts of writing a web app.
 Aeson provides both Template Haskell functions for deriving compile time instances, as well as generic implementations for derived instances.
 If we enable the `DeriveGeneric` and `DeriveAnyClass` extensions and `import GHC.Generics`, then we can change our `newtype` declaration above to the following and get the JSON instance without having to write it:
 
