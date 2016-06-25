@@ -5,7 +5,7 @@ layout: post
 categories: programming
 ---
 
-Haskell's `servant` library is a compelling choice for a web API.
+Haskell's [`servant`](https://haskell-servant.github.io/) library is a compelling choice for a web API.
 By providing a specification of the API as a type, you ensure at compile time that your application correctly implements the specification.
 You also get automatically generated or derived clients for [Haskell](https://haskell-servant.readthedocs.io/en/stable/tutorial/Client.html), [JavaScript](https://haskell-servant.readthedocs.io/en/stable/tutorial/Javascript.html), and [Ruby](https://github.com/tfausak/lackey#readme).
 Using [servant-swagger](https://haskell-servant.github.io/posts/2016-02-06-servant-swagger.html), you can automatically generate `swagger` API specification, with all the goodies that come from that.
