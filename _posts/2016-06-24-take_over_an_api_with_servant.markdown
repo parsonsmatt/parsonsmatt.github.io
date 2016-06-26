@@ -9,6 +9,7 @@ Haskell's [`servant`](https://haskell-servant.github.io/) library is a compellin
 By providing a specification of the API as a type, you ensure at compile time that your application correctly implements the specification.
 You also get automatically generated or derived clients for [Haskell](https://haskell-servant.readthedocs.io/en/stable/tutorial/Client.html), [JavaScript](https://haskell-servant.readthedocs.io/en/stable/tutorial/Javascript.html), and [Ruby](https://github.com/tfausak/lackey#readme).
 Using [servant-swagger](https://haskell-servant.github.io/posts/2016-02-06-servant-swagger.html), you can automatically generate `swagger` API specification, with all the goodies that come from that.
+If you're not familiar, I'd highly recommend checking out the links -- [this article in particular](https://haskell-servant.github.io/posts/2015-08-05-content-types.html) is a bit of a mindblower.
 
 "Fine, fine, you've convinced me, I'll start my next project with Servant. But I still have all these old APIs in Ruby and JavaScript and Java that I need to support!"
 
@@ -280,3 +281,109 @@ If we remove the proxy and `Raw` endpoint, then we'll be able to handle those er
 Anyway, that's all we had to do.
 If we quit GHCi, restart it, and then rerun `startApp`, the application will be serving up our index page rather than the Ruby app.
 We have successfully ousted a Ruby API with one based on Haskell's Servant, from which we'll reap tremendous benefits in terms of generated documentation, clients, and improved performance.
+
+# Performance
+
+So what is the overhead on this reverse proxy?
+Let's run a shady benchmark with `httperf`.
+Keep in mind that this is done locally, and the Ruby server is `WEBrick`, which is notoriously slow.
+
+Here's the output from `httperf` on the Ruby server:
+
+```
+$ httperf --port=4567 --num-calls=500
+
+httperf --client=0/1 --server=localhost --port=4567 --uri=/ --send-buffer=4096 --recv-buffer=163
+84 --ssl-protocol=auto --num-conns=1 --num-calls=500
+Maximum connect burst length: 0
+
+Total: connections 1 requests 500 replies 500 test-duration 19.961 s
+
+Connection rate: 0.1 conn/s (19960.9 ms/conn, <=1 concurrent connections)
+Connection time [ms]: min 19960.9 avg 19960.9 max 19960.9 median 19960.5 stddev 0.0
+Connection time [ms]: connect 0.1
+Connection length [replies/conn]: 500.000
+
+Request rate: 25.0 req/s (39.9 ms/req)
+Request size [B]: 62.0
+
+Reply rate [replies/s]: min 25.0 avg 25.0 max 25.0 stddev 0.0 (3 samples)
+Reply time [ms]: response 1.4 transfer 38.5
+Reply size [B]: header 282.0 content 66.0 footer 0.0 (total 348.0)
+Reply status: 1xx=0 2xx=500 3xx=0 4xx=0 5xx=0
+
+CPU time [s]: user 6.18 system 13.78 (user 30.9% system 69.0% total 100.0%)
+Net I/O: 10.0 KB/s (0.1*10^6 bps)
+
+Errors: total 0 client-timo 0 socket-timo 0 connrefused 0 connreset 0
+Errors: fd-unavail 0 addrunavail 0 ftab-full 0 other 0
+```
+
+We're getting about 25 requests per second, with a test duration of about 20 seconds.
+Here's output from just running the reverse proxy.
+I built the binary using `-O2` to enable optimizations.
+
+```
+$ httperf --port=8080 --num-calls=500
+httperf --client=0/1 --server=localhost --port=8080 --uri=/ --send-buffer=4096 --recv-buffer=163
+84 --ssl-protocol=auto --num-conns=1 --num-calls=500
+Maximum connect burst length: 0
+
+Total: connections 1 requests 500 replies 500 test-duration 19.984 s
+
+Connection rate: 0.1 conn/s (19984.3 ms/conn, <=1 concurrent connections)
+Connection time [ms]: min 19984.4 avg 19984.4 max 19984.4 median 19984.5 stddev 0.0
+Connection time [ms]: connect 0.1
+Connection length [replies/conn]: 500.000
+
+Request rate: 25.0 req/s (40.0 ms/req)
+Request size [B]: 62.0
+
+Reply rate [replies/s]: min 25.0 avg 25.0 max 25.0 stddev 0.0 (3 samples)
+Reply time [ms]: response 39.9 transfer 0.0
+Reply size [B]: header 290.0 content 66.0 footer 2.0 (total 358.0)
+Reply status: 1xx=0 2xx=500 3xx=0 4xx=0 5xx=0
+
+CPU time [s]: user 5.76 system 14.20 (user 28.8% system 71.1% total 99.9%)
+Net I/O: 10.2 KB/s (0.1*10^6 bps)
+
+Errors: total 0 client-timo 0 socket-timo 0 connrefused 0 connreset 0
+Errors: fd-unavail 0 addrunavail 0 ftab-full 0 other 0
+```
+
+This is essentially the exact same. About 20 seconds test duration and 25 requests per second.
+There doesn't seem to be any overhead detectable in this test, which makes me want a better test!
+
+For reference, here's the Haskell `index` branch, where it's doing the `lucid` HTML templating:
+
+```
+λ ~/Projects/incremental-servant/ index* httperf --port=8080 --num-calls=500
+httperf --client=0/1 --server=localhost --port=8080 --uri=/ --send-buffer=4096 --recv-buffer=163
+84 --ssl-protocol=auto --num-conns=1 --num-calls=500
+Maximum connect burst length: 0
+
+Total: connections 1 requests 500 replies 500 test-duration 0.061 s
+
+Connection rate: 16.3 conn/s (61.5 ms/conn, <=1 concurrent connections)
+Connection time [ms]: min 61.5 avg 61.5 max 61.5 median 61.5 stddev 0.0
+Connection time [ms]: connect 0.1
+Connection length [replies/conn]: 500.000
+
+Request rate: 8136.6 req/s (0.1 ms/req)
+Request size [B]: 62.0
+
+Reply rate [replies/s]: min 0.0 avg 0.0 max 0.0 stddev 0.0 (0 samples)
+Reply time [ms]: response 0.1 transfer 0.0
+Reply size [B]: header 143.0 content 77.0 footer 2.0 (total 222.0)
+Reply status: 1xx=0 2xx=500 3xx=0 4xx=0 5xx=0
+
+CPU time [s]: user 0.02 system 0.04 (user 32.5% system 65.1% total 97.6%)
+Net I/O: 2240.7 KB/s (18.4*10^6 bps)
+
+Errors: total 0 client-timo 0 socket-timo 0 connrefused 0 connreset 0
+Errors: fd-unavail 0 addrunavail 0 ftab-full 0 other 0
+```
+
+8000 requests per second, with a test duration of 60 milliseconds.
+
+I like that pretty well!
