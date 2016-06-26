@@ -115,7 +115,7 @@ $ cd incremental-servant
 $ stack init
 $ stack ghci
 # GHCi loads...
-Main Api> runApp
+Main Api> startApp
 -- silence . . .
 ```
 
