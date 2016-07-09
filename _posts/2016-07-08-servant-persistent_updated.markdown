@@ -1,6 +1,6 @@
 ---
 title: "servant-persistent updated"
-date: 2016-05-03
+date: 2016-07-08
 layout: post
 categories: programming
 ---
