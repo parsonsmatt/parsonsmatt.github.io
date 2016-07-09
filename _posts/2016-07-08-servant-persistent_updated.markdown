@@ -11,6 +11,9 @@ I'd also noticed that some folks were using the repository as a starter scaffold
 To accommodate that, I've beefed up the application a bit to demonstrate some of the features of Servant, including a primitive client, as well as configuration for easy deployment with the [`keter`](https://hackage.haskell.org/package/keter) package.
 Let's dive in!
 
+The code for all of this is on the [GitHub repository](https://github.com/parsonsmatt/servant-persistent/tree/0.7).
+I'll be keeping the 0.7 branch up to date with any edits to this post.
+
 Take note: This is less of a tutorial on `servant` specifically, and more of an exposition on a `servant` base package that has some convenient defaults for running applications.
 
 # Application Structure
