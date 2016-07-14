@@ -99,7 +99,7 @@ instance MonadHttp IO where
 
 Now, wherever we might have been using a function like `makeRequest :: Something -> IO OtherThing`, we can now abstract that `IO` into `makeRequest :: MonadHttp m => SomeThing -> m OtherThing`.
 We can make the change transparently, since `IO` will still be inferred and used.
-Plus, we have the assurance that we're going to be accessing the database or printing any output in our `MonadHttp` functions.
+Plus, we have the assurance that we're not going to be accessing the database or printing any output in our `MonadHttp` functions.
 
 Actually running HTTP requests in dev/test is boring. It's slow, annoying, unreliable, etc. and we'd much rather run locally for faster tests and more reliable development.
 We can easily create a mock implementation of `MonadHttp` that does static returns:
