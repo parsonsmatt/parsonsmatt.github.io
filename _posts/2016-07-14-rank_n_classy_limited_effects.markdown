@@ -15,7 +15,7 @@ The [`mtl`](https://hackage.haskell.org/package/mtl) library does a great job of
 every new monad you want to introduce incurs $O(n^2)$ instances that you need to write.
 If you're using `Reader`, `State`, `Logger`, `Http`, `Database`, `Email`, etc. (with special instances for testing/production/etc) then eventually this becomes too much of a burden.
 
-More recently, the [free monad](http://www.haskellforall.com/2012/06/you-could-have-invented-free-monads.html) approach and [extensible-effects](https://hackage.haskell.org/package/extensible-effects) on top of it.
+More recently, the [free monad](http://www.haskellforall.com/2012/06/you-could-have-invented-free-monads.html) approach and [extensible-effects](https://hackage.haskell.org/package/extensible-effects) on top of it have become more popular.
 Free monads solve the $O(n^2)$ instance problem, and they offer the ability to introspect on the computation and perform optimizations on it.
 However, they have worse performance and are more complicated to implement.
 You either have to build a giant command functor with an equally complex interpreter, or you need to build many small languages.
