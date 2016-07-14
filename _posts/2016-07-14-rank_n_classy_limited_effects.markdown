@@ -233,3 +233,17 @@ By reifying these effects at the value level (a trick similar to [Gabriel Gonzal
 
 An environment comonad is a essentially a really complicated way of saying "tuple", and that's isomorphic to a reader monad.
 We get nice syntax sugar for monads and not comonads in Haskell, so `ReaderT Services` provides a nice approach to packaging up your environment's *request* context.
+
+What's next? Well, you might note that the `Services` type was a little restricted. Indeed, the following is a bit nicer:
+
+```haskell
+data Services g
+    = Services
+    { runHttp :: forall a. (forall f. MonadHttp f => f a) -> g a 
+    }
+```
+
+Which, hey... That's just a natural transformation! Specifically, a monad morphism.
+
+Applications, then, are *just* an environment comonad of monad morphisms.
+More plainly, they're a record of effect interpreters.
