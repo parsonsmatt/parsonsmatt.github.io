@@ -287,3 +287,79 @@ type Application = forall m. ReaderT (Services m) m
 
 Applications, then, are *just* an environment comonad of monad morphisms.
 More plainly, they're a record of effect interpreters.
+
+# Update:
+
+Thanks to [/u/ElvishJerrico on Reddit](https://www.reddit.com/r/haskell/comments/4std0v/rank_n_classy_limited_effects/d5cdon4) who has implemented a `Category` instance for these morphisms!
+This is a great way to compose effects. The given example is copied here:
+
+```haskell
+{-# LANGUAGE ConstraintKinds            #-}
+{-# LANGUAGE DeriveFunctor              #-}
+{-# LANGUAGE FlexibleInstances          #-}
+{-# LANGUAGE GeneralizedNewtypeDeriving #-}
+{-# LANGUAGE MultiParamTypeClasses      #-}
+{-# LANGUAGE PolyKinds                  #-}
+{-# LANGUAGE RankNTypes                 #-}
+{-# LANGUAGE UndecidableInstances       #-}
+
+module Lib where
+
+import           Control.Category
+import           Control.Monad.Free
+import           Control.Monad.IO.Class
+import           Control.Monad.Reader
+import           Prelude                hiding (id, (.))
+import qualified Prelude                as P
+
+newtype Interpret c d = Interpret (forall n a. d n => (forall m. c m => m a) -> n a)
+
+instance Category Interpret where
+  id = Interpret P.id
+  Interpret f . Interpret g = Interpret $ \h -> f (g h)
+
+class Monad m => MonadHttp m where
+  httpGet :: String -> m String
+
+newtype HttpApp a = HttpApp { runHttpApp :: IO a }
+  deriving (Functor, Applicative, Monad, MonadIO)
+
+instance MonadHttp HttpApp where
+  httpGet _ = return "[]" -- Should do actual IO
+
+runIO :: Interpret MonadHttp MonadIO
+runIO = Interpret $ \x -> liftIO $ runHttpApp x
+
+newtype MockHttp m a = MockHttp { runMockHttp :: m a }
+  deriving (Functor, Applicative, Monad)
+
+instance MonadReader r m => MonadReader r (MockHttp m) where
+  ask = MockHttp ask
+  local f (MockHttp m) = MockHttp $ local f m
+
+instance MonadReader String m => MonadHttp (MockHttp m) where
+  httpGet _ = ask
+
+runMock :: Interpret MonadHttp (MonadReader String)
+runMock = Interpret runMockHttp
+
+class Monad m => MonadRestApi m where
+  getUserIds :: m [Int]
+
+data RestApi a = GetUsers ([Int] -> a) deriving Functor
+
+instance MonadRestApi (Free RestApi) where
+  getUserIds = liftF $ GetUsers id
+
+runRestApi :: Interpret MonadRestApi MonadHttp
+runRestApi = Interpret $ iterA go where
+  go (GetUsers f) = do
+    response <- httpGet "url"
+    f $ read response
+
+runApplication :: Interpret MonadRestApi MonadIO
+runApplication = runIO . runRestApi
+
+mockApplication :: Interpret MonadRestApi (MonadReader String)
+mockApplication = runMock . runRestApi
+```
