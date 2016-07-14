@@ -92,7 +92,7 @@ type Url = String
 We can easily make an instance for `IO`, using `wreq`:
 
 ```haskell
-instace MonadHttp IO where
+instance MonadHttp IO where
     get = fmap (view responseBody) . Wreq.get 
     post url = fmap (view responseBody) . Wreq.post url . toJson
 ```
