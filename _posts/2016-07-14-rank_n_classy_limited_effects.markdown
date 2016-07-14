@@ -265,5 +265,18 @@ data Services
 
 (*Not going to lie, that syntax really pleases my inner Rubyist*)
 
+And, in a final act of cutting `IO` out of the program, we can parametrize that, yielding:
+
+```haskell
+data Services eff
+    = Services
+    { runHttp     :: eff `InterpreterFor` MonadHttp
+    , runDatabase :: eff `InterpreterFor` MonadDatabase
+    , runEmails   :: eff `InterpreterFor` MonadMandrill
+    -- etc...
+    }
+```
+
+
 Applications, then, are *just* an environment comonad of monad morphisms.
 More plainly, they're a record of effect interpreters.
