@@ -277,6 +277,13 @@ data Services eff
     }
 ```
 
+along with a final `Application` type that abstracts over that:
+
+```haskell
+type Application = forall m. ReaderT (Services m) m
+```
+
+([credit to /u/Faucelme on reddit for that!](https://www.reddit.com/r/haskell/comments/4std0v/rank_n_classy_limited_effects/d5c2rcb))
 
 Applications, then, are *just* an environment comonad of monad morphisms.
 More plainly, they're a record of effect interpreters.
