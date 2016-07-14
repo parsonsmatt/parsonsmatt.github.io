@@ -245,6 +245,25 @@ data Services g
 ```
 
 Which, hey... That's just a natural transformation! Specifically, a monad morphism.
+We can reify that type with `ConstraintKinds` to get:
+
+```haskell
+type InterpreterFor g eff = forall a. (forall f. eff f => f a) -> g a
+```
+
+We can read this as: You choose the `eff`ect you want to interpret, and the monad you want to interpret it to.
+But you can't choose the underlying concrete `f`, nor can you introspect on the `a`s to do so.
+
+If you allow `TypeOperators`, then it even reads nicely, and we can replace our `IO` services with:
+
+```haskell
+data Services
+    = Services
+    { runHttp :: IO `InterpreterFor` MonadHttp 
+    }
+```
+
+(*Not going to lie, that syntax really pleases my inner Rubyist*)
 
 Applications, then, are *just* an environment comonad of monad morphisms.
 More plainly, they're a record of effect interpreters.
