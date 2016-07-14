@@ -119,8 +119,9 @@ instance MonadHttp MockHttp where
         state <- ask >>= liftIO . readIORef
         pure (Map.lookup url state)
     post url body = do
-        state <- ask >>= liftIO . readIORef
-        writeIORef (Map.insert url (encode body) state)
+        ref <- ask
+        state <- liftIO (readIORef ref)
+        liftIO (writeIORef ref (Map.insert url (encode body) state))
         pure "200 OK"
 ```
 
