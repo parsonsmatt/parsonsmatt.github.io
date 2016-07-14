@@ -18,7 +18,7 @@ If you're using `Reader`, `State`, `Logger`, `Http`, `Database`, `Email`, etc. (
 More recently, the [free monad](http://www.haskellforall.com/2012/06/you-could-have-invented-free-monads.html) approach and [extensible-effects](https://hackage.haskell.org/package/extensible-effects) on top of it have become more popular.
 Free monads solve the $O(n^2)$ instance problem, and they offer the ability to introspect on the computation and perform optimizations on it.
 However, they have worse performance and are more complicated to implement.
-You either have to build a giant command functor with an equally complex interpreter, or you need to build many small languages.
+You either have to build a giant command functor with an equally complex interpreter, or you need to build many small languages and manage their combinations.
 
 I've been working on a very promising pattern at the day job lately, and it's worked out quite well thus far.
 It seems to solve the issues involved with a ridiculous proliferation of monad instances *and* the complications involved with free monads, while still giving most of the benefits of both.
