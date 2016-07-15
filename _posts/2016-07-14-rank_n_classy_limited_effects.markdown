@@ -232,7 +232,7 @@ I'm inspired by [Tomas Petricek's Coeffects](http://tomasp.net/coeffects/) conce
 It seems like this approach allows you to request an environment comonad of interpreters for effects.
 By reifying these effects at the value level (a trick similar to [Gabriel Gonzalez's First Class Module Records](http://www.haskellforall.com/2012/07/first-class-modules-without-defaults.html)), we avoid a lot of the problems with type classes and instances, while keeping the niceties of their abstractions.
 
-An environment comonad is a essentially a really complicated way of saying "tuple", and that's isomorphic to a reader monad.
+An environment comonad is a essentially a really complicated way of saying "tuple", and that's left adjoint[^1] to a reader monad.
 We get nice syntax sugar for monads and not comonads in Haskell, so `ReaderT Services` provides a nice approach to packaging up your environment's *request* context.
 
 What's next? Well, you might note that the `Services` type was a little restricted. Indeed, the following is a bit nicer:
@@ -363,3 +363,5 @@ runApplication = runIO . runRestApi
 mockApplication :: Interpret MonadRestApi (MonadReader String)
 mockApplication = runMock . runRestApi
 ```
+
+[^1]: I had initially written "isomorphic," and was corrected by George Wilson who reminded me that tuple and reader form an adjunction, and that the isomorphism is between Kleisli (Reader r) and CoKleisli (Env r)
