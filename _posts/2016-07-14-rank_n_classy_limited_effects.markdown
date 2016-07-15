@@ -186,7 +186,7 @@ Now, when you need to run HTTP requests, you can do:
 foobar :: Application Int
 foobar = do
     service <- ask
-    runHttp service $ do
+    lift $ runHttp service $ do
         page <- get "http://wwww.google.com/"
         post "http://secret-data" (collectData page)
         pure (length page)
