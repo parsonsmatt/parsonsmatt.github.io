@@ -102,7 +102,7 @@ This small change has had a pretty dramatic effect on how the type signature rea
 `fix :: (a -> a) -> a` reads like "Give me a function that takes a single argument and returns a value of the same type, and I'll give you a value of that type."
 The two parameter version reads like: 
 
-> Give me a function that takes two arguments: the first being a function from `b` to `c`, and the second being a value of type `c`.
+> Give me a function that takes two arguments: the first being a function from `b` to `c`, and the second being a value of type `b`.
 > Then, if you give me a `b`, then, I'll give you a `c`.
 
 This is much more interesting. What might an example of this look like?
