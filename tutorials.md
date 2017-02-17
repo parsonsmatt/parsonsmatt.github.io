@@ -12,6 +12,10 @@ Here are all of my tutorials, collected here and separated by topic.
 
 [servant-persistent]({% post_url 2015-06-07-servant-persistent %})
 
+## Object Oriented Programming in Haskell
+
+1. [Introduction]({% post_url 2017-02-17-object_oriented_programming_in_haskell %})
+2. [Data Inheritance]({% post_url 2017-02-17-ooph_data_inheritance %})
 
 # PureScript
 
