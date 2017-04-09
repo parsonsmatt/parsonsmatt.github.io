@@ -9,7 +9,7 @@ Haskell's a powerful and flexible language for modeling the real world.
 By pushing information into the type level, we can make our program safer and easier to refactor.
 Where many safety features provide limitations, we also get flexibility from these.
 
-So let's look at a common Real World data set: a microblogging system with Users, Posts, and Groups!
+So let's look at a common Real World data set: a microblogging system with Users, Posts, and Organizations!
 
 # The Data Model
 
@@ -47,7 +47,7 @@ coworkers user = case userOrganization user of
     Nothing -> 
         Nothing
     Just organization ->
-        organizationUsers organization
+        Just (organizationUsers organization)
 -- or,
 coworkers = fmap organizationUsers . userOrganization
 ```
