@@ -301,7 +301,7 @@ data IntBool a where
 ```
 
 This declaration creates a new type `IntBool`, which has the *kind* `* -> *`.
-It has two constructors: `Int`, which has the type `Int -> IntBool Int`, and `Bool`, whihc has the type `Bool -> IntBool Bool`.
+It has two constructors: `Int`, which has the type `Int -> IntBool Int`, and `Bool`, which has the type `Bool -> IntBool Bool`.
 
 Since the constructors carry information about the resulting type, we get bonus information about the type when we pattern match on the constructors!
 Check this signature out:
@@ -581,7 +581,7 @@ This doesn't really do what we want, which we can verify in the REPL:
 VCons 3 (VCons 1 (VCons 2 (VNil)))
 ```
 
-The answer *should* be `VCons 1 (VCons 2 (VCons 3 VNil))`.
+The answer *should* be `VCons 1 (VCons 3 (VCons 2 VNil))`.
 However, our Vector type only encodes the *length* of the vector in the type.
 The sequence is not considered.
 Anything that isn't lifted into the type system doesn't get any correctness guarantees.
