@@ -334,6 +334,11 @@ data Vector (n :: Nat) a where
 We're defining a *type* `Vector` with *kind* `Nat -> * -> *`.
 The first type parameter is the length index.
 The second type parameter is the type of values contained in the vector.
+Note that, in order to compile something with a *kind* signature, we need...
+
+```haskell
+{-# LANGUAGE KindSignatures #-}
+```
 
 Thinking about types often requires us to think in a logical manner.
 We often need to consider things inductively when constructing them, and recursively when destructing them.
@@ -758,6 +763,14 @@ This causes a compile error, requiring that we enable yet another language exten
 {-# LANGUAGE FlexibleInstances #-}
 ```
 
+If you're doing this in another file than the type family above, you'll also get an error about `FlexibleContexts`.
+It turns out that enabling `UndecidableInstances` implies `FlexibleContexts` for some reason.
+So let's throw that one on too, for good measure:
+
+```haskell
+{-# LANGUAGE FlexibleContexts #-}
+```
+
 This compiles, and we can finally `show HNil` and it works out.
 Now, we must recurse!
 
@@ -795,7 +808,7 @@ It'll be similar to the `Show` instance, but require a bit more stuff.
 # Extensible Records
 
 There are a few variants on extensible records in Haskell.
-Here's a tiny implementation that requires yet moree extensions:
+Here's a tiny implementation that requires yet more extensions:
 
 ```haskell
 {-# LANGUAGE PolyKinds        #-}
@@ -818,7 +831,7 @@ data HRec xs where
 The `s` parameter is going to be a type with the *kind* `Symbol`.
 `Symbol` is defined in `GHC.TypeLits`, so we need that import to do the fun stuff.
 
-We'll construct a value using the TypeApplications syntax, so a record will look like:
+We'll construct a value using the `TypeApplications` syntax, so a record will look like:
 
 ```haskell
 λ> HCons (Named @"foo" 'a') (HCons (Named @"bar" (3 :: Int)) HEmpty)
@@ -867,7 +880,6 @@ instance (Show a)
 
 Next up, we need the key as a string.
 Which means we need to use `symbolVal`, which takes a `proxy s` and returns the `String` associated with the `s` provided that `s` is a `KnownSymbol`.
-We also need to turn on `ScopedTypeVariables` langauge extension, because otherwise the type signature thinks the new variables are fresh.
 
 ```haskell
 instance (Show a, KnownSymbol s) 
@@ -875,6 +887,36 @@ instance (Show a, KnownSymbol s)
     show (HCons (Named a) rest) =
         let val = show a
             key = symbolVal (undefined :: x s)
+```
+
+At this point, you're probably going to get an error like `No instance for 'KnownSymbol s0'`.
+This is because Haskell's type variables have a very limited scope by default.
+When you write:
+
+```haskell
+topLevelFunction :: a -> (a -> b) -> b
+topLevelFunction a = go
+  where
+    go :: (a -> b) -> b
+    go f = f a
+```
+
+Haskell interprets each type signature as it's own *scope* for the type variables.
+This means that the `a` and `b` variables in the `go` helper function are different type variables, and a more precise way to write it would be:
+
+
+```haskell
+topLevelFunction :: a0 -> (a0 -> b0) -> b0
+topLevelFunction a = go
+  where
+    go :: (a1 -> b1) -> b1
+    go f = f a
+```
+
+If we want for type variables to have a scope similar to other variables, we need another extension:
+
+```haskell
+{-# LANGUAGE ScopedTypeVariables #-}
 ```
 
 Finally, we need to show the rest of the stuff!
@@ -893,7 +935,7 @@ This gives us a rather satisfying `Show` instance, now:
 
 ```haskell
 λ> HCons (Named @"foo" 'a') (HCons (Named @"bar" (3 :: Int)) HEmpty)
-(foo: 'a')(bar: 3)HEmpty
+(foo: 'a') (bar: 3) HEmpty
 ```
 
 # Exercise:
