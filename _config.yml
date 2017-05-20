@@ -40,13 +40,13 @@ nav:
   - name: "Github"
     href: "//www.github.com/parsonsmatt"
   - name: "Email"
-    href: "mailto:hello@parsonsmatt.org"
+    href: "mailto:parsonsmatt@gmail.com"
 
 ##Some commonly used links
 links:
   facebook: parsonsmatt
   twitter: mattoflambda
-  email: hello@parsonsmatt.org
+  email: parsonsmatt@gmail.com
   github: parsonsmatt
 
 ##The website description (to be used in meta tags)
