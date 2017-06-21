@@ -82,7 +82,7 @@ convert :: IO a -> Handler a
 
 Hole driven development to the rescue!
 HDD is where you create a type hole and fill it in with your 'best guess' based on the surrounding context.
-Typically you'll drop another type hope, which allows you to interactively develop with the compiler.
+Typically you'll drop another type hole, which allows you to interactively develop with the compiler.
 
 ```haskell
 convert :: IO a -> Handler a
