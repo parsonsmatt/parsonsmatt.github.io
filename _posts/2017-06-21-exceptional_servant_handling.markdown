@@ -29,7 +29,7 @@ Maybe you don't even like monad transformers at all, and just want your handlers
 
 ![stupid expanding brain meme]({{ site.url }}/brain-meme.jpg-large)
 
-Well, it turns out, that's really easy!
+Well, it turns out, that doesn't take much code!
 
 # Nat Simplification
 
