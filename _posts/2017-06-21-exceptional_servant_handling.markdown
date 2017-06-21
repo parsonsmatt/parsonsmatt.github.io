@@ -16,7 +16,7 @@ For non-`ServantErr` exceptions, Servant lets the serving backend (typically [`W
 
 # `ExceptT e IO` antipattern
 
-Perhaps you've read Michael Snoyman's [Exceptiosn Best Practices In Haskell](https://www.fpcomplete.com/blog/2016/11/exceptions-best-practices-haskell) blog post.
+Perhaps you've read Michael Snoyman's [Exceptions Best Practices In Haskell](https://www.fpcomplete.com/blog/2016/11/exceptions-best-practices-haskell) blog post.
 Perhaps you're sold on the idea -- why bother with `ExceptT` over `IO` when `IO` already can throw runtime errors?
 Furthermore, maybe you're concerned with performance -- the `>>=` implementation for `ExceptT` must do case analysis on the result to determine what to do next.
 Carter Schonwald's [monad-ste](https://hackage.haskell.org/package/monad-ste) package provides a more efficient way of dealing with exceptions, as it uses GHC's runtime exception system.
@@ -27,7 +27,7 @@ I'm in the first camp -- I don't want `ExceptT` over `IO`.
 
 Maybe you don't even like monad transformers at all, and just want your handlers to be in plain ol' `IO`.
 
-![stupid expanding brain meme](brain-meme.jpg-large)
+![stupid expanding brain meme]({{ site.url }}/brain-meme.jpg-large)
 
 Well, it turns out, that's really easy!
 
