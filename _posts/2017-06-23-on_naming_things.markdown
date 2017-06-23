@@ -292,6 +292,8 @@ where `Control.Monad.Metrics` will export the types, and `Metrics` will export t
 This cuts down on the effort required by the user.
 
 This scheme requires a lot of maintenance on the part of the user, or a dependency on tooling that may or may not be available for a user's editor solution.
+Furthermore, this encourages a style of naming where the same basic identifier gets used many times: [`empty`](http://hoogle.haskell.org/?hoogle=empty&scope=set%3Astackage) is used 25 times in the Stackage library.
+This makes it more difficult for tooling to know what to suggest in these cases.
 
 ## Module Isolation
 
@@ -398,3 +400,9 @@ main = do
 
 Aesthetically, I think I prefer `Map.insert` over `insertMap`.
 Unfortunately, until we're able to re-export modules qualified, we're unable to use the qualified imports conveniently.
+
+# IMO
+
+In my opinion, desiging libraries for open import is the most convenient and useful way to go.
+Alternatively, it *would* be nice to have a Template Haskell function that can take a module designed for qualified import and mechanically convert it to this style.
+Then you could design with qualified import in mind and people that want an open import strategy could simply use the function and make their own.
