@@ -97,7 +97,7 @@ Sometimes you'll have `Data.Text`, `Data.Text.Encoding`, and `Data.Text.IO` all 
 Qualified imports are great sometimes, but they don't seem to be a great solution *all* of the time.
 So typically people use another strategy for making the namespace clean:
 
-## Explicit Export Lists
+## Explicit Import Lists
 
 You can also list out all of the terms that you use explicitly after the import.
 This is a good practice, because it doesn't make the code more verbose, it just makes the import lists bigger.
@@ -178,7 +178,7 @@ It's not an issue to find where a term is from if you have a 100 line module wit
 If you have a 1,000 line module with 20 imports, you're in trouble.
 By breaking your modules up into smaller logical chunks, you can avoid this problem, at the expense of having your code spread out more.
 
-Most codebases use a combination of qualified imports, explicit export lists, and open imports.
+Most codebases use a combination of qualified imports, explicit import lists, and open imports.
 The decision tends to be made in terms of some combination of taste and the *design* of the library/module that you're importing.
 Consider these modules:
 
