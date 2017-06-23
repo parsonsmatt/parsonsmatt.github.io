@@ -39,7 +39,7 @@ If you've enabled `NoImplicitPrelude` language extension, then you won't even ha
 
 As we add imports, we add new terms.
 Each new term might be unfamiliar to a programmer who is unfamiliar with the import.
-As you add more and more imports, it's _import_ant (sorry) to make it easy for people to find where that term comes from.
+As you add more and more imports, it's important (sorry) to make it easy for people to find where that term comes from.
 
 Consider this import list:
 
