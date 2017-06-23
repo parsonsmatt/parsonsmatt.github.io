@@ -403,6 +403,6 @@ Unfortunately, until we're able to re-export modules qualified, we're unable to 
 
 # IMO
 
-In my opinion, desiging libraries for open import is the most convenient and useful way to go.
+In my opinion, designing libraries for open import is the most convenient and useful way to go.
 Alternatively, it *would* be nice to have a Template Haskell function that can take a module designed for qualified import and mechanically convert it to this style.
 Then you could design with qualified import in mind and people that want an open import strategy could simply use the function and make their own.
