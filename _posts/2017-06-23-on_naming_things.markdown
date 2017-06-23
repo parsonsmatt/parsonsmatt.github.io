@@ -1,5 +1,5 @@
 ---
-title: "On Naming Things"
+title: "On Naming Things: Library Design"
 date: 2017-06-23
 layout: post
 categories: programming
