@@ -1,5 +1,5 @@
 ---
-title: "Inverted Mocking"
+title: "Invert Your Mocks!"
 date: 2017-07-27
 layout: post
 categories: programming
@@ -9,7 +9,7 @@ Mocking comes up a lot in discussions of testing effectful code in Haskell.
 One of the advantages for `mtl` type classes or `Eff` freer monads is that you can swap implementations and run the same program on different underlying interpretations.
 This is cool!
 However, it's an extremely heavy weight technique, with a ton of complexity.
-I've recently gravitated to mostly doing everything in this sort of transformer:
+I've recently gravitated to mostly doing everything in this sort of type:
 
 ```haskell
 newtype App a = App { unApp :: ReaderT AppCtx IO a }
@@ -287,6 +287,9 @@ Your effects should ideally not be anywhere near your business logic.
 Pure functions from `a` to `b` are ridiculously easy to test, especially if you can express properties.
 
 If your business logic really needs to perform effects, then try the simplest possible techniques first: functions and abstractions.
+Ultimately, I believe that it's simpler and easier to write and test functions that take pure values.
+These are agnostic to *where* the data comes from, and don't need to be mocked at all.
+This transformation is typically easier than introducing `mtl` classes, monad transformers, `Eff`, or similar techniques.
 
 # What if I *need* to?
 
