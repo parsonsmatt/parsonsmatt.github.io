@@ -34,21 +34,23 @@ doWork = do
 
 If we have our `mtl` or `Eff` or OOP mocking hats on, we might think:
 
-> I know! We need to mock our HTTP, database, and Redis effects. Then we can control the environment using mock implementations, and verify that the results are sound!
+> I know! We need to mock our HTTP, database, and Redis effects.
+> Then we can control the environment using mock implementations, and verify that the results are sound!
 
-Hmm. Let's step back and apply some more elementary techniques to this problem.
+Let's step back and apply some more elementary techniques to this problem.
 I bet we can simplify our solution to testing.
 
 # Decomposing Effects
 
 The first thing we need to do is recognize that *effects* and *values* are separate, and try to keep them as separate as possible.
+This is a basic principle of purely functional programming, and we would be wise to take it's heed.
 Generally speaking, functions that look like:
 
 ```haskell
 doWork :: App ()
 ```
 
-are not functional.
+are not functional (in the "functional programming" sense).
 The only point to this is to run it for the effect it has on the outside world.
 We can tell just by looking at the type signature!
 So, let's look at what it does, and how we might test it:
@@ -101,7 +103,8 @@ lookMaNoInputs things'users =
     runRedis (writeKey (userRedisKey user) result)
 ```
 
-Ah, can we decompose this further?
+We've now extracted all of the "input effects."
+Can we decompose this further?
 We can!
 Let's inspect our output effect:
 
@@ -127,6 +130,7 @@ lookMaNoInputs users = do
 ```
 
 neat! We've isolated the core business logic out and now we can write nice unit tests on that business logic.
+All of the business logic has been excised from the effectful code, and we've reduced the amount of code we need to test.
 
 # Decomposition: Conduit-style
 
@@ -218,14 +222,10 @@ The literal definition of lambda abstraction!
 ```haskell
 doWorkAbstract
     :: Monad m
-    => m Query
-    -- ^ The HTTP getUserQuery
-    -> (Query -> m [User])
-    -- ^ The database action
-    -> (User -> m Thing)
-    -- ^ The getSomething function
-    -> (RedisKey -> Result -> m ())
-    -- ^ finally, the redis action
+    => m Query -- ^ The HTTP getUserQuery
+    -> (Query -> m [User]) -- ^ The database action
+    -> (User -> m Thing) -- ^ The getSomething function
+    -> (RedisKey -> Result -> m ()) -- ^ finally, the redis action
     -> m ()
 doWorkAbstract getUserQuery getUsers getSomething redisAction = do
   query <- getUserQuery
@@ -287,3 +287,48 @@ Your effects should ideally not be anywhere near your business logic.
 Pure functions from `a` to `b` are ridiculously easy to test, especially if you can express properties.
 
 If your business logic really needs to perform effects, then try the simplest possible techniques first: functions and abstractions.
+
+# What if I *need* to?
+
+Sometimes, you really just can't avoid testing effectful code.
+A common pattern I've noticed is that people want to make things abstract at a level that is far too low.
+You want to make the abstraction as *weak* as possible, to make it *easy* to mock.
+
+Consider the common case of wanting to mock out the database.
+This is reasonable: database calls are extremely slow!
+Implementing a mock database, however, is an extremely difficult task -- you essentially have to implement a database.
+Where the behavior of the database differs from your mock, then you'll have test/prod mismatch that will blow up at some point.
+
+Instead, go a level up -- create a new indirection layer that can be satisfied by either the database or a simple to implement mock.
+You can do this with a type class, or just by abstracting the relevant functions concretely.
+Abstracting the relevant functions is the easiest and simplest technique, but it's not unreasonable to also write:
+
+```haskell
+data UserQuery
+  = AllUsers
+  | UserById UserId
+  | UserByEmail Email
+
+class Monad m => GetUsers m where
+  runUserQuery :: UserQuery -> m [User]
+```
+
+This is *vastly* more tenable interface to implement that a SQL database!
+Let's write our instances, one for the [`persistent` ](https://hackage.haskell.org/package/persistent) library and another for a mock that uses QuickCheck's `Gen` type:
+     
+```haskell
+instance MonadIO m => GetUsers (SqlPersistT m) where
+  runUserQuery = selectList . convertToQuery
+
+instance GetUsers Gen where
+  runUserQuery query = 
+    case query of
+      AllUsers -> 
+        arbitrary
+      UserById userId ->
+        take 1 . fmap (setUserId userId) <$> arbitrary
+      UserByEmail userEmail ->
+        take 1 . fmap (setUserEmail userEmail) <$> arbitrary
+```
+
+Alternatively, you can just pass functions around manually instead of using the type class mechanism to pass them for you.
