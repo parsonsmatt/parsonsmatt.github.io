@@ -389,6 +389,7 @@ instance CanFail IO where
                 return a
             Error exception ->
                 second
+    win a = return a
 ```
 
 Now, we can use our `safeDivision` function in `IO`, just like it were `print` or similar!
