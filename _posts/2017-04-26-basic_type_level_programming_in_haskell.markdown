@@ -824,8 +824,8 @@ First, we must define the type of our fields, and then our record:
 newtype s >> a = Named a
 
 data HRec xs where
-    HEmpty :: Hrec '[]
-    HCons :: (s >> a) -> HRec xs -> Hrec (s >> a ': xs)
+    HEmpty :: HRec '[]
+    HCons :: (s >> a) -> HRec xs -> HRec (s >> a ': xs)
 ```
 
 The `s` parameter is going to be a type with the *kind* `Symbol`.
@@ -886,7 +886,7 @@ instance (Show a, KnownSymbol s)
     => Show (HRec (s >> a ': xs)) where
     show (HCons (Named a) rest) =
         let val = show a
-            key = symbolVal (undefined :: x s)
+            key = symbolVal (Proxy :: Proxy s)
 ```
 
 At this point, you're probably going to get an error like `No instance for 'KnownSymbol s0'`.
@@ -926,7 +926,7 @@ instance (Show a, KnownSymbol s, Show (HRec xs))
     => Show (HRec (s >> a ': xs)) where
     show (HCons (Named a) rest) =
         let val = show a
-            key = symbolVal (undefined :: x s)
+            key = symbolVal (Proxy :: Proxy s)
             more = show rest
          in "(" ++ key ++ ": " ++ val ++ ") " ++ more
 ```
