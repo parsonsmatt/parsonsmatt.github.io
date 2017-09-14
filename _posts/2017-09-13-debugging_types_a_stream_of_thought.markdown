@@ -463,7 +463,7 @@ to the backend we want.
 # sigh
 
 Unfortunately, we're still running into the same issue.
-Here's the error output we get with those chagnes to the library:
+Here's the error output we get with those changes to the library:
 
 ```haskell
 /home/matt/Projects/sellerlabs-hs/texas-toast/src/Texas/Query/Venue.hs:19:20: error:
