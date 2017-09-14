@@ -85,7 +85,7 @@ class Esqueleto query expr backend => From query expr backend a where
 ```
 
 So `From` is a class that explains how to select a value of type `a` using a `query` that has an instance from `Esqueleto` class.
-We need to dig intot he Esqueleto class to identify why it's coercing the backend.
+We need to dig into the Esqueleto class to identify why it's coercing the backend.
 
 Here is the class definition for Esqueleto:
 
