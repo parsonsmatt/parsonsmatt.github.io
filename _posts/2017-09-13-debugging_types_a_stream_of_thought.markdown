@@ -20,6 +20,8 @@ They've been tremendously helpful for sharing workflow, thought processes, and "
 Since this debugging workflow was mostly for open source stuff (Esqueleto, Persistent, and my wrapper library), I figured I'd post the entire flow here.
 It's mostly stream-of-thought and the direction isn't great, but it pretty closely mirrors the work and research I had to do to solve the problem.
 
+(For best accuracy, read along while listening [to some fine Ghibli tunes](https://www.youtube.com/watch?v=3jWRrafhO7M))
+
 # `persistent-typed-db`
 
 The library will allow us to have type safety when running database queries, so that we don’t accidentally issue a texas-toast account query on an FBG master database (as an example).
