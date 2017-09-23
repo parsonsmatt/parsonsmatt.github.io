@@ -722,7 +722,7 @@ foldFree
 foldFree morph (Done a) = return a
 foldFree morph (Free f) = do
     a <- morph f
-    foldFree f a
+    foldFree morph a
 ```
 
 This reads as:
