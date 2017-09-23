@@ -43,7 +43,7 @@ The exact implementation is less important.
 We say that "List is the free monoid."
 What we mean is that:
 
-> This structure gives you a free _monoid_ for a given _value_.
+> This structure gives you a free _monoid_ for a given _type_.
 
 So we can equip any value with list and it becomes a monoid, for free.
 This expansion is witnessed by the instance:
