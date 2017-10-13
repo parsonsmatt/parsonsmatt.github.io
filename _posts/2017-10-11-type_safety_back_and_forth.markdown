@@ -85,7 +85,7 @@ newtype NonZero a = UnsafeNonZero { unNonZero :: a }
 
 pattern NonZero a = UnsafeNonZero a
 
-nonZero :: Num a => a -> Maybe (NonZero a)
+nonZero :: (Num a, Eq a) => a -> Maybe (NonZero a)
 nonZero 0 = Nothing
 nonZero i = Just (UnsafeNonZero i)
 ```
