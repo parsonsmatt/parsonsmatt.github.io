@@ -128,7 +128,7 @@ There's no way to get it wrong.
 Alternatively, we can use a type for nonempty lists!
 
 ```haskell
-newtype NonEmpty a = a :| [a]
+data NonEmpty a = a :| [a]
 
 safeHead :: NonEmpty a -> a
 safeHead (x :| xs) = x
