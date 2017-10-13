@@ -10,8 +10,8 @@ Haskell has a few notable ways of handling potential failure, the most famous be
 
 ```haskell
 data Maybe a
-    = Just a
-    | Nothing
+    = Nothing
+    | Just a
 ```
 
 We can use `Maybe` as the result of a function to indicate: 
