@@ -141,6 +141,10 @@ A more complicated example of this technique is the [`justified-containers`](htt
 The library uses the type system to prove that a given key exists in the underlying `Map`.
 From that point on, lookups using those keys are *total*: they are guaranteed to return a value, and they don't return a `Maybe`.
 
+This works even if you `map` over the `Map` with a function, transforming values.
+You can also use it to ensure that two maps share related information.
+It's a powerful feature, beyond just having type safety.
+
 # The Ripple Effect
 
 When some piece of code hands us responsibility, we have two choices:
