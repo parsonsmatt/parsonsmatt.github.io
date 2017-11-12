@@ -342,7 +342,7 @@ Now, we get to the Applicative instance...
 ```haskell
 instance Applicative ((->) r) where
     pure = const
-    f <*> g = \x -> f (g x) x
+    f <*> g = \x -> f x (g x)
 ```
 
 The pattern `f <$> g <*> h` with explicit parentheses is `(f <$> g) <*> x`.
