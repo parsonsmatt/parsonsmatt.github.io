@@ -88,7 +88,7 @@ Given:
 import Control.Exception.Safe
 
 catch 
-    :: (MonadCatch m, Exceptione e)
+    :: (MonadCatch m, Exception e)
     => m a
     -> (e -> m a)
     -> m a
