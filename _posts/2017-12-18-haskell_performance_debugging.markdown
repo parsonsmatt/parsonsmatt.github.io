@@ -5,7 +5,7 @@ layout: post
 categories: programming
 ---
 
-Someone posted to reddit a Treap implementation that was slow.
+Someone posted [a Treap implementation to reddit](https://www.reddit.com/r/haskell/comments/7km60k/optimization_ideas_in_treap_implementation/) that was slow.
 Let's analyze it and determine what's up.
 
 The repo is available [here](https://github.com/parsonsmatt/performance-debugging)
