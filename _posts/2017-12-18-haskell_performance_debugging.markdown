@@ -8,7 +8,7 @@ categories: programming
 Someone posted to reddit a Treap implementation that was slow.
 Let's analyze it and determine what's up.
 
-The repo is here: TODO: link to repo
+The repo is available [here](https://github.com/parsonsmatt/performance-debugging)
 
 # Base Run
 
@@ -423,4 +423,3 @@ Seriously, don't.
 Make an `hlint` rule to never use it.
 Ban it from your codebase.
 Make a GHC proposal to repeal and replace it in `Prelude`.
-
