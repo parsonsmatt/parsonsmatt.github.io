@@ -179,7 +179,7 @@ Here's the output of the heap profile now:
 ![The output of -hd]({{ site.url }}/treap-strict-nodes.png)
 
 This hasn't made a huge difference, but it's certainly a bit better.
-The time and allocation profile tell another story: we've gone form 2.49 seconds to run the program to 0.97 seconds.
+The time and allocation profile tell another story: we've gone from 2.49 seconds to run the program to 0.97 seconds.
 
 I'm feeling pretty encouraged by this, so I'm going to make the tree spine-strict as well.
 
