@@ -110,7 +110,7 @@ So, these are my impressions before I get started with experimenting.
 In order to test my "tuple allocation" hypothesis, I'm going to run a heap profiling run.
 We'll use the `-hd` flag to get the data constructors that are allocated:
 
-![](treap-base-hd)
+![](treap-base-hd.png)
 
 Neat! Okay, so this graph tells us that we allocate a ton of nodes, tuples, and `I#` (the constructor for `Int`), before we start allocating a bunch of `Tree` constructors.
 Given the `main` function we're dealing with, that's not entirely unreasonable.
