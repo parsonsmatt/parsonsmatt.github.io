@@ -110,7 +110,7 @@ So, these are my impressions before I get started with experimenting.
 In order to test my "tuple allocation" hypothesis, I'm going to run a heap profiling run.
 We'll use the `-hd` flag to get the data constructors that are allocated:
 
-![](treap-base-hd.png)
+![The outpput of -hd]({{ site.url }}/treap-base-hd.png)
 
 Neat! Okay, so this graph tells us that we allocate a ton of nodes, tuples, and `I#` (the constructor for `Int`), before we start allocating a bunch of `Tree` constructors.
 Given the `main` function we're dealing with, that's not entirely unreasonable.
@@ -176,7 +176,7 @@ But we're actually doing 55% GC now, which is worse than before!
 
 Here's the output of the heap profile now:
 
-![](treap-strict-nodes.png)
+![The output of -hd]({{ site.url }}/treap-strict-nodes.png)
 
 This hasn't made a huge difference, but it's certainly a bit better.
 The time and allocation profile tell another story: we've gone form 2.49 seconds to run the program to 0.97 seconds.
@@ -234,7 +234,7 @@ We're down from 2.4 seconds to 0.95 seconds, which is a substantial improvement.
 
 Let's look at the heap output now:
 
-![](treap-strict-spine.png)
+![heap output with strict spine]({{ site.url }}/treap-strict-spine.png)
 
 Now that's a lot closer!
 We'll note that we generate a big spike of memory, and then collect it all.
@@ -296,7 +296,7 @@ The heap profile didn't change, either.
 I'm going to do a run now with `-hc` to see *where* these tuples are getting allocated.
 `-hc` records which functions are actually producing the data, which tells us where to focus our efforts.
 
-![](treap-strict-tuple-hc.png)
+![Output of -hc]({{ site.url }}/treap-strict-tuple-hc.png)
 
 Ah, nuts! `splitTreap` is allocating a tiny amount of memory now.
 It looks like we're allocating the most in `buildNode`, `feedFold`, and `insertMany`.
@@ -365,7 +365,7 @@ We're also only spending 21% of our time in garbage collection, which is a huge 
 
 Let's check out the heap profile:
 
-![](treap-foldl.png)
+![heap profile after foldl']({{ site.url }}/treap-foldl.png)
 
 # Never Ever Use `foldl`
 
@@ -405,7 +405,7 @@ Here's `-s`:
 Not great -- actually a little worse than where we started!
 What about the heap profile?
 
-![](treap-just-foldl.png)
+![heap profile with only foldl]({{ site.url }}/treap-just-foldl.png)
 
 This profile is also nearly the same!
 The allocations appear to be a little smoother, but not significantly different.
