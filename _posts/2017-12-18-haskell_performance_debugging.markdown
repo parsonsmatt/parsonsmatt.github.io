@@ -411,6 +411,36 @@ This profile is also nearly the same!
 The allocations appear to be a little smoother, but not significantly different.
 So just switching to `foldl'` without also making the data structure strict didn't help.
 
+# Final Run
+
+Finally, we disable profiling and run the code again:
+
+```
+     650,786,800 bytes allocated in the heap
+     132,515,880 bytes copied during GC
+       7,278,528 bytes maximum residency (17 sample(s))
+         353,296 bytes maximum slop
+              21 MB total memory in use (0 MB lost due to fragmentation)
+
+                                     Tot time (elapsed)  Avg pause  Max pause
+  Gen  0      1233 colls,     0 par    0.112s   0.100s     0.0001s    0.0004s
+  Gen  1        17 colls,     0 par    0.056s   0.056s     0.0033s    0.0122s
+
+  INIT    time    0.000s  (  0.000s elapsed)
+  MUT     time    0.212s  (  0.341s elapsed)
+  GC      time    0.168s  (  0.156s elapsed)
+  EXIT    time    0.000s  (  0.000s elapsed)
+  Total   time    0.436s  (  0.497s elapsed)
+
+  %GC     time      38.5%  (31.3% elapsed)
+
+  Alloc rate    3,069,749,056 bytes per MUT second
+
+  Productivity  61.5% of total user, 68.7% of total elapsed
+```
+
+We get 21MB total memory usage and 0.43 seconds of execution time.
+
 # Conclusion?
 
 ## Strict in the spine, lazy in the leaves
