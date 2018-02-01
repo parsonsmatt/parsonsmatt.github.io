@@ -6,7 +6,7 @@ permalink: /about/
 
 Hi! I’m Matt Parsons!
 I like to ride my bicycle, play guitar, learn cello, and occasionally program a computer.
-I'm a software engineer, currently doing a mix of Haskell, PHP, and JavaScript at Seller Labs.
+I work as a software engineer for IOHK.
 
 I started learning a software in Spring 2014 in my "intro to Java" course at UGA.
 JavaScript introduced me to functional programming that summer, and Ruby on Rails pointed me towards Sandi Metz and Smalltalk-inspired object oriented design.
