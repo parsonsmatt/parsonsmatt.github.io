@@ -10,7 +10,7 @@ Here are all of my tutorials, collected here and separated by topic.
 
 - [Template Haskell]({% post_url 2015-11-15-template_haskell %})
 - [servant-persistent]({% post_url 2015-06-07-servant-persistent %})
-- [Basic type level programming]({% post_url 2017-04-26-basic_type_level_progrmaming_in_haskell %})
+- [Basic type level programming]({% post_url 2017-04-26-basic_type_level_programming_in_haskell %})
 - [Servant Route Smooshing]({% post_url 2018-03-14-servant_route_smooshing %}), a more advanced type-level programming
 
 ## Object Oriented Programming in Haskell
