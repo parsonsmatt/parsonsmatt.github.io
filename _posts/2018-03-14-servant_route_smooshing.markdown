@@ -508,8 +508,8 @@ type family Smoosh xs rt where
         Smoosh (Capture pname pty ': xs) rest
     Smoosh xs ((sym :: Symbol) :> rest) =
         Smoosh (sym ': xs) rest
-    Smoosh _ (Get i) =
-        Get i
+    Smoosh xs (Get i) =
+        ApplyCaptures xs (Get i)
     Smoosh xs (r1 :<|> r2) =
         ApplyCaptures xs (SmooshRoute r1)
         :<|> ApplyCaptures xs (SmooshRoute r2)
