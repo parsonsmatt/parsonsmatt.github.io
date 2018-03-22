@@ -107,7 +107,7 @@ class AcquireUser m => UpdateUser m where
 ```
 
 We can use this class to provide a mock database for testing, without having to write an entire SQL database mocking system.
-These classes also come in handy because you can swap out the underlying production implemntations.
+These classes also come in handy because you can swap out the underlying production implementations.
 Suppose you have a microservices system going on, and `AcquireUser` is done through an HTTP API.
 Suddenly, your boss is convinced that monoliths are king, and gives you One Large Server To Rule Them All.
 Now your HTTP API has direct database access to the underlying data -- you can make SQL requests instead of HTTP!
