@@ -846,7 +846,7 @@ So, this type checks fine!
 Cool.
 But it does not Show, so we need to define a `Show` instance.
 
-Those string record fields only exist at the type level -- but we can use the `KnownSymbol` class to bring them back down to the type level using `SymbolVal`.
+Those string record fields only exist at the type level -- but we can use the `KnownSymbol` class to bring them back down to the value level using `symbolVal`.
 
 Here's our base case:
 
