@@ -68,7 +68,7 @@ anychar :: forall t.
         , Slice (FromRange Int), AtEof
         ]
      , AsChar (InputIterItem t)
-    => f a -> f a
+     ) => f a -> f a
 ```
 
 Nice.
