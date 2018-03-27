@@ -168,3 +168,15 @@ So try to put as much of your code into the pleasant, testable, QuickCheckable, 
 If you manage to isolate your application like this, then you won't need to test your IO stuff (aside from the usual integration testing).
 
 May all of your tests be pleasant and your software correct.
+
+### Addendum
+
+When I initially wrote this blog post, it really bothered me that I couldn't come up with a good name for layers 2 and 3.
+I published it anyway because it's useful enough with just the numbers, and names have the potential to mislead.
+I've since realized that the layers *already* have names!
+
+1. Imperative programming
+2. Object Oriented programming
+3. Functional programming
+
+I've provided a new explanation of the ["functional core, imperative shell"](https://www.destroyallsoftware.com/talks/boundaries) model of programming!
