@@ -335,3 +335,30 @@ instance GetUsers Gen where
 ```
 
 Alternatively, you can just pass functions around manually instead of using the type class mechanism to pass them for you.
+
+Oh, wait, no!
+That `GetUsers Gen` instance has a bug!
+Can you guess what it is?
+
+---
+
+In the `UserById` and `UserByEmail` case, we're not ever testing the "empty list" case -- what if that user does not exist?
+
+A fixed variant looks like this:
+
+```haskell
+instance GetUsers Gen where
+  runUserQuery query = 
+    case query of
+      AllUsers -> 
+        arbitrary
+      UserById userId -> do
+        oneOrZero <- choose (0, 1)
+        take oneOrZero . fmap (setUserId userId) <$> arbitrary
+      UserByEmail userEmail -> do
+        oneOrZero <- choose (0, 1)
+        take oneOrZero . fmap (setUserEmail userEmail) <$> arbitrary
+```
+
+I made a mistake writing a super simple generator.
+Just think about how many mistakes I might have made if I were trying to model something more complex!
