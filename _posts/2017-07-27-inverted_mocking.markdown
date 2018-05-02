@@ -121,7 +121,7 @@ We can prepare the redis key and computed result fairly easily:
 
 ```haskell
 businessLogic :: (Thing, User) -> (RedisKey, Result)
-businessLogic (thing, user) = (userRedisKey user, compute result)
+businessLogic (thing, user) = (userRedisKey user, compute thing)
 
 lookMaNoInputs :: [(Thing, User)] -> App ()
 lookMaNoInputs users = do
