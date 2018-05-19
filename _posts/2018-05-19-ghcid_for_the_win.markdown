@@ -212,9 +212,4 @@ Finally I use `--ghci-options=-fobject-code`, because this is fast, and I need t
 
 If you have a suggested use case you want added, ping me on GitHub and I'll credit you :)
 
-[^1]: These are great projects.
-But they are flaky, partially because GHC's API is difficult to interface with, and partially because GHCi's interactive features have some performance issues with larger code bases. 
-For small projects and libraries, they often work great.
-For larger projects, or more varied environments, they show their pain.
-You can spend a lot of time fussing with the editor integration and waiting on some command to finish, or you can just develop habits that don't need them (like `ghcid` in a separate terminal).
-I say this as the author of the [`intero-neovim`](https://github.com/parsonsmatt/intero-neovim) plugin.
+[^1]: These are great projects.  But they are flaky, partially because GHC's API is difficult to interface with, and partially because GHCi's interactive features have some performance issues with larger code bases.  For small projects and libraries, they often work great.  For larger projects, or more varied environments, they show their pain.  You can spend a lot of time fussing with the editor integration and waiting on some command to finish, or you can just develop habits that don't need them (like `ghcid` in a separate terminal). I say this as the author of the [`intero-neovim`](https://github.com/parsonsmatt/intero-neovim) plugin.
