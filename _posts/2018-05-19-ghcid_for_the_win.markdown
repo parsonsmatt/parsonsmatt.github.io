@@ -10,7 +10,8 @@ categories: programming
 [`ghcid`](https://github.com/ndmitchell/ghcid) is -- at the current moment -- the most important tool for Haskell development environments.
 It is fast, reliable, works on all kinds of projects, and is remarkably versatile.
 You can use it with any editor workflow, primarily by *not* integrating your editor! (though there are integrations available if you're brave)
-For these reasons, whenever someone asks about a Haskell IDE, I tell them to ignore the siren song of `ghc-mod`, `hdevtools`, `intero`, `haskell-ide-engine`, etc[^1], and just stick with the old faithful GHCi.
+For these reasons, whenever someone asks about a Haskell IDE, I tell them to ignore the siren song of `ghc-mod`, `hdevtools`, `intero`, `haskell-ide-engine`, etc[^1], and just stick with the old faithful GHCi and `ghcid`.
+Use whatever editor you want -- make sure it has syntax highlighting, and open up GHCi and/or `ghcid` in a separate terminal.
 
 Here are some things we're going to do with it in this post:
 
