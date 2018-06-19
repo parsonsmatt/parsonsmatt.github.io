@@ -16,7 +16,7 @@ I can provide guidance on this, offering advice and experience on library select
 # Implementation
 
 Do you have a Haskell application that you need an extra hand on?
-I can help build and specify the application for you at a rapid development.
+I can help build and specify the application with you at a rapid development pace.
 
 # Tutoring
 
