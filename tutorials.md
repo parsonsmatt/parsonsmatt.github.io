@@ -1,30 +1,33 @@
 ---
 layout: page
-title: Tutorials
-permalink: /tutorials/
+title: Consulting Services
+permalink: /consulting/
 ---
 
-Here are all of my tutorials, collected here and separated by topic.
+So you enjoy my blogposts or open source work, and you'd like some help with some Haskell.
+I'm available for consulting.
+I can help in a variety of ways:
 
-# Haskell
+# Architecture
 
-- [Template Haskell]({% post_url 2015-11-15-template_haskell %})
-- [servant-persistent]({% post_url 2015-06-07-servant-persistent %})
-- [Basic type level programming]({% post_url 2017-04-26-basic_type_level_programming_in_haskell %})
-- [Servant Route Smooshing]({% post_url 2018-03-14-servant_route_smooshing %}), a more advanced type-level programming
+Are you unsure how to structure your Haskell application on a high level?
+I can provide guidance on this, offering advice and experience on library selection and trade-offs between various approaches.
 
-## Object Oriented Programming in Haskell
+# Implementation
 
-1. [Introduction]({% post_url 2017-02-17-object_oriented_programming_in_haskell %})
-2. [Data Inheritance]({% post_url 2017-02-17-ooph_data_inheritance %})
+Do you have a Haskell application that you need an extra hand on?
+I can help build and specify the application for you at a rapid development.
 
-# PureScript
+# Tutoring
 
-[Using purescript-routing with purescript-halogen]({% post_url 2015-10-22-purescript_router %})
+Do you want to learn more about a specific Haskell topic?
+I can provide tutoring on a wide variety of things, from fancy type level stuff to low-level performance concerns.
 
-## Elm Architecture in PureScript:
+# Documentation
 
-1. [Elm vs PureScript I: War of the Hello, Worlds]({% post_url 2015-10-03-elm_vs_purescript %})
-2. [Elm vs PureScript II: The Elm Architecture, in PureScript]({% post_url 2015-10-05-elm_vs_purescript_ii %})
-3. [Elm Architecture in PureScript III: Dynamic Lists of Counters]({% post_url 2015-10-10-elm_architecture_in_purescript_iii %})
-4. [Elm Architecture in PureScript IV: Effects]({% post_url 2015-10-11-elm_architecture_in_purescript_iv_effects %})
+Is there a topic you'd like me to write on?
+I can write tutorials, library documentation, and friendly introductions to advanced topics.
+
+# Get in touch!
+
+If you are interested, please send me an email at <a href="mailto:parsonsmatt+consult@gmail.com">parsonsmatt@gmail.com</a>.

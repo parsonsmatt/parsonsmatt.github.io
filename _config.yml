@@ -33,8 +33,10 @@ highlighter: rouge
 nav:
   - name:           "About"
     href:           "/about"
-  - name: "tutorials"
+  - name: "Tutorials"
     href: "/tutorials"
+  - name: "Consulting"
+    href: "/consulting"
   - name: "Twitter"
     href: "//www.twitter.com/mattoflambda"
   - name: "Github"
