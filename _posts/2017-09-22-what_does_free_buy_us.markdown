@@ -226,7 +226,7 @@ interpret (CancelSubscriptionIfUserPaymentTooOld userId subscriptionId) = do
     now <- getCurrentTime
     when (now `diffTime` date > days 60) $ do
         Stripe.cancelSubscription userId subscriptionId
-interpet (IfBalanceGreatEnoughThenChargeUserElseSendNotice userId subscriptionId email) = do
+interpret (IfBalanceGreatEnoughThenChargeUserElseSendNotice userId subscriptionId email) = do
     balance <- Stripe.getUserBalance userId
     subscription <- Stripe.getSubscriptions subscriptionId
     if balance > subPrice subscription
@@ -544,7 +544,7 @@ interpretTest (SendLateNotice plan email next) = do
     interpret next
 interpretTest (GetUserBalance uid next) = do
     balance <- gets (userBalance uid)
-    intepret (next balance)
+    interpret (next balance)
 interpretTest etc = error "finish meeee"
 ```
 
