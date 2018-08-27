@@ -478,7 +478,7 @@ Now we can take advantage of `do` notation and all the functions that are generi
 I'm specifically thinking of these friends:
 
 ```haskell
-forM_ :: (Monad m) => (a -> m b) -> [a] -> m [b]
+forM_ :: (Monad m) => [a] -> (a -> m b) -> m ()
 
 when :: (Monad m) => Bool -> m () -> m ()
 ```
