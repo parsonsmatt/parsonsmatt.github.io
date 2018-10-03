@@ -51,8 +51,8 @@ With `lookupJustified`, the `ph` type guarantees that the `Key` is present in th
 
 "Type Safety Back and Forth" uses the metaphor of "pushing" the responsibility in one of two directions: 
 
-- backwards: the caller of the function is required to providing correct inputs
 - forwards: the caller of the function is responsible for handling the possible error output
+- backwards: the caller of the function is required to providing correct inputs
 
 However, this metaphor is a bit squishy.
 We can make it more precise by talking about the "cardinality" of a type -- how many values it can contain.
@@ -105,8 +105,8 @@ Another closely related idea is [quotient types](https://www.hedonisticlearning.
 The basic idea here is to *restrict* the size of our inputs.
 Slightly more formally,
 
-- Backwards: restrict the domain
 - Forwards: expand the range
+- Backwards: restrict the domain
 
 # Constraints Liberate
 
@@ -118,7 +118,7 @@ The big idea of the talk, as I see it, is this:
 I feel there is a deep connection between this idea and Rich Hickey's talk [Simple Made Easy](https://www.youtube.com/watch?v=34_L7t7fD_U).
 In both cases, we are focusing on simplicity -- on cutting away the inessential and striving for more elegant ways to express our problems.
 
-Pushing the safety forward -- expanding the range -- does not making things simpler.
+Pushing the safety forward -- expanding the range -- does not make things simpler.
 It provides us with more power, more options, and more possibilities.
 Pushing the safety backwards -- restricting the domain -- does make things simpler.
 We can use this technique to take away the power to get it wrong, the options that aren't right, and the possibilities we don't want.
