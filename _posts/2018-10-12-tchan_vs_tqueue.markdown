@@ -11,7 +11,7 @@ I've done this a few times now, and it's about time that I write it out so that 
 
 Aside: Please don't use `TChan` or `TQueue`.
 These types are *unbounded*, which means that you can run into unbounded memory use if your producer is faster than your consumer.
-Instead, use `TBChan` or TBQueue`, which allow you to set a bound.
+Instead, use `TBChan` or `TBQueue`, which allow you to set a bound.
 I have run into issues with livelock with the standard `stm` and `stm-chans` types, and have found that [`unagi-chan` package](https://hackage.haskell.org/package/unagi-chan) has better performance in all cases, so I usually reach for that when I have a need for a high performance concurrent channel.
 
 tl;dr: Use a channel when you want all readers to receive each message. 
