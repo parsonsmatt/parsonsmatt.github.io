@@ -1,6 +1,6 @@
 ---
 title: "TChan vs TQueue: What's the difference?"
-date: 2018-10-24
+date: 2018-10-12
 layout: post
 categories: programming
 ---
