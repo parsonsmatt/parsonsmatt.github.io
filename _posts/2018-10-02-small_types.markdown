@@ -147,7 +147,7 @@ I see this pattern and I am compelled to fill it in:
 | Range  |          |   :(   |
 | Domain |    :D    |        |
 
-I've talked about restricting the range and expanding the domain.
+I've talked about restricting the domain and expanding the range.
 Expanding the domain seems silly to do -- we accept more possible values than we know what to do with.
 This is clearly not going to make it easier or simpler to implement our programs.
 However, there are many functions in Haskell's standard library that have a domain that is too large.
