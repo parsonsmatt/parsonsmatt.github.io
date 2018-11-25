@@ -194,7 +194,7 @@ Now, we can use the function `x` on any type that we instantiate it for.
 We can even retrofit existing types:
 
 ```haskell
-class HasX (Int, Int) where
+instance HasX (Int, Int) where
     x = fst
 ```
 
