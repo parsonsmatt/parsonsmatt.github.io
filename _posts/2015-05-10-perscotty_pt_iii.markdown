@@ -7,7 +7,7 @@ categories: programming
 
 # Finishing the Story
 
-(this is part three of three: [one]({% post_url 2015-05-02-scotty_and_persistent %}) and [two]({% post_url 2015-05-04-perscotty_pt_ii #}) are linked)
+(this is part three of three: [one]({% post_url 2015-05-02-scotty_and_persistent %}) and [two]({% post_url 2015-05-04-perscotty_pt_ii %}) are linked)
 
 Last time, we corrected resource utilization by pulling the pool out and reusing it in queries rather than creating and destroying it each time. We also setup the app to run in a specialized monad transformer stack, allowing us some read-only configuration information, but we had to seriously trim down our application in order to figure out how to get that working. Let's restore our original functionality!
 

@@ -7,7 +7,7 @@ categories: programming
 
 ## Some updates
 
-(this is part two of three: [one]({% post_url 2015-05-02-scotty_and_persistent %}) and [three]({% post_url 2015-05-10-perscotty_pt_iii%}) are linked)
+(this is part two of three: [one]({% post_url 2015-05-02-scotty_and_persistent %}) and [three]({% post_url 2015-05-10-perscotty_pt_iii %}) are linked)
 
 The [reddit thread](https://www.reddit.com/r/haskell/comments/34nxtu/scotty_and_persistent_a_beginners_voyage/) about my [previous post](http://www.parsonsmatt.org/2015/05/02/scotty_and_persistent.html) generated good discussion and advice. I'm going to attempt to work through them now.
 
