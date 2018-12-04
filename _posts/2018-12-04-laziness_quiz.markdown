@@ -7,8 +7,9 @@ categories: programming
 
 Do you understand laziness?
 
-It's okay if you dont'. Most people don't. It can be somewhat surprising when something actually gets evaluated in Haskell, even when you're using bang patterns.
+It's okay if you don't. Most people don't. It can be somewhat surprising when something actually gets evaluated in Haskell, even when you're using bang patterns.
 So, here is a quick quiz on laziness in Haskell!
+If it makes you feel better, I didn't get it right either on my first try.
 You can copy and paste this into a source file and run it in GHCi.
 
 ```haskell
