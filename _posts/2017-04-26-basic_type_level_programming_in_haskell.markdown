@@ -943,3 +943,8 @@ This gives us a rather satisfying `Show` instance, now:
 Write an Aeson `ToJSON` instance for this `HRec` type which converts into a JSON object.
 
 Bonus points: Write an Aeson `FromJSON` instance for the `HRec` type.
+
+# Like what you read?
+
+If you enjoyed this post, you should check out the book [Thinking with Types](http://thinkingwithtypes.com/) by Sandy Maguire.
+It is an extensive manual on practical type-level programming in Haskell.
