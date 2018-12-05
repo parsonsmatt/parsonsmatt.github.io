@@ -103,3 +103,5 @@ It's when we evaluate the `Foo` constructor to weak head normal form.
 Indeed -- a strict field does not evaluate when the record is *constructed*, but rather, when the record is *evaluated*.
 
 Anyway, this may be useful to you. Enjoy!
+
+EDIT: The [reddit thread](https://old.reddit.com/r/haskell/comments/a339r4/laziness_quiz_can_you_get_it_right_i_didnt/) is quite good!
