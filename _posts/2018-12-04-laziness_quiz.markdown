@@ -39,7 +39,7 @@ lineNumber = unsafePerformIO (newIORef 0)
 logLine :: IO ()
 logLine = do
     i <- atomicModifyIORef' lineNumber (\i -> (i + 1, i + 1))
-    putStrLn $ "Log line: " <> show i
+    putStrLn $ "Log line: " ++ show i
 
 -- | The 'trace' functions from Debug.Trace will print a message to the
 -- console whenever the expression is evaluated. It will only print it
@@ -58,7 +58,7 @@ quiz = do
     logLine
     print a
     logLine
-    print a
+    print a -- this line is not a typo
     logLine
     case foo of
         Foo { strict, lazy } -> do
