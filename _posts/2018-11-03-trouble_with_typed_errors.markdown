@@ -240,7 +240,7 @@ Well, the syntax is nicer.
 We can `case` over the nested Either in the error branch to eliminate single error cases.
 It's easier to ensure we don't claim to throw errors we don't -- after all, GHC will correctly infer the type of `foo`, and if GHC infers a type variable for any `+`, then we can assume that we're not using that error slot, and can delete it.
 
-Unfortuntaly, there's still the `mapLeft` boilerplate.
+Unfortunately, there's still the `mapLeft` boilerplate.
 And expressions which you'd *really* want to be equal, aren't --
 
 ```haskell
