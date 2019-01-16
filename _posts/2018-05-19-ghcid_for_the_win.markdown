@@ -48,7 +48,7 @@ $ ghcid --command "stack ghci --ghci-options=-fdefer-type-errors"
 ```
 
 At IOHK, I wrote up a `Makefile` with the common `ghcid` commands I use when working on the new wallet.
-[This command](https://github.com/input-output-hk/cardano-sl/blob/develop/wallet/Makefile#L4-L6) lets me say `make ghcid` in the `wallet-new` subdirectory and get *lightning* fast reloading of code, display of all warnings and errors, and lets me run through refactorings quite nice and quickly.
+[This command](https://github.com/input-output-hk/cardano-sl/blob/755b3b8fa7981982e9355052be69432952dee528/wallet/Makefile) lets me say `make ghcid` in the `wallet-new` subdirectory and get *lightning* fast reloading of code, display of all warnings and errors, and lets me run through refactorings quite nice and quickly.
 
 # Fake type-of-expression support
 
