@@ -14,7 +14,7 @@ data Maybe a
     | Just a
 ```
 
-We can use `Maybe` as the result of a function to indicate: 
+We can use `Maybe` as the result of a function to indicate:
 
 > Hey, friend! This function might fail. You'll need to handle the `Nothing` case.
 
@@ -75,22 +75,22 @@ We'll take advantage of Haskell's `PatternSynonyms` language extension to allow 
 ```haskell
 {-# LANGUAGE PatternSynonyms #-}
 
-module NonZero 
-  ( NonZero(getNonZero)
+module NonZero
+  ( NonZero(unNonZero)
   , pattern NonZero
   , nonZero
   ) where
 
 newtype NonZero a = UnsafeNonZero { unNonZero :: a }
 
-pattern NonZero a = UnsafeNonZero a
+pattern NonZero a <- UnsafeNonZero a
 
 nonZero :: (Num a, Eq a) => a -> Maybe (NonZero a)
 nonZero 0 = Nothing
 nonZero i = Just (UnsafeNonZero i)
 ```
 
-This module allows us to push the responsibilty for type safety backwards onto callers.
+This module allows us to push the responsibility for type safety backwards onto callers.
 
 As another example, consider `head`.
 Here's the unsafe, convenient variety:

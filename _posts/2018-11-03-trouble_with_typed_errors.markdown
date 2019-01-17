@@ -35,7 +35,7 @@ data LookupError = KeyWasNotPresent
 
 lookup :: k -> Map k v -> Either LookupError v
 
-data ParseError 
+data ParseError
     = UnexpectedChar Char String
     | RanOutOfInput
 
@@ -97,9 +97,9 @@ mapLeft _ r = r
 Now, we can combine these error types:
 
 ```haskell
-foo :: String 
-    -> Either 
-        (Either HeadError (Either LookupError ParseError)) 
+foo :: String
+    -> Either
+        (Either HeadError (Either LookupError ParseError))
         Integer
 foo str = do
     c <- mapLeft Left (head str)
@@ -134,7 +134,7 @@ foo str = do
 ```
 
 However, there's a pretty major problem with this code.
-`foo` is claiming that it can "throw" all kinds of errors -- it's being honest about parse errors, lookup errors, and head erors, but it's also claiming that it will throw if files aren't found, "whatever" happens,  and `etc`.
+`foo` is claiming that it can "throw" all kinds of errors -- it's being honest about parse errors, lookup errors, and head errors, but it's also claiming that it will throw if files aren't found, "whatever" happens,  and `etc`.
 There's no way that a call to `foo` will result in `FileNotFound`, because `foo` can't even do `IO`!
 It's absurd.
 The type is too large!
@@ -145,9 +145,9 @@ We call the function, and then write a case expression like good Haskellers:
 
 ```haskell
 case foo "hello world" of
-    Right val -> 
+    Right val ->
         pure val
-    Left err -> 
+    Left err ->
         case err of
             AllParseError parseError ->
                 handleParseError parseError
@@ -171,7 +171,7 @@ Let's suppose we know how to handle a case or two of the error, but we must pass
 
 ```haskell
 bar :: String -> Either AllErrorsEver Integer
-bar str = 
+bar str =
     case foo str of
         Right val -> Right val
         Left err ->
@@ -186,7 +186,7 @@ We *know* that `AllParseError` has been handled by `bar`, because -- just look a
 However, the compiler has no idea.
 Whenever we inspect the error content of `bar`, we must either a) "handle" an error case that has already been handled, perhaps dubiously, or b) ignore the error, and desperately hope that no underlying code ever ends up throwing the error.
 
-Are we done with the probles on this approach?
+Are we done with the problems on this approach?
 No!
 There's no guarantee that I throw the *right* error!
 
@@ -226,9 +226,9 @@ r = Right
 Now, let's refactor that uglier `Either` code with these new helpers:
 
 ```haskell
-foo :: String 
-    -> Either 
-        (HeadError + LookupError + ParseError) 
+foo :: String
+    -> Either
+        (HeadError + LookupError + ParseError)
         Integer
 foo str = do
     c <- mapLeft l (head str)
@@ -271,8 +271,8 @@ head :: AsHeadError err => [a] -> Either err a
 lookup :: k -> Map k v -> Either LookupError v
 
 -- Prismatic:
-lookup 
-    :: (AsLookupError err) 
+lookup
+    :: (AsLookupError err)
     => k -> Map k v -> Either err v
 ```
 
@@ -304,7 +304,7 @@ instance AsParseError ParseError where
     -- etc...
 ```
 
-However, we do have to write our own boilerplate when we eventually want to concretely handle these ttypes.
+However, we do have to write our own boilerplate when we eventually want to concretely handle these types.
 We may end up writing a huge `AppError` that all of these errors get injected into.
 
 There's one major, fatal flaw with this approach.

@@ -122,7 +122,7 @@ interpret GetUserBalance = do
     id <- gets userId
     balance <- liftIO $ Stripe.getUserBalance id
     modify (\s -> s { userBalance = balance })
-interpret GetUserLastPaymentDate = 
+interpret GetUserLastPaymentDate =
     -- etc...
 
 ```
@@ -163,7 +163,7 @@ We want our commands to contain the information they need in order to be able to
 Rather than a simple signal to our interpreter on what action to take, we'll also include the parameters that we wish to act on.
 
 ```haskell
-data BillingProgram 
+data BillingProgram
     = GetUserBalance UserId
     | GetUserLastPaymentDate UserId
     | CancelSubscription UserId PlanId
@@ -254,12 +254,12 @@ We have to make it part of the type.
 We'll include another field on each command: this will have the `BillingProgram` to execute after the current program.
 
 ```haskell
-data BillingProgram 
+data BillingProgram
     = GetUserBalance UserId            BillingProgram
     | GetUserLastPaymentDate UserId    BillingProgram
-    | CancelSubscription UserId PlanId BillingProgram 
+    | CancelSubscription UserId PlanId BillingProgram
     | ChargeUser UserId Double         BillingProgram
-    | SendLateNotice PlanId Email      BillingProgram 
+    | SendLateNotice PlanId Email      BillingProgram
 ```
 
 Now, these commands all have a way of expressing "Once you're done with this command, here's the next command you'll want to execute."
@@ -267,12 +267,12 @@ However, we're still not using the information from the `UserBalance` and `LastP
 We can express that as a *function* where the construction of the next `BillingProgram` depends on the value that the interpreter returns.
 
 ```haskell
-data BillingProgram 
+data BillingProgram
     = GetUserBalance UserId            (Double -> BillingProgram)
     | GetUserLastPaymentDate UserId    (Day -> BillingProgram)
-    | CancelSubscription UserId PlanId BillingProgram 
+    | CancelSubscription UserId PlanId BillingProgram
     | ChargeUser UserId Double         BillingProgram
-    | SendLateNotice PlanId Email      BillingProgram 
+    | SendLateNotice PlanId Email      BillingProgram
 ```
 
 That does it!
@@ -293,12 +293,12 @@ We need something in our command data type to indicate "This program is complete
 Let's add that constructor:
 
 ```haskell
-data BillingProgram 
+data BillingProgram
     = GetUserBalance UserId            (Double -> BillingProgram)
     | GetUserLastPaymentDate UserId    (Day -> BillingProgram)
-    | CancelSubscription UserId PlanId BillingProgram 
+    | CancelSubscription UserId PlanId BillingProgram
     | ChargeUser UserId Double         BillingProgram
-    | SendLateNotice PlanId Email      BillingProgram 
+    | SendLateNotice PlanId Email      BillingProgram
     | Done
 ```
 
@@ -326,7 +326,7 @@ That means we need to add a type variable to the command data type:
 data BillingProgram ret
     = GetUserBalance UserId            (Double -> BillingProgram ret)
     | GetUserLastPaymentDate UserId    (Day -> BillingProgram ret)
-    | CancelSubscription UserId PlanId (BillingProgram ret) 
+    | CancelSubscription UserId PlanId (BillingProgram ret)
     | ChargeUser UserId Double         (BillingProgram ret)
     | SendLateNotice PlanId Email      (BillingProgram ret)
     | Done ret
@@ -356,9 +356,9 @@ Then, we can use the value from `Done` to continue the program.
 We'll start with the `Done` case:
 
 ```haskell
-andThen 
-    :: BillingProgram a 
-    -> (a -> BillingProgram b) 
+andThen
+    :: BillingProgram a
+    -> (a -> BillingProgram b)
     -> BillingProgram b
 andThen (Done ret) mkProgram = mkProgram ret
 ```
@@ -371,7 +371,7 @@ andThen (GetUserBalance userId next) mkProgram =
     GetUserBalance userId (\balance -> andThen (next balance) mkProgram)
 andThen (GetUserLastPaymentDate userId next) mkProgram =
     GetUserLastPaymentDate userId (\date -> andThen (next date) mkProgram)
-andThen (CancelSubscription userId planId next) = 
+andThen (CancelSubscription userId planId next) =
     CancelSubscription userId planId (andThen next mkProgram)
 andThen (ChargeUser userId amount next) =
     ChargeUser userId amount (andThen next mkProgram)
@@ -390,16 +390,16 @@ Let's write a non-trivial program that uses these commands:
 
 ```haskell
 billingProgram :: User -> [Subscription] -> BillingProgram ()
-billingProgram _ [] = 
+billingProgram _ [] =
     Done ()
 billingProgram user (sub:subs) =
     GetUserBalance uid $ \balance ->
-        if balance > price then 
+        if balance > price then
             ChargeUser uid price theRest
-        else 
+        else
             SendLateNotice plan (userEmail user)
                 $ GetUserLastPaymentDate uid
-                $ \day -> if day < 60daysago 
+                $ \day -> if day < 60daysago
                     then CancelSubscription uid plan theRest
                     else theRest
   where
@@ -438,18 +438,18 @@ Alright, let's use these and the `andThen` to write the above logic out:
 
 ```haskell
 billingProgram :: User -> [Subscription] -> BillingProgram ()
-billingProgram _ [] = 
+billingProgram _ [] =
     end
 billingProgram user (sub:subs) =
     getUserBalance uid `andThen` \balance ->
-    if balance > price then 
-        chargeUser uid price 
+    if balance > price then
+        chargeUser uid price
             `andThen` \_ -> theRest
-    else 
+    else
         sendLateNotice plan (userEmail user) `andThen` \_ ->
         getUserLastPaymentDate uid `andThen` \day ->
-        if day < 60daysago 
-           then cancelSubscription uid plan 
+        if day < 60daysago
+           then cancelSubscription uid plan
                     `andThen` \_ -> theRest
            else theRest
   where
@@ -528,7 +528,7 @@ interpret etcccc = do
 
 This interpreter just walks down the command tree.
 It interprets the command, and then calls the interpreter on the next command recursively.
-Where the next command is a function, we first aquire the value, pass it to the function to generate the next command, and the interpret the result.
+Where the next command is a function, we first acquire the value, pass it to the function to generate the next command, and the interpret the result.
 
 Can we write a test interpreter?
 Yes!
@@ -558,7 +558,7 @@ This lets us write tests without needing to mock out any IO or anything else nas
 You might be satisfied to stop here.
 We've accomplished a lot, after all!
 
-You might think: 
+You might think:
 
 > Dang, that was a lot of boilerplate.
 > There was a lot of repetition in the definition of `andThen`, and the definition of the interpreter seemed awfully repetitive as well.
@@ -577,7 +577,7 @@ data Terminal a
 
 instance Monad Terminal where
     return = Done
-    t >>= mk = 
+    t >>= mk =
         case t of
             GetLine next ->
                 GetLine $ \s -> next s >>= mk
@@ -609,7 +609,7 @@ data Terminal a
 data BillingProgram ret
     = GetUserBalance UserId            (Double -> BillingProgram ret)
     | GetUserLastPaymentDate UserId    (Day -> BillingProgram ret)
-    | CancelSubscription UserId PlanId (BillingProgram ret) 
+    | CancelSubscription UserId PlanId (BillingProgram ret)
     | ChargeUser UserId Double         (BillingProgram ret)
     | SendLateNotice PlanId Email      (BillingProgram ret)
     | Done ret
@@ -618,7 +618,7 @@ data BillingProgram ret
 Both of these types have a `Done` constructor, so we should be able to factor that out.
 Both of these types are also recursive, so we should be able to factor the recursion out.
 
-That means our type should have two components: 
+That means our type should have two components:
 
 1. Factored out recursion (aka, `Fix`)
 2. A `Done` constructor.
@@ -633,7 +633,7 @@ This actually looks really similar to a list, except the recursion has an interm
 Let's lay them side by side:
 
 ```haskell
-data Free f a 
+data Free f a
     = Free   (f (Free f a))
     | Done a
 
@@ -714,10 +714,10 @@ Yes!
 We can define this function:
 
 ```haskell
-foldFree 
-    :: (Functor f, Monad m) 
-    => (forall a. f a -> m a) 
-    -> Free f a 
+foldFree
+    :: (Functor f, Monad m)
+    => (forall a. f a -> m a)
+    -> Free f a
     -> m a
 foldFree morph (Done a) = return a
 foldFree morph (Free f) = do
@@ -748,7 +748,7 @@ interpret = foldFree morph
     morph (GetLine next) =
         next <$> getLine
     morph (PrintLine s n) = do
-        putStrLn s 
+        putStrLn s
         pure n
 ```
 

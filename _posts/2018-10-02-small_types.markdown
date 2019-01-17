@@ -49,7 +49,7 @@ With `lookupJustified`, the `ph` type guarantees that the `Key` is present in th
 
 # Expansion and Restriction
 
-"Type Safety Back and Forth" uses the metaphor of "pushing" the responsibility in one of two directions: 
+"Type Safety Back and Forth" uses the metaphor of "pushing" the responsibility in one of two directions:
 
 - forwards: the caller of the function is responsible for handling the possible error output
 - backwards: the caller of the function is required to providing correct inputs
@@ -73,9 +73,9 @@ Let's consider the second technique.
 Specifically, here's `NonZero` and `NonEmpty`, two common ways to implement it:
 
 ```haskell
-newtype NonZero a 
-    = UnsafeNonZero 
-    { unNonZero :: a 
+newtype NonZero a
+    = UnsafeNonZero
+    { unNonZero :: a
     }
 
 nonZero :: (Num a, Eq a) => a -> Maybe (NonZero a)
@@ -136,7 +136,7 @@ In fact, for any function with a sufficiently precise type signature, there is a
 Joachim Breitner's [`justDoIt`](https://www.joachim-breitner.de/blog/735-The_magic_%E2%80%9CJust_do_it%E2%80%9D_type_class) is a fascinating utility that can solve these implementations for you.
 
 With sufficiently fancy types, the computer can write even more code for you.
-The programming language Idris can [write well-defined functions like `zipWith` and `tranpose` for length-indexed lists nearly automatically!](https://youtu.be/X36ye-1x_HQ?t=1140)
+The programming language Idris can [write well-defined functions like `zipWith` and `transpose` for length-indexed lists nearly automatically!](https://youtu.be/X36ye-1x_HQ?t=1140)
 
 # Restrict the Range
 

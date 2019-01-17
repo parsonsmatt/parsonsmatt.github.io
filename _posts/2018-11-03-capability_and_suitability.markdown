@@ -21,7 +21,7 @@ Or, on the other end of the scale, you can opt for a truly fat tire at around 5"
 What's the difference?
 
 Narrower tires are less capable -- there is less terrain you can cover on a narrow tire.
-However, they're more suitable for the terrain they can cover -- a 19mm tire will be significantly lighter and faster thana 5" tire.
+However, they're more suitable for the terrain they can cover -- a 19mm tire will be significantly lighter and faster than a 5" tire.
 A good 19mm tire weighs around 200g, while a 5" tire might weigh 1,800g each.
 Lugging around an extra 7lbs of rubber takes a lot of energy!
 Additionally, all that rubber is going to have a lot of rolling resistance -- it'll be harder to push across the ground on smooth surfaces where the 19mm tire excels.
