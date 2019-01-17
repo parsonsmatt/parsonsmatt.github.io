@@ -44,7 +44,7 @@ Consider this function that gets a user's comembers in the organization:
 ```haskell
 coworkers :: User -> Maybe [User]
 coworkers user = case userOrganization user of
-    Nothing -> 
+    Nothing ->
         Nothing
     Just organization ->
         Just (organizationUsers organization)
@@ -75,7 +75,7 @@ data DbPost = DbPost
     }
 
 type UserId = Text
-type OrganizationId = Text 
+type OrganizationId = Text
 type PostId = Text
 ```
 
@@ -125,7 +125,7 @@ type UserModel = User Organization
 type UserDb = User OrganizationId
 ```
 
-And now, our data model allows us to use the same type to describe these two use cases! 
+And now, our data model allows us to use the same type to describe these two use cases!
 So this is a small victory.
 We can take it a bit further, though -- why hardcode the `Maybe`ness of that organization?
 We've solved some of the boilerplate, but we still have the issue with `coworkers` returning a `Maybe`.
@@ -138,7 +138,7 @@ coworkers = fmap organizationUsers . userOrganization
 So, let's remove the `Maybe` from our definition, which moves the absence or presence of the organization from the value level to the type level.
 
 ```haskell
-data User org = User 
+data User org = User
     { userName :: Text
     , userOrganization :: org
     }
@@ -147,20 +147,20 @@ data User org = User
 Now, let's look at all of our cool variants!
 
 ```haskell
-type UserWithOrg 
+type UserWithOrg
     = User Organization
 
 type UserInDb      
     = User (Maybe OrganizationId)
 
-type UserWithOrgId 
+type UserWithOrgId
     = User OrganizationId
 
-type UserWithoutOrganization 
+type UserWithoutOrganization
     = User ()
 ```
 
-We can express some really neat stuff here. 
+We can express some really neat stuff here.
 Our type for `coworkers` is a lot nicer:
 
 ```haskell
@@ -169,7 +169,7 @@ coworkers = organizationUsers . userOrganization
 ```
 
 We're now disallowed from passing a `User` in unless we've already given that user an `Organization`.
-We've also gained a nice way of bottoming out our relationship: the `Organization` contains a list of users with organization referneces, instead of actual organizations.
+We've also gained a nice way of bottoming out our relationship: the `Organization` contains a list of users with organization references, instead of actual organizations.
 This makes it safe to print the whole thing out.
 
 We can also immediately see whether or not we need to do joins, inner joins, left joins, etc. because the nature of the relationship is specified in the type.
@@ -180,7 +180,7 @@ The functions for loading stuff out of the database is like:
 --   This is an ordinary select.
 loadUsers :: Database [User (Maybe OrganizationId)]
 loadUsers = execute [sql|
-    select users.* 
+    select users.*
     from users
     |]
 
@@ -188,9 +188,9 @@ loadUsers = execute [sql|
 --   This does an inner join.
 loadUsersWithOrganizations :: Database [User OrganizationId]
 loadUsersWithOrganizations = execute [sql|
-    select users.* 
-    from users 
-    inner join organizations 
+    select users.*
+    from users
+    inner join organizations
         on users.organization_id = organizations.id
     |]
 
@@ -199,11 +199,11 @@ loadUsersAndOrganizations :: Database [User Organization]
 loadUsersAndOrganizations = combine <$> execute [sql|
     select users.*, organizations.*
     from users
-    inner join organizations 
+    inner join organizations
         on users.organization_id = organizations.id
     |]
   where
-    combine user organization = 
+    combine user organization =
         user { userOrganization = organization }
 ```
 

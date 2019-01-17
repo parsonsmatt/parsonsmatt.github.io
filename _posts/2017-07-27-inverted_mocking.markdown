@@ -162,7 +162,7 @@ conduitThatGetsStuff = ...
 
 conduitThatProcessesStuff :: Conduit ByteString IO RealThing
 conduitThatProcessesStuff =
-  CL.mapM (\bs -> 
+  CL.mapM (\bs ->
     case parseFromByteString bs of
       Left err ->
         throwIO err
@@ -246,8 +246,8 @@ Given the above abstract definition, we can easily recover the concrete `doWork`
 
 ```haskell
 doWork :: App ()
-doWork = 
-  doWorkAbstract 
+doWork =
+  doWorkAbstract
     (runHTTP getUserQuery)
     (\query -> runDB (usersSatisfying query))
     (\user -> getSomething user)
@@ -258,7 +258,7 @@ We can also easily get a testing variant that logs the actions taken:
 
 ```haskell
 doWorkScribe :: Writer [String] ()
-doWorkScribe = 
+doWorkScribe =
   doWorkAbstract getQ getUsers getSomething redis
   where
     getQ = do
@@ -275,7 +275,7 @@ doWorkScribe =
       tell ["wrote v: " <> show v]
 ```
 
-All without having to fuss about with monad tranformers, type classes, or anything else that's terribly complicated.
+All without having to fuss about with monad transformers, type classes, or anything else that's terribly complicated.
 
 # Decompose!!!
 
@@ -318,15 +318,15 @@ class Monad m => GetUsers m where
 
 This is *vastly* more tenable interface to implement that a SQL database!
 Let's write our instances, one for the [`persistent` ](https://hackage.haskell.org/package/persistent) library and another for a mock that uses QuickCheck's `Gen` type:
-     
+
 ```haskell
 instance MonadIO m => GetUsers (SqlPersistT m) where
   runUserQuery = selectList . convertToQuery
 
 instance GetUsers Gen where
-  runUserQuery query = 
+  runUserQuery query =
     case query of
-      AllUsers -> 
+      AllUsers ->
         arbitrary
       UserById userId ->
         take 1 . fmap (setUserId userId) <$> arbitrary
@@ -348,9 +348,9 @@ A fixed variant looks like this:
 
 ```haskell
 instance GetUsers Gen where
-  runUserQuery query = 
+  runUserQuery query =
     case query of
-      AllUsers -> 
+      AllUsers ->
         arbitrary
       UserById userId -> do
         oneOrZero <- choose (0, 1)

@@ -10,7 +10,7 @@ categories: programming
 Haskell doesn't really have a callstack.
 The evaluation strategy is more like a graph reduction.
 If you don't understand that, that's okay -- I don't either!
-All I know about it is that it makes questions like "what's the strack trace for this error?" surprisingly difficult to answer.
+All I know about it is that it makes questions like "what's the stack trace for this error?" surprisingly difficult to answer.
 
 While Haskell's debugging story tends to be rather nice (break up code into small, composable, reusable functions; take advantage of types to make errors unrepresentable where practical; write unit and property tests for the rest), it's also great to know where errors actually come from.
 Coding practices like "don't ever use partial functions like `head :: [a] -> a`" and "prefer `NonEmpty a` to `[a]` where possible" help a lot.
@@ -37,7 +37,7 @@ headWithCallstack (x:xs) = x
 headWithCallstack [] = error "nope"
 ```
 
-Let's compare the behavior of these various functions. 
+Let's compare the behavior of these various functions.
 The ordinary `head` from the Prelude gives us this:
 
 ```haskell
@@ -71,7 +71,7 @@ error ::
 The `:info` output shows that `error` is polymorphic in the runtime representation (eg: the phantom type `a` can be an unlifted type like `Int#` or a lifted type like `Int`).
 The `:type` omits the `HasCallStack` constraint for some reason.
 
-When `headWithCallstack` throws that error, you'll get more extra information: 
+When `headWithCallstack` throws that error, you'll get more extra information:
 
 ```
 λ> headWithCallStack []
@@ -181,4 +181,3 @@ Implicit parameters can potentially interact with sharing in weird ways, which m
 This makes them less useful.
 
 Lastly, the GHC Exceptions machinery doesn't have any notion of a callstack, and any *proper* exceptions that you throw or catch will not have a callstack: only `error` calls.
-

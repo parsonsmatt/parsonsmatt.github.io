@@ -64,7 +64,7 @@ In fact, if we ask GHCi about it's type, we get this back:
 MkIntAndChar :: Int -> Char -> IntAndChar
 ```
 
-`MkIntAndChar` is a function accepting an `Int` and a `Char` and finally yeilding a value of type `IntAndChar`.
+`MkIntAndChar` is a function accepting an `Int` and a `Char` and finally yielding a value of type `IntAndChar`.
 
 So we can construct values, and values have types.
 Can we construct types?
@@ -481,8 +481,8 @@ Ahh, except now GHC is going to give us an error.
       In the type family declaration for ‘Add’
 ```
 
-GHC is extremely scared of undecidability, and won't do *anything* that it can't easily figure out on it's own. 
-`UndecidableInstances` is an extension which allows you to say: 
+GHC is extremely scared of undecidability, and won't do *anything* that it can't easily figure out on it's own.
+`UndecidableInstances` is an extension which allows you to say:
 
 > Look, GHC, it's okay. I know you can't figure this out. I promise this makes sense and will eventually terminate.
 
@@ -649,7 +649,7 @@ And in `append`s recursive case, we're building up the right hand side.
 Let's trace how this error happens, and supply some type annotations as well:
 
 ```haskell
-append (VCons a rest) xs = 
+append (VCons a rest) xs =
 ```
 
 Here, we know that `VCons a rest` has the type `Vector (Succ n) a`, and `xs` has the type `Vector m a`.
@@ -679,10 +679,10 @@ This new definition compiles and works fine.
 Agreed, which is why I'll defer the interested reader to [this much better tutorial](https://www.schoolofhaskell.com/user/konn/prove-your-haskell-for-great-safety/dependent-types-in-haskell) on length indexed vectors in Haskell.
 Instead, let's look at some other more interesting and practical examples of type level programming.
 
-# Heterogenous Lists
+# Heterogeneous Lists
 
-Heterogenous lists are kind of like tuples, but they're defined inductively.
-We keep a type level list of the contents of the heterogenous list, which let us operate safely on them.
+Heterogeneous lists are kind of like tuples, but they're defined inductively.
+We keep a type level list of the contents of the heterogeneous list, which let us operate safely on them.
 
 To use ordinary Haskell lists at the type level, we need another extension:
 
@@ -709,7 +709,7 @@ Let's see what a value for this looks like:
 
 ```haskell
 λ> :t 'a' ::: 1 ::: "hello" ::: HNil
-'a' ::: 1 ::: "hello" ::: HNil 
+'a' ::: 1 ::: "hello" ::: HNil
     :: HList '[Char, Int, String]
 ```
 
@@ -784,9 +784,9 @@ We've covered that base case.
 We'll assume that we can handle the smaller cases, and demonstrate how to handle a slightly large case:
 
 ```haskell
-instance (Show (HList as), Show a) 
+instance (Show (HList as), Show a)
     => Show (HList (a ': as)) where
-    show (a ::: rest) = 
+    show (a ::: rest) =
         show a ++ " ::: " ++ show rest
 ```
 
@@ -872,7 +872,7 @@ instance Show (HRec (s >> a ': xs)) where
 OK, so we need to `show` the `a` value. Easy. Which means we need a `Show a` constraint tacked onto our instance:
 
 ```haskell
-instance (Show a) 
+instance (Show a)
     => Show (HRec (s >> a ': xs)) where
     show (HCons (Named a) rest) =
         let val = show a
@@ -882,7 +882,7 @@ Next up, we need the key as a string.
 Which means we need to use `symbolVal`, which takes a `proxy s` and returns the `String` associated with the `s` provided that `s` is a `KnownSymbol`.
 
 ```haskell
-instance (Show a, KnownSymbol s) 
+instance (Show a, KnownSymbol s)
     => Show (HRec (s >> a ': xs)) where
     show (HCons (Named a) rest) =
         let val = show a
@@ -922,7 +922,7 @@ If we want for type variables to have a scope similar to other variables, we nee
 Finally, we need to show the rest of the stuff!
 
 ```haskell
-instance (Show a, KnownSymbol s, Show (HRec xs)) 
+instance (Show a, KnownSymbol s, Show (HRec xs))
     => Show (HRec (s >> a ': xs)) where
     show (HCons (Named a) rest) =
         let val = show a
