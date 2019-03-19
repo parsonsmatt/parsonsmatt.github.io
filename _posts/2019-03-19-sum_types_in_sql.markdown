@@ -316,7 +316,7 @@ Where the previous method would allow "orphan" `animal` records with no correspo
 
 Adding constructors is easy - you add a new column to the `animal` table, and adjust the `CHECK` constraints so that only one can be present.
 
-This requires less work with adding custom `ENUM` types, requires fewer and less complicated foreign keys, and 
+This requires less work with adding custom `ENUM` types, requires fewer and less complicated foreign keys, and has less "dynamic" behavior (linking the `id` and `type` field at runtime vs statically known relationship).
 
 # Nullable Columns
 
