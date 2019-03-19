@@ -1,5 +1,5 @@
 ---
-title: "Implementing Union in Esqueleto I"
+title: "Implementing UNION in Esqueleto I"
 date: 2019-01-31
 layout: post
 categories: programming
@@ -8,6 +8,9 @@ categories: programming
 We use the SQL `UNION` operator at IOHK in one of our `beam` queries, and `esqueleto` does not support it.
 To make porting the IOHK SQL code more straightforward, I decided to implement `UNION`.
 This blog post series will delve into implementing this feature, in a somewhat stream-of-thought manner.
+
+This is the first post in the series.
+[Click here for part II]({% post_url 2019-02-01-esqueleto_union_ii %}).
 
 # Background
 
