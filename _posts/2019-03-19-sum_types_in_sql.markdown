@@ -30,7 +30,7 @@ type Song = Text
 
 We're going to ignore that this datatype could be normalized (though I will describe datatype normalization and show what I mean at the end of the post).
 
-The SQL examples in this blog post will use PostgreSQL`.
+The SQL examples in this blog post will use PostgreSQL.
 The Haskell query code will use the `persistent` syntax for entities and queries.
 
 # Shared Primary Keys
@@ -75,7 +75,7 @@ CREATE TABLE cat (
 )
 ```
 
-The contents of the `type` column for the `cat` table are completely constrainted -- we cannot insert any record into the table that does not have a value of type `'cat'`.
+The contents of the `type` column for the `cat` table are completely constrained -- we cannot insert any record into the table that does not have a value of type `'cat'`.
 Fortunately, this is automated - we can omit specifying it, and it'll be filled in automatically from the `DEFAULT 'cat'` clause.
 
 The other SQL tables will have a similar format.
@@ -148,7 +148,7 @@ selectAnimalsDb = rawQuery theAboveSqlQuery []
 ```
 
 We have a post-condition on the return value of this query that is guaranteed by the database schema, but not present in the types.
-One of the `Maybe` values *will* be a `Just` constructor, and the `Just` constructor will be determined by the `AnimalConstr` valu on the `Entity Animal` value.
+One of the `Maybe` values *will* be a `Just` constructor, and the `Just` constructor will be determined by the `AnimalConstr` value on the `Entity Animal` value.
 This allows us to *unsafely* extract the `Just` value based on the constructor.
 
 We would write our conversion function as so:
