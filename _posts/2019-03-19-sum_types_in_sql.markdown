@@ -391,6 +391,78 @@ This approach is explicitly denormalized, and your DBA friends may scoff at you 
 However, it has many upsides, as well.
 It is simple and easy to query, and aside from the safety `CHECK` constraints to guarantee data integrity, it is relatively low boilerplate.
 
+If you want to provide this schema for convenience, you might consider using one of the previous two choices and exposing this as a `VIEW` on the underlying data.
+The query to provide the same schema from the "Shared Primary Keys" approach is here:
+
+```sql
+CREATE VIEW animal_a (
+    id      INTEGER,
+    type    animal_constr NOT NULL,
+
+    cat_name    TEXT,
+    cat_age     INTEGER,
+    cat_food    TEXT,
+
+    dog_name        TEXT,
+    dog_owner_id    INTEGER REFERENCES owner,
+    
+    bird_name       TEXT,
+    bird_song       TEXT
+) AS 
+SELECT 
+    id, type, 
+    cat.name as cat_name, cat.age as cat_age, cat.food as cat_food,
+    dog.name as dog_name, dog.owner_id as dog_owner_id,
+    bird.name as bird_name, bird.song as bird_song
+FROM animal
+LEFT JOIN cat
+    ON animal.id = cat.id
+LEFT JOIN dog
+    ON animal.id = dog.ig
+LEFT JOIN bird
+    ON animal.id = bird.id
+WHERE cat.id IS NOT NULL
+   OR dog.is IS NOT NULL
+   OR bird.id IS NOT NULL
+```
+
+The view from the "Persistent" approach is slightly different, because the IDs for the cats/dogs/birds differ from the animal ID.
+If you needed to provide absolute backwards compatibility here, then you could provide the view with redundant `cat_id` etc columns.
+
+```sql
+CREATE VIEW animal_b (
+    id      INTEGER,
+    type    animal_constr NOT NULL,
+
+    cat_id      INTEGER
+    cat_name    TEXT,
+    cat_age     INTEGER,
+    cat_food    TEXT,
+
+    dog_id          INTEGER
+    dog_name        TEXT,
+    dog_owner_id    INTEGER REFERENCES owner,
+    
+    bird_id         INTEGER
+    bird_name       TEXT,
+    bird_song       TEXT
+) AS
+SELECT
+    id, type, 
+    cat.id as cat_id, cat.name as cat_name, cat.age as cat_age, cat.food as cat_food,
+    dog.id as dog_id, dog.name as dog_name, dog.owner_id as dog_owner_id,
+    bird.id as bird_id, bird.name as bird_name, bird.song as bird_song
+FROM animal
+LEFT JOIN cat
+    ON animal.cat_id = cat.id
+LEFT JOIN dog
+    ON animal.dog_id = dog.id
+LEFT JOIN bird
+    ON animal.bird_id = bird.id
+```
+
+Since this option is expressible as a `VIEW` on the other two options, I'd suggest doing that if you need to provide this schema.
+
 # Datatype Normalization
 
 Above, I mentioned that the `Animal` datatype we're using is not normalized.
