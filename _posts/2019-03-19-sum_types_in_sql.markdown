@@ -483,3 +483,7 @@ data Animal
 ```
 
 All of the repetition has been factored out.
+
+# Addendum
+
+[@cliffordheath](https://twitter.com/cliffordheath/status/1108497262450102272) commented that these three strategies have well-known names in the database world - absorption, separation, and partition.
