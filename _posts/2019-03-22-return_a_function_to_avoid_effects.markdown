@@ -75,7 +75,7 @@ instance SaveData NeedsUUID where
         values <- 
             forM needsUUIDs $ \needsUUID ->
                 uuid <- freshUUID
-                return (giveUUID uuid needsUUID)
+                return (giveUUID needsUUID uuid)
         saveNewValues values
 ```
 
