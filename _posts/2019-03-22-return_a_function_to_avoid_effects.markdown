@@ -9,7 +9,7 @@ To help write robust, reliable, and easy-to-test software, I always recommend pu
 There are a bunch of tricks and techniques to accomplish this sort of thing, and I'm going to share one of my favorites.
 
 I have implemented a pure data pipeline that imports records from one database and puts them in another database with a slightly different schema.
-Rather than implement all of the logic for s
+Rather than implement all of the logic for saving each entity individally, I've created a functin `migrate` that is abstract.
 The heart of this pipeline is a set of type classes:
 
 ```haskell
