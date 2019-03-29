@@ -13,6 +13,8 @@ Rather than implement all of the logic for saving each entity individually, I've
 The heart of this pipeline is a set of type classes:
 
 ```haskell
+{-# language FunctionalDependencies, ScopedTypeVariables, TypeApplications, AllowAmbiguousTypes #-}
+
 class LoadData i where
     load :: IO [i]
 
@@ -23,10 +25,11 @@ class SaveData o where
     save :: [o] -> IO ()
 
 migrate 
-    :: (LoadData i, ConvertData i o, SaveData o)
+    :: forall i o
+     . (LoadData i, ConvertData i o, SaveData o)
     => IO ()
 migrate = do
-    old <- load
+    old <- load @i
     save (map convert old)
 ```
 
