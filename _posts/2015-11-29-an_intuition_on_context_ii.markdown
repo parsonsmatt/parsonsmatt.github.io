@@ -60,7 +60,7 @@ Thinking of a function as a container is pretty difficult, and there are other f
 First, why isn't `Set` a valid functor?
 A Set is an unordered collection of elements where duplicates are discarded.
 "Duplicates are discarded" sounds like a likely plan of attack!
-[Michael Snoyman's code snippet](https://www.fpcomplete.com/user/chad/snippets/random-code-snippets/set-is-not-a-functor) shows the simplest case.
+[Michael Snoyman's code snippet](https://www.schoolofhaskell.com/user/chad/snippets/random-code-snippets/set-is-not-a-functor) shows the simplest case.
 This violation of the Functor laws is enough to say that a Set can't be a functor, despite being a container.
 
 Now, for the function functors!
