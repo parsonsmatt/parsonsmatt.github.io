@@ -5,6 +5,15 @@ layout: post
 categories: programming
 ---
 
+## Update from the Future (2019-05-22):
+
+I don't recommend this technique any more.
+It's quite complicated, and there's a much simpler formulation of the idea that uses records-of-functions instead of type class instances.
+I've written up this formulation at the end of the blog post.
+
+
+## Original Post
+
 Side effects are awful.
 Database access, HTTP requests, file reading, talking to Redis, ah!
 Just so much gross IO code to shuffle around.
@@ -363,5 +372,88 @@ runApplication = runIO . runRestApi
 mockApplication :: Interpret MonadRestApi (MonadReader String)
 mockApplication = runMock . runRestApi
 ```
+
+# Actually...
+
+Don't use this.
+It's complicated and overly boilerplatey.
+Here's the `MonadHttp` effect code we ended up developing:
+
+```haskell
+type InterpreterFor g eff = forall a. (forall f. eff f => f a) -> g a
+
+class MonadHttp m where
+  get :: Url -> m ByteString
+  post :: ToJSON a => Url -> a -> m ByteString
+
+data Services eff 
+    = Services 
+    { runHttp :: eff `InterpreterFor` MonadHttp
+    }
+```
+
+To create one of these `InterpreterFor`s, we have to make a type and define an instance:
+
+```haskell
+newtype MockHttp a 
+    = MockHttp
+    { runMockHttp :: ReaderT HttpEnv IO a 
+    } deriving (Functor, Applicative, Monad, 
+            MonadReader HttpEnv, MonadIO)
+
+type HttpEnv = IORef HttpState
+type HttpState = Map String ByteString
+
+instance MonadHttp MockHttp where
+    get url = do
+        state <- ask >>= liftIO . readIORef
+        pure (Map.lookup url state)
+    post url body = do
+        ref <- ask
+        state <- liftIO (readIORef ref)
+        liftIO (writeIORef ref (Map.insert url (encode body) state))
+        pure "200 OK"
+
+instance MonadHttp IO where
+    get = fmap (view responseBody) . Wreq.get 
+    post url = fmap (view responseBody) . Wreq.post url . toJson
+```
+
+Instead, we will create a record-of-functions for the type class, and create two values:
+
+```haskell
+data Http m = Http
+    { get :: Url -> m ByteString
+    , post :: forall a. ToJSON a => Url -> a -> m ByteString
+    }
+
+prodHttp :: Http IO
+prodHttp = Http
+    { get = fmap (view responseBody) . Wreq.get 
+    , post = \url -> fmap (view responseBody) . Wreq.post url . toJson
+    }
+
+mockHttp :: IORef (Map String ByteString) -> Http IO
+mockHttp env = Http
+    { get = \url -> do
+        state <- readIORef env
+        pure (Map.lookup url state)
+    , post = \url body -> do
+        state <- liftIO (readIORef env)
+        liftIO (writeIORef env (Map.insert url (encode body) state))
+        pure "200 OK"
+    }
+```
+
+and we include the record of functions directly into `Services`:
+
+```haskell
+data Services eff = Services { http :: Http eff }
+
+type Application eff = ReaderT (Services eff) eff
+```
+
+This gives us the same expressive power without having to deal with type classes, instances, and any of that other hassle.
+You construct plain values and pass them around.
 
 [^1]: I had initially written "isomorphic," and was corrected by George Wilson who reminded me that tuple and reader form an adjunction, and that the isomorphism is between Kleisli (Reader r) and CoKleisli (Env r)
