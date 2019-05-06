@@ -51,7 +51,7 @@ share :: [[EntityDef] -> Q [Dec]] -> [EntityDef] -> Q [Dec]
 share fs x = fmap mconcat $ mapM ($ x) fs
 ```
 
-It takes a list of functions `[EntityDef -> Q [Dec]` and then runs all of them over the `[EntityDef]` that is provided, and finally joins all the `[Dec]` together.
+It takes a list of functions `[EntityDef] -> Q [Dec]` and then runs all of them over the `[EntityDef]` that is provided, and finally joins all the `[Dec]` together.
 So, if we want to make the QQ work for us, we need to write a function with that type and add it to our list.
 
 Let's start with a problem: one of the instances that are generated for the `User` table is `PersistEntity`.
@@ -161,7 +161,7 @@ deriveShowFields entities =
 This fails with a type error.
 The `[d| ... |]` quasiquoter returns a value of type `Q [Dec]`.
 That means that `forM entities ...` will return `Q [[Dec]]`.
-Sowe just need to flatten it:
+So we just need to flatten it:
 
 ```haskell
 deriveShowFields :: [EntityDef] -> Q [Dec]
