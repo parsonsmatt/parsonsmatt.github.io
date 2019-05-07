@@ -10,7 +10,7 @@ categories: programming
 I don't recommend this technique any more.
 It's quite complicated, and there's a much simpler formulation of the idea that uses records-of-functions instead of type class instances.
 I've written up this formulation at the end of the blog post.
-
+I don't recommend using the record-of-functions approach either, except in very narrow use cases, and with very constrained interfaces.
 
 ## Original Post
 
