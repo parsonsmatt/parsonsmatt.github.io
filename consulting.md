@@ -31,3 +31,7 @@ I can write tutorials, library documentation, and friendly introductions to adva
 # Get in touch!
 
 If you are interested, please send me an email at <a href="mailto:parsonsmatt+consult@gmail.com">parsonsmatt@gmail.com</a>.
+
+My bandwidth is currently somewhat constrained, and I'm only available on small projects.
+However, I know many folks that can help with a variety of projects that are available to help.
+If I'm unable to help you, then I can help connect you with someone that can.
