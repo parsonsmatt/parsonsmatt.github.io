@@ -195,3 +195,12 @@ I've since realized that the layers *already* have names!
 3. Functional programming
 
 I've provided a new explanation of the ["functional core, imperative shell"](https://www.destroyallsoftware.com/talks/boundaries) model of programming!
+
+### Examples
+
+I get folks asking me for examples fairly regularly.
+Unfortunately, I haven't had time to write an OSS app using this technique.
+Fortunately, other folks have!
+
+- [Holmusk/three-layer](https://github.com/Holmusk/three-layer)
+- [thomashoneyman/purescript-halogen-realworld](https://github.com/thomashoneyman/purescript-halogen-realworld)
