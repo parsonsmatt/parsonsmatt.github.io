@@ -173,7 +173,7 @@ This is a pretty big limitation.
 # Should I include a HasCallStack constraint?
 
 Great question!
-`HasCallStack` is implemented as [an implicit parameter](https://hackage.haskell.org/package/base-4.10.0.0/docs/GHC-Stack.html#t:HasCallStack) in current versions of GHC.
+`HasCallStack` is implemented as [`type HasCallStack = ?callStack :: CallStack`](https://hackage.haskell.org/package/base-4.10.0.0/docs/GHC-Stack.html#t:HasCallStack) where the `?` means [an implicit parameter](https://wiki.haskell.org/Implicit_parameters) in current versions of GHC.
 This is an extra parameter that gets passed around and handled in your program, which will affect performance.
 Implicit parameters can potentially interact with sharing in weird ways, which might also cause strange performance issues.
 
