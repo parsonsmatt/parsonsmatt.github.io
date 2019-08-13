@@ -242,7 +242,7 @@ As it type checks, it also ensures that no variables are undeclared.
 Since `x` is declared in the `let` block, and `f x` is well typed, it accepts this definition.
 
 Haskell will continue applying `f` to `x` each time we demand the next bit of evaluation, or alternatively, whenever `f` self-terminates.
-We saw above that `fix id` dug a big whole of `id` applications, from which we'd never get out.
+We saw above that `fix id` dug a big hole of `id` applications, from which we'd never get out.
 But specializing to a function type allowed us to provide a starting point, and terminate early!
 
 # The Secret Tricks
