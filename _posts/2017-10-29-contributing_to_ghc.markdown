@@ -117,7 +117,7 @@ Here's my summary:
 - Matt: OK, so there are two options for this: 
 
   1. Make the extensions `ExtraCommas` and `TupleSections` completely incompatible.
-  2. Excluse tuples from `ExtraCommas`.
+  2. Exclude tuples from `ExtraCommas`.
 
   Let's pick one and get on with this. I want this off my plate so if you haven't decided in a week then I'm closing it out.
 - Committee: 
@@ -125,6 +125,6 @@ Here's my summary:
 - Matt: OK, closing it out.
 - Committee:
 - Committee: Okay, we've decided to accept it!
-- SPJ: Wait, hold on, I thought we were voting on the first proposal and I hadn't actually read what we were voting on! What if...
+- SPJ: [Wait, hold on, I thought we were voting on the first proposal and I hadn't actually read what we were voting on! What if...](https://github.com/ghc-proposals/ghc-proposals/pull/87#issuecomment-506664603)
 
 And so I will not be contributing to GHC until they've significantly improved their processes for newcomers.
