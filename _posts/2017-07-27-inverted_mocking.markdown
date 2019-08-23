@@ -43,7 +43,7 @@ I bet we can simplify our solution to testing.
 # Decomposing Effects
 
 The first thing we need to do is recognize that *effects* and *values* are separate, and try to keep them as separate as possible.
-This is a basic principle of purely functional programming, and we would be wise to take it's heed.
+This is a basic principle of purely functional programming, and we would be wise to take its heed.
 Generally speaking, functions that look like:
 
 ```haskell
