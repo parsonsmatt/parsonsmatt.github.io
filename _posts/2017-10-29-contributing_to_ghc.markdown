@@ -5,6 +5,8 @@ layout: post
 categories: programming
 ---
 
+UPDATED 2019-08-22: See the end of the post for how this turned out.
+
 This post serves as notes and explorations of my first patch to GHC.
 I'm going to start from the very beginning -- so it might be kind of boring!
 
@@ -88,3 +90,41 @@ Neat!
 
 At this point, it's time to wait for code review, implement any requested changes, and then pat myself on the back for contributing to GHC.
 You can do it, too!
+
+# UPDATE: 2019-08-22
+
+It's been almost two years since this whole process got started.
+The contribution did not land. 
+Here's what happened.
+
+[`hvr` left a comment](https://phabricator.haskell.org/D4134#115719) indicating that this had been thought through, and it would need a much larger investment of time and energy.
+I was told to make a GHC proposal so that it could go through the official process.
+So, [I made an official GHC proposal](https://github.com/ghc-proposals/ghc-proposals/pull/87).
+The proposal discussion ballooned to 166 comments at the time of writing this update.
+Here's my summary:
+
+- Matt: Here's a proposal!
+- Community: This is good, but it must be expanded to cover all cases of comma-separated enumerations.
+- Matt: OK, here's the updated proposal. There's an interaction with `TupleSections`, though. How should we handle it?
+- Community: bikeshedding about syntax for about 1.5 years
+- Committee: Matt can you address concerns/questions?
+- Matt: I've addressed everything as well as I can, as far as I know it's just up to a vote.
+- Committee: Matt can you address concerns/questions?
+- Matt: Can you be more specific about the questions/concerns? 
+- Committee: 
+- Committee: 
+- Committee: Matt can you address concerns/questions?
+- Matt: OK, so there are two options for this: 
+
+  1. Make the extensions `ExtraCommas` and `TupleSections` completely incompatible.
+  2. Excluse tuples from `ExtraCommas`.
+
+  Let's pick one and get on with this. I want this off my plate so if you haven't decided in a week then I'm closing it out.
+- Committee: 
+- Committee:
+- Matt: OK, closing it out.
+- Committee:
+- Committee: Okay, we've decided to accept it!
+- SPJ: Wait, hold on, I thought we were voting on the first proposal and I hadn't actually read what we were voting on! What if...
+
+And so I will not be contributing to GHC until they've significantly improved their processes for newcomers.
