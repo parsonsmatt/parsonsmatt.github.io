@@ -19,9 +19,9 @@ Why can't they use practical and ordinary terms, the way that Object Oriented Pr
 
 Some people strengthen their complaint with moral urgency: `Functor` is a confusing word,
 
-- *and* it makes it more difficult for people to learn Haskell, (it doesn't)
-- *and* this makes Haskell an elitist, non-inclusive language, (it is, but this isn't why)
-- *and* if we just used "my favorite term" instead, it wouldn't be a problem! (sorry but your favorite term betrays a misunderstanding of the concept)
+- *and* it makes it more difficult for people to learn Haskell,
+- *and* this makes Haskell an elitist, non-inclusive language,
+- *and* if we just used "my favorite term" instead, it wouldn't be a problem!
 
 So, let's talk about names.
 What are they?
