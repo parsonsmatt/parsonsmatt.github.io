@@ -122,8 +122,8 @@ I know that I can 'map' a space out and provide information about how to get fro
 
 You might think that because you already learned `map` from JavaScript or Python that it's a good enough name.
 But that's an argument from familiarity.
-Rubyists and Smalltalkers are more familiar with the name `select` for this operation.
-If they want to call it `Selectable`, then who are we to stop them?
+Rubyists and Smalltalkers are more familiar with the name `collect` for this operation.
+If they want to call it `Collectable`, then who are we to stop them?
 
 Fact is, "mapping" isn't an easy concept, no matter what you call it.
 We could call it "florbing" and it would require the exact same amount of instruction and understanding for the concept to work out.
