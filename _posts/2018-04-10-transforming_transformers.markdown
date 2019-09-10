@@ -89,7 +89,7 @@ And not export the method implementations (as before).
 Now, in main, you just write:
 
 ```haskell
-newtype App a = App (ReaderT IO a)
+newtype App a = App (ReaderT GlobalConfig IO a)
   deriving MonadAccounts via AccountT
 ```
 
