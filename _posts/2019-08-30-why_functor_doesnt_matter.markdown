@@ -128,6 +128,24 @@ If they want to call it `Collectable`, then who are we to stop them?
 Fact is, "mapping" isn't an easy concept, no matter what you call it.
 We could call it "florbing" and it would require the exact same amount of instruction and understanding for the concept to work out.
 
+Worse yet, a `Mappable` is a more permissive concept than a `Functor`.
+There are things that are `Mappable` that *are not* a `Functor`, because a `Functor` is *structure preserving*.
+This means that the following laws must hold:
+
+```haskell
+composition:
+    fmap f . fmap g = fmap (f . g)
+
+identity:
+    fmap id = id
+```
+
+A `Set` datatype (collection of unique objects) is not a functor, because it is possible for a choice of `f` and `g` to violate the composition law.
+Likewise, a datatype `Counter` that keeps track of how many times you call `fmap` on it is not a `Functor` because `fmap id` would not be equal to `id`.
+These laws are important, because they allow us to perform refactoring and simplify the possibilities when thinking about code.
+
+`Mappable` is an OK concept, but it ain't a `Functor`, and there's no way I'm trading the name for `StructurePreservingMappable`.
+
 # So what makes a name bad?
 
 Names can't transmit *meaning*.
