@@ -76,14 +76,18 @@ We'll take advantage of Haskell's `PatternSynonyms` language extension to allow 
 {-# LANGUAGE PatternSynonyms #-}
 
 module NonZero
-  ( NonZero(unNonZero)
+  ( NonZero()
   , pattern NonZero
+  , unNonZero
   , nonZero
   ) where
 
-newtype NonZero a = UnsafeNonZero { unNonZero :: a }
+newtype NonZero a = UnsafeNonZero a
 
 pattern NonZero a <- UnsafeNonZero a
+
+unNonZero :: NonZero a -> a
+unNonZero (UnsafeNonZero a) = a
 
 nonZero :: (Num a, Eq a) => a -> Maybe (NonZero a)
 nonZero 0 = Nothing
