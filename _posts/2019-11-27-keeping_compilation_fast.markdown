@@ -198,13 +198,13 @@ This is a bit nasty, but it can break up a module bottleneck quite nicely, and i
 - Don't do more work than you need to. Derived type class instances are work that GHC must redo every time the module is compiled.
 - Keep the module graph broad and shallow.
 - TemplateHaskell isn't that bad for compile times. 
-  - You pay a 200-500ms hit to fire up the interpreter at all, but from there, most TH code is quite fast - running the TH code to parse and generate models from 1,500 lines of `persistent` quasiquoter takes about 50ms.
-  - The slow part is compiling the resulting code - those 1,500 lines of model definitions expanded out to something like 200kloc
-  - The solution is to split up the module, following the tips in this post!
+    - You pay a 200-500ms hit to fire up the interpreter at all, but from there, most TH code is quite fast - running the TH code to parse and generate models from 1,500 lines of `persistent` quasiquoter takes about 50ms.
+    - The slow part is compiling the resulting code - those 1,500 lines of model definitions expanded out to something like 200kloc
+    - The solution is to split up the module, following the tips in this post!
 - The following command speeds up compilation significantly, especially after exposing all those parallelism opportunities:
-  ```
-  stack build --fast --file-watch --ghc-options "-j4 +RTS -A128m -qg -RTS
-  ```
-  These flags give GHC 4 threads to work with (more didn't help on my 8 core computer), and `-A128m` gives it more memory before it does GC.
-  `-qg` turns off the parallel garbage collector, which is almost always a performance improvement.
+    ```
+    stack build --fast --file-watch --ghc-options "-j4 +RTS -A128m -qg -RTS
+    ```
+    These flags give GHC 4 threads to work with (more didn't help on my 8 core computer), and `-A128m` gives it more memory before it does GC.
+    `-qg` turns off the parallel garbage collector, which is almost always a performance improvement.
 - Try to keep things `ghci` friendly as much as possible. `:reload` is the fastest way to test stuff out usually, and REPL-friendly code is test-friendly too!
