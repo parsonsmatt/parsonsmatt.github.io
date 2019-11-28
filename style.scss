@@ -26,8 +26,8 @@ html {
 }
 
 body {
-  color: #aaa;
-  background-color: #222;
+  color: #eee;
+  background-color: #333;
   -webkit-text-size-adjust: 100%;
       -ms-text-size-adjust: 100%;
 }
@@ -267,7 +267,7 @@ tbody tr:nth-child(odd) th {
   box-shadow: 0 0 10px black;
   margin-left:  auto;
   margin-right: auto;
-  background: #101010;
+  background: #000000;
 
   @media (min-width: 48rem){
     padding: 5rem 1rem;
