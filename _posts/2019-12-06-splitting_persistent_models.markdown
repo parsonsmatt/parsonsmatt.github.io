@@ -13,6 +13,8 @@ Yes! There is.
 In fact, I've been working on this at work, and it's made a big improvement in our overall compile-times.
 I'm going to lay out the strategy and code here to make it all work out.
 
+You'd primarily want to do this to improve compilation times, though it's also logically nice to "only import what you need" I guess.
+
 # Starting Point and Background
 
 [`persistent`](https://hackage.haskell.org/package/persistent) is a database library in Haskell that focuses on rapid productivity and iteration with relatively simple types.
