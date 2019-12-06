@@ -48,7 +48,7 @@ Group related types into modules.
 The sweet spot is probably between 50-200 lines, but that's a number I just summoned out of the intuitional aether.
 
 This process can be done incrementally.
-Pick a concept or type from the bottom of your depedency graph, and put it in it's own module.
+Pick a concept or type from the bottom of your dependency graph, and put it in it's own module.
 You'll need to import that into `Project.Types` - but do not reexport it!
 Everywhere that complains, add another import to your new module.
 
