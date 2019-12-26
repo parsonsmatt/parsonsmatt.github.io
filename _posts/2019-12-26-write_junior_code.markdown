@@ -64,3 +64,9 @@ Let us grow Haskell in industry by writing simpler code and making room for the 
 Let's not delete all of our fancy code - it serves a purpose!
 Let's make it a small part of our codebase, preferably hidden in libraries with nice simple interfaces.
 Let us share the joy and wonder of an Actually (Mostly) Good programming language with the people that haven't had the privilege and opportunity to work for years in it already.
+
+## Addendum:
+
+Kudos to [Marco Sampellegrini](https://alpacaaa.net/thoughts-on-haskell-2020/) who wrote basically the same post as me today.
+Kudos to [Michael Snoyman](https://www.snoyman.com/blog/2019/11/boring-haskell-manifesto) who has been championing Boring Haskell for a while.
+And kudos to everyone else who has contributed to making Haskell easy, and not just powerful/fun/flexible/fast/amazing.
