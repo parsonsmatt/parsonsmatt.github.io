@@ -359,7 +359,7 @@ newtype ReaderT
     (m :: Type -> Type)
     (a :: Type)
 
-class MonadReader r m | r -> m
+class MonadReader r m | m -> r
 
 instance (Monad m) => MonadReader r (ReaderT r m)
 
