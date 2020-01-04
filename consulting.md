@@ -15,8 +15,11 @@ I can provide guidance on this, offering advice and experience on library select
 
 # Implementation
 
-Do you have a Haskell application that you need an extra hand on?
-I can help build and specify the application with you at a rapid development pace.
+Are you stuck on your implementation?
+I can help get you un-stuck and productive again with a quick call.
+You can also set me up as a contributor on your project for very quick fixes.
+
+Unfortunately, I do not have the spare bandwidth to do significant implementation work at this time.
 
 # Tutoring
 
