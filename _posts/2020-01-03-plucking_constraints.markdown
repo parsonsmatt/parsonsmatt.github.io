@@ -386,7 +386,7 @@ ReaderT r m a                              :: Type
     Where we can call `updatePlayer` to 'lift' a function that operates on `Player`s to an entire `GameState`.
 2. With an `m` and an `r` applied, we have a 'monad.'
     Again, don't worry if this is tricky. Just notice that we have something that fits the same shape that the `m` parameter has.
-3. Finally, we have a regular old value that has runtime types.
+3. Finally, we have a regular old type that has runtime values.
 
 The important bit here is the 'delegation' type variable.
 For the class we know how to handle, we can write a 'base case':
