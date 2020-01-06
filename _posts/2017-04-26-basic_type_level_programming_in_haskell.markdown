@@ -813,6 +813,9 @@ Here's a tiny implementation that requires yet more extensions:
 ```haskell
 {-# LANGUAGE PolyKinds        #-}
 {-# LANGUAGE TypeApplications #-}
+
+import GHC.TypeLits (KnownSymbol, symbolVal)
+import Data.Proxy
 ```
 
 This generalizes definitions for type variables, which allows for non-value type variables to have kind polymorphism.
