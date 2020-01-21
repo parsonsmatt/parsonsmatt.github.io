@@ -529,6 +529,7 @@ Is it really *that* bad?
 Okay, yeah, it's pretty bad.
 This encoding is primarily here to present the 'constraint plucking' technique.
 You can do a more general and ergonomic approach to handling errors like this, but describing it is out of scope for this post.
+I've published a library named [`plucky`](https://hackage.haskell.org/package/plucky) that captures this pattern, and the [module documentation](https://hackage.haskell.org/package/plucky-0.0.0.1/docs/Data-Either-Plucky.html) covers it pretty extensively.
 
 Hopefully you find this concept as useful as I have.
 Best of luck in your adventures!
