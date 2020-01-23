@@ -100,6 +100,17 @@ Breaking up your project into multiple packages can cause overall compile-times 
 If you do this, it should ideally be to split out a focused library that will need to change relatively rarely while you iterate on the rest of your codebase.
 I'd beware of breaking things up until absolutely necessary - a package boundary is a heavy tool to merely separate responsibilities.
 
+At the day job, we have a package graph that looks like this:
+
+```
+         +-> C
+A -> B --|
+         +-> D
+```
+
+By combining `A` and `B` into a single package, we sped up compile times for a *complete* build of the application by 10%.
+A clean build of the new `AB` package was 15% faster to build all told,and incremental builds were improved too.
+
 ## Package parallelism
 
 The good news is that it is quite easy to cache entire packages, and the common build tools are quite good at compiling packages in parallel.
