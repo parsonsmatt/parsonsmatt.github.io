@@ -220,3 +220,15 @@ This is a bit nasty, but it can break up a module bottleneck quite nicely, and i
     `-qg` turns off the parallel garbage collector, which is almost always a performance improvement.
     Thanks to [/u/dukerutledge](https://www.reddit.com/r/haskell/comments/e2l1yj/keeping_compilation_fast/f8wt34p/) for pointing out `-n2m`, which I don't understand but helped!
 - Try to keep things `ghci` friendly as much as possible. `:reload` is the fastest way to test stuff out usually, and REPL-friendly code is test-friendly too!
+
+# Results
+
+(this section was added on 2020-01-30)
+
+Not sure if these tips are legit?
+Here's an experience report.
+Before we implemented these changes at work, a full build of the repository code (56kloc) took 9:55. 
+
+Today, a full build of the repository (with GHC flags) is down to 3:40, and we have 70kloc.
+Much of that comes from the improvements to `persistent-template-2.8.0`'s performance improvements - about 20%.
+The rest is module splitting and exposing parallelism.
