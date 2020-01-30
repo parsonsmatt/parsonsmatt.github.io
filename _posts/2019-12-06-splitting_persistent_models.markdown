@@ -53,7 +53,7 @@ For smaller projects, I'd recommend using the QuasiQuoter - it causes less probl
 Once the models file gets big, compilation *will* become slow, and you'll want to split it into many files.
 I [investigated this slowness to see what the deal was](https://twitter.com/mattoflambda/status/1158853267499057152), initially suspecting that the Template Haskell code was slowing things down.
 What I found was a little surprising: for a 1,200 line `models` file, we were spending [less than a second](https://twitter.com/mattoflambda/status/1158853269432651779) doing TemplateHaskell.
-The rest of the module would take several minutes to compile, largely because the generated module was over 390,000 lines of code, and GHC is [superlinear in compiling large modules](https://www.parsonsmatt.org/2019/11/27/keeping_compilation_fast.html).
+The rest of the module would take several minutes to compile, largely because the generated module was over 390,000 lines of code, and GHC is [superlinear in compiling large modules](https://www.parsonsmatt.org/2019/11/27/keeping_compilation_fast.html). (note: this issue was fixed in `persistent-template-2.8.0`, which resulted in a massive performance improvement by generating dramatically less code! upgrade!!)
 
 Another reason to split it up is to avoid GHCi linker issues.
 GHCi can exhaust linker ticks (or some other weird finite resource?) when compiling a module, and it will do this when you get more than ~1,000 lines of models (in my experience).
