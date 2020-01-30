@@ -210,8 +210,8 @@ This is a bit nasty, but it can break up a module bottleneck quite nicely, and i
 - Keep the module graph broad and shallow.
 - TemplateHaskell isn't that bad for compile times. 
     - You pay a 200-500ms hit to fire up the interpreter at all, but from there, most TH code is quite fast - running the TH code to parse and generate models from 1,500 lines of `persistent` quasiquoter takes about 50ms.
-    - The slow part is compiling the resulting code - those 1,500 lines of model definitions expanded out to something like 200kloc
-    - The solution is to split up the module, following the tips in this post!
+    - The slow part is compiling the resulting code - those 1,500 lines of model definitions expanded out to something like 200kloc (note that this is no longer true as of `persistent-template-2.8.0`, which *dramatically* speeds up compile-times by generating less code)
+    - The solution is to split up the module, following the tips in [this post](https://www.parsonsmatt.org/2019/12/06/splitting_persistent_models.html)!
 - The following command speeds up compilation significantly, especially after exposing all those parallelism opportunities:
     ```
     stack build --fast --file-watch --ghc-options "-j4 +RTS -A128m -n2m -qg -RTS"
