@@ -237,7 +237,6 @@ Nice. That's what we want.
 We can derive a Generic-based instance using our `newtype` from earlier:
 
 ```haskell
-```haskell
 data User = User
     { userName           :: String
     , userAge            :: Int
