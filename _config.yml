@@ -37,6 +37,8 @@ nav:
     href: "/tutorials"
   - name: "Consulting"
     href: "/consulting"
+  - name: "Production Haskell"
+    href: "/production-haskell"
   - name: "Twitter"
     href: "//www.twitter.com/mattoflambda"
   - name: "Github"
