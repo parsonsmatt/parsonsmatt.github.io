@@ -285,7 +285,7 @@ spec = describe "db testing" $ do
 
 # On Naming Things
 
-No, I'm not going to talk about [*that* kind of naming things]({{ post_url 2017-06-23-on_naming_things.markdown }}).
+No, I'm not going to talk about [*that* kind of naming things](https://www.parsonsmatt.org/2017/06/23/on_naming_things.html).
 This is about actually giving names to things!
 
 The most general types for `arrange`, `act`, and `assert` are:
