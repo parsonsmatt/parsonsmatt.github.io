@@ -296,7 +296,8 @@ act = pure
 assert = pure
 
 arrange 
-    :: (forall x. n x -> m x)
+    :: Monad m
+    => (forall x. n x -> m x)
     -> m (n (m a)) -> m a
 arrange transform mkAction = do
     action <- mkAction
