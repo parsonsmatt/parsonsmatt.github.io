@@ -292,12 +292,12 @@ where `Control.Monad.Metrics` will export the types, and `Metrics` will export t
 This cuts down on the effort required by the user.
 
 This scheme requires a lot of maintenance on the part of the user, or a dependency on tooling that may or may not be available for a user's editor solution.
-Furthermore, this encourages a style of naming where the same basic identifier gets used many times: [`empty`](http://hoogle.haskell.org/?hoogle=empty&scope=set%3Astackage) is used 25 times in the Stackage library.
+Furthermore, this encourages a style of naming where the same basic identifier gets used many times: [`empty`](http://hoogle.haskell.org/?hoogle=empty&scope=set%3Astackage) is used 25 times in the Stackage database.
 This makes it more difficult for tooling to know what to suggest in these cases.
 
 ## Module Isolation
 
-This strategy harkens back to the Esqueleto and Parsec examples I presented earlier.
+This strategy hearkens back to the Esqueleto and Parsec examples I presented earlier.
 It also applies to some other libraries I've used, like the Swagger library.
 This is the easiest thing to do -- you stop caring about stepping on anyone's toes, and require that your users define functions that *use* your library in encapsulated, isolated modules, that they then reexport however they like.
 This makes a lot of sense when you're defining an EDSL (embedded domain specific language) for working with something.

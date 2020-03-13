@@ -276,11 +276,164 @@ spec = describe "db testing" $ do
                 insertMany entityList
                 after <- someDatabaseFunction
 
-
                 assert $ do
                     before === 0
                     diff before (<) after
                     after === length entityList
+```
+
+# A Real Example
+
+OK, OK, so that last one was too abstract.
+Let's say we're writing a billing system (jeez, i sure do use that example a lot).
+We keep track of `Invoice`s, which group `InvoiceLineItem`s that contain actual amounts.
+We have a model for `Payment`s, which record details on a `Payment` like how it was made, who made it, whether it was successful, etc.
+A `Payment` can be applied to many `Invoice`s, so we have a join table `InvoicePayment` that records the amount of each payment allocated toward an `Invoice`.
+
+Neat.
+
+Becuase we *love* Postgresql, quite a bit of our business logic is performed database-side, either via custom SQL functions or `esqueleto` expressions.
+One of these functions is `invoicePaidTotal`, which tells us the total amount paid towards an `Invoice`.
+
+Here's the `esqueleto` code:
+
+```haskell
+invoicePaidTotal
+  :: SqlExpr (Entity DB.Invoice)
+  -> SqlExpr (Value (Dollar E2))
+invoicePaidTotal i =
+  fromMaybe_ zeroDollars $
+    subSelect . from $ \(ip `InnerJoin` p) -> do
+      on (p ^.DB.PaymentId ==. ip ^.DB.InvoicePaymentPaymentId)
+      where_ (ip ^.DB.InvoicePaymentInvoiceId ==. i ^.DB.InvoiceId)
+      where_ (Payment.isSucceeded p)
+      pure (sumDollarDefaultZero (ip ^.DB.InvoicePaymentTotal))
+```
+
+(Some of these functions are internal to the work codebase, but they do the obvious thing)
+
+This is equivalent to the following SQL:
+
+```sql
+SELECT 
+    COALESCE(SUM(ip.total), 0)
+FROM invoice_payment AS ip
+INNER JOIN payment AS p
+    ON p.id == ip.payment_id
+WHERE ip.invoice_id = :invoice_id
+  AND payment_succeeded(p)
+```
+
+Now, we want to write a test for it.
+Upon inspection, we're testing two things: SQL's `SUM` function and the `payment_succeeded` function (which itself is actually another esqueleto expression that would unfold).
+
+So, we can write a property:
+
+- If there are no `Payment`s or `InvoicePayment`s in the database, then this function should return `$0.00`.
+- If there are some `InvoicePayment`s in the database, then this function should return the sum of their `total` fields provided that the associated `Payment` is successful.
+
+Here's the test code.
+We'll start by looking at `arrange` bit, which creates the database models.
+
+```haskell
+arrange (runTestDb db) "invoicePaidTotal" $ do
+    let invoiceId = InvoiceKey "invoice"
+        invoice = baseInvoice
+
+    payments <- 
+        forAll $
+        Gen.list (Range.linear 1 50) $ do
+            id <- Gen.id
+            name <- Gen.faker Faker.name
+            pure $ Entity id basePayment
+                { paymentName = name
+                }
+
+    invoicePayments <-
+        forAll $
+        for payments $ (Entity paymentId _) -> do
+            amount <- Gen.integral (Range.linear 1 1000)
+            pure $ InvoicePayment invoiceId paymentId amount
+
+    act $ do
+        ... snip ...
+```
+
+Values like `baseInvoice`, `basePayment` are useful as test fixtures.
+I've generally found that writing generators for models isn't nearly as useful as generating *modifications* to models that alter what you care about.
+This doesn't catch as many potential edge case bugs, so it has it's downsides, but if the client name being "Foobar" instead of "AsdfQuux" affects payment totals, then something is deeply weird.
+
+Alright, let's `act`!
+I usually like to define the function under test as `subject`, along with whatever scaffolding needs to happen to make it easy to call.
+In this case, I want to test an `esqueleto` `SqlExpr`, which means I need convert it into a query and run it.
+Calling it `subject` is just an aesthetic thing.
+
+```haskell
+    act $ do
+        let subject =
+                fmap (unValue . head)
+                select $
+                from $ \i -> do
+                where_ $ i ^. InvoiceId ==. val invoiceId
+                pure $ invoicePaidTotal i
+```
+
+I call `head` fearlessly here because I don't care about runtime errors in test suites.
+YOLO.
+
+Next, we're going to insert our invoice, and call `subject` to get the paid total.
+
+```haskell
+        insertKey invoiceId invoice
+
+        beforePayments <- subject
+```
+
+Then we'll mutate the state of the database by inserting all the invoice payments and invoices.
+
+```haskell
+        insertEntityMany payments
+        insertMany invoicePayments
+
+        afterPayments <- subject
+```
+
+And that's all we need to start writing some assertions.
+
+```haskell
+        assert $ do
+            beforePayments === 0
+
+            afterPayments === do
+                map invoicePaymentTotal
+                $ filter isSuccessfulPayment
+                $ invoicePayments
+```
+
+`isSuccessfulPayment` is a Haskell function that mirrors the logic in the SQL.
+If this test passes, then we know that the logic is all set.
+
+Next up, we might want to write an *equivalence test* for the Haskell `isSuccessfulPayment` and the esqueleto/SQL `Payment.isSuccessful`.
+This would look something like:
+
+```haskell
+arrange (runTestDb db) $ do
+    Entity paymentId payment <- forAll Payment.gen
+    act $ do
+        insertKey paymentId payment
+
+        dbPaymentSuccessful <-
+            fmap (unValue . head) $
+            select $
+            from $ \p -> do
+            where_ $ p ^. PaymentId ==. val paymentId
+            pure (Payment.isSuccessful p)
+
+        assert $ do
+            dbPaymentSuccessful 
+                === 
+                paymentIsSuccessful payment
+
 ```
 
 # On Naming Things
