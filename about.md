@@ -16,3 +16,6 @@ Ever since, I've been sold on functional programming.
 I tend to like abstraction, patterns, extremes in contrast, and going a little too meta.
 There’s an underpinning to writing music, learning mathematics, and making beautiful programs that resonate with me.
 Emergent complexity, chaotic systems, and expressions of passion are my favorite things.
+
+I put a lot of time and effort into this blog.
+If I've helped you, please consider [leaving a PayPal tip](https://paypal.me/thanksforblogging).
