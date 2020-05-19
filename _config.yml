@@ -3,7 +3,7 @@
 # # # # # # # #
 
 # Basic
-name:               "To Overcome"
+name:               "Overcoming Software"
 
 # URL
 baseurl:            ""
@@ -54,9 +54,9 @@ links:
   github: parsonsmatt
 
 ##The website description (to be used in meta tags)
-description: Personal blog of Matthew Parsons
+description: A series of articles on practical functional programming in Haskell
 ##Some frequently used keywords on your website
-keywords: programming, music, haskell, weightlifting
+keywords: programming, haskell, category theory, type 
 
 # Sass
 sass:
