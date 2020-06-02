@@ -330,6 +330,16 @@ I'm happy to say that the entire job is handled quite nicely with the amazing [`
 I created [a gist](https://gist.github.com/parsonsmatt/880fbf79eaad6ed863786c6c02f8ddc9) that demonstrates their usage, but the *magic* comes down to this simple fact: there's an instance of the prismatic `AsType` class for `Either`, which allows you to "pluck" a constraint off.
 This satisfies all of the things I wanted in my list, and we can consider representing errors mostly solved.
 
+## Womp Womp (edit: 2020-06-02)
+
+Turns out, the above approach was premature.
+`generic-lens` only handles two types - it doesn't "deep search" the `Either`, so this approach doesn't work as well as I wanted to.
+
+Fortunately, the technique I document in the [Plucking Constraints]({{ % post_url 2020/01/03/plucking_constraints }}) post does work quite well, and it doesn't even require `lens` knowledge!
+I wrote the [`plucky`](https://hackage.haskell.org/package/plucky) to demonstrate the technique for errors specifically.
+
+As far as I know, this is the best approach in Haskell for type-safe errors.
+
 # Mostly?
 
 Well, `ExceptT e IO a` still imposes a significant runtime performance hit, and asynchronous exceptions aren't considered here.
