@@ -452,4 +452,4 @@ Anything else is noise that detracts from signal.
 
 Anyway, these are my recommendations for large projects that have multiple collaborators.
 If you're working on a small project, then you don't need to worry about anything here.
-These aren't my aesthetic preferneces, but these formatting choices do annoy me a lot less than pretty code pleases me.
+These aren't my aesthetic preferences, but these formatting choices do annoy me a lot less than pretty code pleases me.

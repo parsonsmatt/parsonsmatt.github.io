@@ -85,7 +85,7 @@ spec = describe "some IO property" $ do
         d /== anyNonDValue
 ```
 
-This pattern becomes unweildy for a few reasons:
+This pattern becomes unwieldy for a few reasons:
 
 1. It's awkward to have to `pure` up a tuple of the values you want to assert against.
 2. It's repetitive to declare bindings twice for all the values you want to assert against.
@@ -292,7 +292,7 @@ A `Payment` can be applied to many `Invoice`s, so we have a join table `InvoiceP
 
 Neat.
 
-Becuase we *love* Postgresql, quite a bit of our business logic is performed database-side, either via custom SQL functions or `esqueleto` expressions.
+Because we *love* Postgresql, quite a bit of our business logic is performed database-side, either via custom SQL functions or `esqueleto` expressions.
 One of these functions is `invoicePaidTotal`, which tells us the total amount paid towards an `Invoice`.
 
 Here's the `esqueleto` code:
