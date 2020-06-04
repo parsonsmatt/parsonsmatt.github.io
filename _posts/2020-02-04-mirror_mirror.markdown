@@ -27,8 +27,9 @@ Let's dig into what I've been working on.
 We're going to need a boatload of language extensions to make this work.
 
 ```haskell
-{-# LANGUAGE TypeOperators, AllowAmbiguousTypes  #-}
+{-# LANGUAGE AllowAmbiguousTypes  #-}
 {-# LANGUAGE DataKinds            #-}
+{-# LANGUAGE DeriveAnyClass       #-}
 {-# LANGUAGE DeriveGeneric        #-}
 {-# LANGUAGE DerivingStrategies   #-}
 {-# LANGUAGE DerivingVia          #-}
@@ -36,9 +37,11 @@ We're going to need a boatload of language extensions to make this work.
 {-# LANGUAGE FlexibleInstances    #-}
 {-# LANGUAGE KindSignatures       #-}
 {-# LANGUAGE NoStarIsType         #-}
+{-# LANGUAGE OverloadedStrings    #-}
 {-# LANGUAGE PolyKinds            #-}
 {-# LANGUAGE ScopedTypeVariables  #-}
 {-# LANGUAGE TypeApplications     #-}
+{-# LANGUAGE TypeOperators        #-}
 {-# LANGUAGE UndecidableInstances #-}
 ```
 
@@ -152,14 +155,14 @@ BORING
 ```haskell
 instance ToJSON User where
     toJSON user = object
-        [ "userName" =. userName user
-        , "userAge" =. userAge user
-        , "userFavorateAnimal" =. userFavoriteAnimal user
+        [ "userName" .= userName user
+        , "userAge" .= userAge user
+        , "userFavorateAnimal" .= userFavoriteAnimal user
         ]
 ```
 
 Also, HWOOPS, you may have noticed the typo.
-That's unfortunately already been released and is now part of the Public API which we will embarrasingly support for the next decade or two.
+That's unfortunately already been released and is now part of the Public API which we will embarrassingly support for the next decade or two.
 `Referer` has some company, at least.
 
 Anyway this is  boring, error-prone, and full of repetition.
@@ -402,7 +405,7 @@ instance ModifyOptions AsIs where
 
 This gives us the same thing as `deriving ToJSON via Generically User`, and we can verify this:
 
-```haskel
+```haskell
 >>> encode (Codec bob :: Codec AsIs User)
 {"userName":"Bob","userAge":32,"userFavoriteAnimal":"cats"}
 ```
@@ -428,8 +431,8 @@ Oof, record update, how nasty. Let's factor that out into it's own pattern:
 we want to take an `Options` and compose a function with the existing `fieldLabelModifier`.
 
 ```haskell
-addFieldModifier :: (String -> String) -> Options -> Options
-addFieldModifier f options = options
+addFieldLabelModifier :: (String -> String) -> Options -> Options
+addFieldLabelModifier f options = options
     { fieldLabelModifier = f . fieldLabelModifier options
     }
 
