@@ -5,7 +5,7 @@ layout: post
 categories: programming
 ---
 
-The following discussion occured on the [FPChat Slack (invite link)](https://fpchat-invite.herokuapp.com/).
+The following discussion occurred on the [FPChat Slack (invite link)](https://fpchat-invite.herokuapp.com/).
 It was pasted into a gist by [Emily Pillmore](https://twitter.com/pitopos).
 However, the gist was mysteriously deleted.
 I offered to host the interesting discussion on my blog, which will hopefully preserve it.
