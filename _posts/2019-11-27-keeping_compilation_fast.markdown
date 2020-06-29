@@ -214,10 +214,10 @@ This is a bit nasty, but it can break up a module bottleneck quite nicely, and i
     - The solution is to split up the module, following the tips in [this post](https://www.parsonsmatt.org/2019/12/06/splitting_persistent_models.html)!
 - The following command speeds up compilation significantly, especially after exposing all those parallelism opportunities:
     ```
-    stack build --fast --file-watch --ghc-options "-j4 +RTS -A128m -n2m -qg -RTS"
+    stack build --fast --file-watch --ghc-options "-j4 +RTS -A128m -n2m -RTS"
     ```
     These flags give GHC 4 threads to work with (more didn't help on my 8 core computer), and `-A128m` gives it more memory before it does GC.
-    `-qg` turns off the parallel garbage collector, which is almost always a performance improvement.
+    (EDIT: this post used to recommend `-qg` which turns off the parallel garbage collector. [@MaxTagher](https://twitter.com/MaxTagher) did the brave work of actually verifying this, and it was indeed slowing things down! removing this flag dropped a full build from 3:28 to 3:03, a huge improvement.)
     Thanks to [/u/dukerutledge](https://www.reddit.com/r/haskell/comments/e2l1yj/keeping_compilation_fast/f8wt34p/) for pointing out `-n2m`, which I don't understand but helped!
 - Try to keep things `ghci` friendly as much as possible. `:reload` is the fastest way to test stuff out usually, and REPL-friendly code is test-friendly too!
 
