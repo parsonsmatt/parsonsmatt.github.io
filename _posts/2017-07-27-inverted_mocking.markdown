@@ -229,7 +229,7 @@ doWorkAbstract
     -> m ()
 doWorkAbstract getUserQuery getUsers getSomething redisAction = do
   query <- getUserQuery
-  users <- getUsers
+  users <- getUsers query
   for_ users $ \user -> do
     thing <- getSomething user
     let result = compute thing
