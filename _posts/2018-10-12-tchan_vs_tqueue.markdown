@@ -57,12 +57,12 @@ test2 = do
     forkIO $ do
         for_ [1..5] $ \n -> do
             i <- atomically $ readTChan c
-            putStrLn $ "First thread received: " ++ show i ++ "on #: " ++ show n
+            putStrLn $ "First thread received: " ++ show i ++ " on #: " ++ show n
 
     forkIO $ do
-        for_ [5..10] $ \n -> do
+        for_ [6..10] $ \n -> do
             i <- atomically $ readTChan c
-            putStrLn $ "Second thread received: " ++ show i ++ "on #: " ++ show n
+            putStrLn $ "Second thread received: " ++ show i ++ " on #: " ++ show n
 
     for_ [1..10] $ \i -> do
        threadDelay 10000
@@ -77,16 +77,16 @@ This is the output:
 
 ```
 Beginning test...
-First thread received: 1on #: 1
-First thread received: 2on #: 2
-Second thread received: 3on #: 6
-First thread received: 4on #: 3
-Second thread received: 5on #: 7
-Second thread received: 6on #: 8
-First thread received: 7on #: 4
-Second thread received: 8on #: 9
-First thread received: 9on #: 5
-Second thread received: 10on #: 10
+First thread received: 1 on #: 1
+First thread received: 2 on #: 2
+Second thread received: 3 on #: 6
+First thread received: 4 on #: 3
+Second thread received: 5 on #: 7
+Second thread received: 6 on #: 8
+First thread received: 7 on #: 4
+Second thread received: 8 on #: 9
+First thread received: 9 on #: 5
+Second thread received: 10 on #: 10
 ```
 
 Alright, so the two threads mostly just interleave their work.
