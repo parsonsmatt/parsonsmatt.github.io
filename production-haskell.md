@@ -10,4 +10,5 @@ You'll learn how to apply functional programming principles to business logic pr
 
 To get updates on the book's progress, follow [@prodhaskell](https://twitter.com/prodhaskell) on Twitter!
 
-You can sign up for the Email List on [the Production Haskell Leanpub site](https://leanpub.com/production-haskell).
+The book is available for purchase at [the Production Haskell Leanpub site](https://leanpub.com/production-haskell).
+The first version has 240 pages of content, with much more to come.
