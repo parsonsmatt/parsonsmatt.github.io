@@ -335,7 +335,7 @@ This satisfies all of the things I wanted in my list, and we can consider repres
 Turns out, the above approach was premature.
 `generic-lens` only handles two types - it doesn't "deep search" the `Either`, so this approach doesn't work as well as I wanted to.
 
-Fortunately, the technique I document in the [Plucking Constraints]({{ % post_url 2020/01/03/plucking_constraints }}) post does work quite well, and it doesn't even require `lens` knowledge!
+Fortunately, the technique I document in the [Plucking Constraints]({ % post_url 2020-01-03-plucking_constraints }) post does work quite well, and it doesn't even require `lens` knowledge!
 I wrote the [`plucky`](https://hackage.haskell.org/package/plucky) to demonstrate the technique for errors specifically.
 
 As far as I know, this is the best approach in Haskell for type-safe errors.
