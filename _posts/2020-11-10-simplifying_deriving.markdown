@@ -1,5 +1,5 @@
 ---
-title: "Haskell Proposal: Simplfy Deriving"
+title: "Haskell Proposal: Simplify Deriving"
 date: 2020-11-10
 layout: post
 categories: programming
