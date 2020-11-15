@@ -331,8 +331,15 @@ data Some f where
 
 The type variable `f` is in scope from the `data` declaration.
 
+EDIT: [@quickdudley](https://twitter.com/quickdudley/status/1328068260659482624) and [@nnotm](https://twitter.com/nnotm/status/1327998875563683845) have correctly pointed out that you also want to be able to define instances of a class at the definition module of a class.
+These are perfectly valid instances, and so we must keep `StandaloneDeriving`.
+
+
+
 # Terrible Post Over
 
 Alright, post is done.
 These ideas are certainly controversial and Bad, but *man* wouldn't it be nice to have a simpler story around deriving and type class instances?
 The current story is so complex, and I think we can genuinely simplify Haskell-the-language by trimming some fat here.
+
+EDIT: [@i_am_tom](https://twitter.com/am_i_tom/status/1327992136151789568) posted a reference to the [Concrete Class Dictionaries](https://github.com/tysonzero/ghc-proposals/blob/concrete-class-dictionaries/proposals/0000-concrete-class-dictionaries.md) GHC proposal, which subsumes a lot of this.
