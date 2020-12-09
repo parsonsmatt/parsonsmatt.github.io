@@ -226,17 +226,21 @@ Maybe I need to get back to the `Profunctor` approach - inspect why the contrava
 With `App r e a` , we have two output types and an input type.
 We have a few tools for working on these type parameters.
 
-- `fmap  :: (a -> b) -> App r e a -> App r e b
-- `fmapL :: (e -> f) -> App r e a -> App r f a
-- `local :: (r -> x) -> App x e a -> App r e a`
+```haskell
+fmap  :: (a -> b) -> App r e a -> App r e b
+fmapL :: (e -> f) -> App r e a -> App r f a
+local :: (r -> x) -> App x e a -> App r e a
+```
 
 `local` is like our `contramap` function, but it won't work because the kinds aren't right.
 
 We can introduce effectful variants:
 
-- `bind  :: (a -> App r e b) -> App r e a -> App r e b`
-- `catch :: (e -> App r f b) -> App r e a -> App r f a`
-- `what  :: (r -> App x e a) -> App x e a -> App r e a`
+```haskell
+bind  :: (a -> App r e b) -> App r e a -> App r e b
+catch :: (e -> App r f b) -> App r e a -> App r f a
+what  :: (r -> App x e a) -> App x e a -> App r e a
+```
 
 Okay, `what` has my interest.
 It can't be defined.
