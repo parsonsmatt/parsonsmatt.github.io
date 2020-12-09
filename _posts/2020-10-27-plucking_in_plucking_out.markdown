@@ -535,7 +535,7 @@ If I don't have a composable, growing environment that plays nicely with constra
 Usually just a big `AppEnv` type that has everythign I ever need.
 Functions may be defined in terms of constraints, but usually are just defined in:
 
-```Haskell
+```haskell
 newtype App a = App { unApp :: ReaderT AppEnv IO a }
 ```
 
