@@ -135,6 +135,7 @@ impl tyName qds = do
 ```
 
 Unfortunately, I ran into a bit of a [blocking issue](https://gitlab.haskell.org/ghc/ghc/-/issues/20185), namely that GHC does not support `OverloadedRecordDot` in `TemplateHaskell` `QuasiQuotes` yet.
+While I can work around it, I'd rather not bother until `OverloadedRecordDot` is fully supported by GHC.
 
 # The Dealbreaker
 
