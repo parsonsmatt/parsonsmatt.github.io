@@ -32,7 +32,7 @@ instance HasField "name" User String where
 main :: IO ()
 main = do
     let user = User { name = "Matt" }
-    putStrLn (getField @"user" user)
+    putStrLn (getField @"name" user)
 ```
 
 As it happens, we can *add* fields to a record.
