@@ -191,3 +191,45 @@ Unfortunately, enabling `ImpredicativeTypes` doesn't make this work - GHC still 
 It turns out, you can't [put an impredicative type in an instance at all](https://gitlab.haskell.org/ghc/ghc/-/issues/20188).
 
 Oh well.
+
+# BREAKING NEWS
+
+Okay, so I posted this, and was immediately offered a Prime Tip by Sandy Maguire.
+Apparently [Richard Eisenberg](https://www.youtube.com/watch?v=ZXtdd8e7CQQ) has published a video stating how to defeat this.
+The answer is to *demand the constraint in the context*.
+
+So we can write `myPrint` like this:
+
+```haskell
+instance 
+    ( Show a 
+    , HasField "myPrint" User (a -> IO ())
+    )
+  => 
+    HasField "myPrint" User (a -> IO ()) 
+  where
+    getField self a = do
+        putStrLn $ concat [self.name, " says: ", show a]
+```
+
+That let's us write code like this:
+
+```haskell
+go :: IO ()
+go = do
+    let user = User { name = "Matt" }
+    user.myPrint 'a'
+    user.myPrint 3
+```
+
+Which evaluates like this:
+
+```
+$> go
+Matt says: 'a'
+Matt says: 3
+```
+
+Nice!
+
+Deal *un*breaker.
