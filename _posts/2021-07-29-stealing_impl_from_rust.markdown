@@ -123,10 +123,10 @@ impl tyName qds = do
     decs <- qds
     let
         namesTypesExprs :: [(String, Type, Exp)]
-        namesTypesExpr =
+        namesTypesExprs =
             getTypesAndExprs decs
 
-    instances <- for typesAndExprs $ \(name, typ, exp) -> do
+    instances <- for namesTypesExprs $ \(name, typ, exp) -> do
         [d|
             instance HasField $(name) $(tyName) $(typ) where
                 getField self = $(exp)
