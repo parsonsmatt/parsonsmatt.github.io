@@ -90,7 +90,7 @@ doThings
     -> MaybeT (ExceptT MyError IO) (Int, Char)
 doThings mi mc = do
     i <- mi
-    c <- mi
+    c <- mc
     pure (i, c)
 ```
 
