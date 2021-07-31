@@ -233,3 +233,8 @@ Matt says: 3
 Nice!
 
 Deal *un*breaker.
+
+# Yet Another Update
+
+Reddit user `/u/WhisterPayer` implemented [this plugin](https://github.com/ElderEphemera/instance-impl) to accomplish this!
+Awesome.
