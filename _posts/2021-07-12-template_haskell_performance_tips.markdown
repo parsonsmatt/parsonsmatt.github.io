@@ -14,6 +14,11 @@ Let's dig into these slowdowns and talk about how to make them a bit less onerou
 
 # Firing up the external interpreter
 
+
+EDIT: [Adam Gundry commented on `reddit`](https://www.reddit.com/r/haskell/comments/oiwl6z/templatehaskell_performance_tips/h4ya0ay/) that this section is wrong.
+The external interpreter is only used if `-fexternal-interpreter` option is passed to GHC.
+This may be why I was unable to detect the overhead from running an external interpret!
+
 If you use `TemplateHaskell` at all in a module, then GHC needs to fire up an external interpeter.
 GHC loads the interpreter (typically something like `ghci`), then executes/interprets the Haskell code.
 Splices return one of the [Haskell syntax algebraic data types](https://www.stackage.org/haddock/lts-18.2/template-haskell-2.16.0.0/Language-Haskell-TH.html#g:18).
