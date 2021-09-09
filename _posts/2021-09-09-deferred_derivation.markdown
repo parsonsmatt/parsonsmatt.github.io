@@ -7,6 +7,8 @@ categories: programming
 
 ## justifiably lazy orphans
 
+(alternative subtitle: "I used the `TemplateHaskell` to destroy the `TemplateHaskell`")
+
 At the day job, we use the `aeson-typescript` library to generate TypeScript types from our Haskell types.
 One problem is that the library uses `TemplateHaskell` to do this, which means we have `TemplateHaskell` in almost all of our datatype-defining modules.
 Due to the `TemplateHaskell` recompilation avoidance bug (any module that uses `TemplateHaskell` must always be recompiled if any transitive dependency is changed), this means we spend a lot of time recompiling a lot of modules that don't need to change.
