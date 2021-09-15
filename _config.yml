@@ -35,22 +35,17 @@ nav:
     href:           "/about"
   - name: "Tutorials"
     href: "/tutorials"
-  - name: "Consulting"
-    href: "/consulting"
   - name: "Production Haskell"
     href: "/production-haskell"
   - name: "Twitter"
     href: "//www.twitter.com/mattoflambda"
   - name: "Github"
     href: "//www.github.com/parsonsmatt"
-  - name: "Email"
-    href: "mailto:parsonsmatt@gmail.com"
 
 ##Some commonly used links
 links:
   facebook: parsonsmatt
   twitter: mattoflambda
-  email: parsonsmatt@gmail.com
   github: parsonsmatt
 
 ##The website description (to be used in meta tags)
