@@ -375,12 +375,7 @@ More importantly - it happens in a composable manner.
 ```haskell
 spec :: Spec
 spec = do
-    let
-        provideDatabase runTest =
-            withDatabase $ \db ->
-                runTest db
-
-    around provideDatabase $ describe "With Database" $ do
+    around withDatabase $ describe "With Database" $ do
         it "has stuff" ...
         it "okay" ...
 
@@ -400,12 +395,7 @@ We can even use `bracket` internally, to ensure that exceptions are handled neat
 ```haskell
 spec :: Spec
 spec = do
-    let
-        provideDatabase runTest =
-            withDatabase $ \db ->
-                runTest db
-
-    around provideDatabase $ describe "With Database" $ do
+    around withDatabase $ describe "With Database" $ do
         it "has stuff" ...
         it "okay" ...
 
