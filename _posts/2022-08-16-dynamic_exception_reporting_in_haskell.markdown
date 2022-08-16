@@ -317,7 +317,7 @@ constantAnnotation =
 But the real power is in using *runtime data* to annotate things.
 
 Let's imagine you've got a web application.
-You're reporting runtime exceptions to a service, like Bugnsag.
+You're reporting runtime exceptions to a service, like Bugsnag.
 Specific teams "own" routes, so if something breaks, you want to alert the right team.
 
 You can annotate thrown exceptions with the *route*.
