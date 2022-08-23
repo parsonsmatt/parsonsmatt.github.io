@@ -367,3 +367,5 @@ Talk about a huge increase in complexity!
 We've now got a bit of an idea on how basic types and functions can carry information, and can use that to figure out how much information is stored in a generic data type.
 We can also think about these generic data types as contexts which add some information to the types they contain.
 In the next post, we'll Level Up our ability to *use* these contexts in a generic and reusable way.
+
+[Here's the link to the next post](https://www.parsonsmatt.org/2015/11/29/an_intuition_on_context_ii.html)
