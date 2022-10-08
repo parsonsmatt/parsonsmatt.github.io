@@ -1,5 +1,5 @@
 ---
-title: "Femoracetabular Impingement"
+title: "Femoroacetabular Impingement"
 date: 2022-10-07
 layout: post
 categories: health
