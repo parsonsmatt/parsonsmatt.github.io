@@ -81,3 +81,7 @@ My second surgery is scheduled for November 3rd.
 Another three weeks in crutches, and I'll be able to walk unassisted for Thanksgiving.
 Another three weeks of recovery and PT, and I'll be able to ride a bike outside - hopefully in time for the winter solstice (would hate to lose my Solstice Century streak).
 I should be back to full strength and regular activity by April.
+
+I'm incredibly grateful for everyone involved in the process.
+But the person who has helped the most is my partner.
+She's supported me through all of this, helped me with my physical therapy, and changed my wound dressings.
