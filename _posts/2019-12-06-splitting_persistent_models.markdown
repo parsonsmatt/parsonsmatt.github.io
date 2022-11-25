@@ -49,7 +49,7 @@ share [mkPersist sqlSettings, mkMigrate "migrateAll"]
     $(persistFileWith lowerCaseSettings "config/models")
 ```
 
-For smaller projects, I'd recommend using the QuasiQuoter - it causes less problems with GHCi (no need to worry about relative file paths).
+For smaller projects, I'd recommend using the `QuasiQuoter` - it causes less problems with GHCi (no need to worry about relative file paths).
 Once the models file gets big, compilation *will* become slow, and you'll want to split it into many files.
 I [investigated this slowness to see what the deal was](https://twitter.com/mattoflambda/status/1158853267499057152), initially suspecting that the Template Haskell code was slowing things down.
 What I found was a little surprising: for a 1,200 line `models` file, we were spending [less than a second](https://twitter.com/mattoflambda/status/1158853269432651779) doing TemplateHaskell.
@@ -98,9 +98,14 @@ module Model.User where
 import ClassyPrelude.Yesod
 import Database.Persist.Quasi
 
-share [mkPersist sqlSettings]
+mkPersistWith
+    []
+    sqlSettings 
     $(persistFileWith lowerCaseSettings "config/models/User.persistentmodels")
 ```
+
+`mkPersistWith` is a new function that accepts a `[EntityDef]` representing the entity definitions for tables defined outside of the current module.
+The library needs this so it knows how to generate foreign keys.
 
 So far, so good!
 The contents of the `User.persistentmodels` file only has the entity definition for the `User` table:
@@ -125,7 +130,7 @@ Email
 ```
 
 `Email` refers to the `UserId` type, which is defined in `Model.User`.
-So we need to add that import to the `Model.Email` module.
+So we need to add that import to the `Model.Email` module, and use it with the `mkPersistWith` call.
 
 ```haskell
 {-# LANGUAGE EmptyDataDecls             #-}
@@ -145,9 +150,13 @@ import Database.Persist.Quasi
 
 import Model.User
 
-share [mkPersist sqlSettings]
+mkPersistWith 
+    [entityDef (Proxy :: Proxy User)] 
+    sqlSettings
     $(persistFileWith lowerCaseSettings "config/models/Email.persistentmodels")
 ```
+
+While you *can* write the `[entityDef ...]` list manually, it is considerably easier to write `$(discoverEntities)` and splice them in automatically.
 
 We need to do the same thing for the `Comment` type and module.
 
@@ -205,10 +214,6 @@ Easy-peasy!
 
 ### Migrations
 
-Okay, so this is where it gets kind of obnoxious.
-
-In each quasiquote block, you have it generate migrations for your types.
-Then, you'll make a `Model.Migration` file, which will need to import the migrations from each of your `Model` files and then run them in order.
-You need to manually topologically sort the migrations based on references, or it will try to create eg foreign keys to tables you haven't created yet, which borks the migrations.
-
-At least, I *think* that's what you'd need to do - that's about where I got when exploring this method on the work codebase, and I decided against it because it seemed less flexible and useful than the above approach since we use the `persistent` migrations.
+In recent versions of `persistent`, migrations aren't generated at compile-time.
+Instead, they're created at run-time using the `[EntityDef]` provided.
+So the `QuasiQuote` and separate-file-schemes work equally well.
