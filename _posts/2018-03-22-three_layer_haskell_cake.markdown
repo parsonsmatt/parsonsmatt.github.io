@@ -204,3 +204,4 @@ Fortunately, other folks have!
 
 - [Holmusk/three-layer](https://github.com/Holmusk/three-layer)
 - [thomashoneyman/purescript-halogen-realworld](https://github.com/thomashoneyman/purescript-halogen-realworld)
+- [defect-process](https://github.com/incoherentsoftware/defect-process) is a 62kloc Haskell video game project
