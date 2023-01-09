@@ -49,7 +49,7 @@ Using a `ByteString` would make the representation much more compact, but these 
 Switching to `CPS.WriterT [Builder]` instead of `WriterT [String]` helps, but we're not done yet.
 `[]` is a bad choice for a `WriterT`, since `tell` will `mappend` the lists.
 `mappend` on lists can result in bad performance if it isn't associated correctly - `(((a ++ b) ++ c) ++ d) ++ e` is *accidentally quadratic*, since we'll traverse over the `a` list for every single `++` call.
-A "difference list" has much faster appends, since it can associate things correcntly regardless of how you construct it.
+A "difference list" has much faster appends, since it can associate things correctly regardless of how you construct it.
 
 To make it easier to use the API, I created an [`ErrorMessages`](https://github.com/haskell/haddock/pull/1543/files?diff=split&w=1#diff-fb24fea4d702952a1d040f7f9f4f7e547cbc2467b29587657c7fee02bfc1ee9bR686-R687) type:
 
