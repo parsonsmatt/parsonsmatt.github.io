@@ -7,32 +7,20 @@ layout: default
   </h1>
   <nav class="masthead-nav">
     {% for nav in site.nav %}
-    <a href="{{ nav.href }}">{{ nav.name }}</a>
+    [ <a href="{{ nav.href }}">{{ nav.name }}</a> ]
     {% endfor %}
   </nav>
 </header>
-<div class="content list">
-  {% if site.posts.size == 0 %}
-  <h2>No post found</h2>
-  {% else %}
-  {% for post in paginator.posts %}
-  <div class="list-item">
-    <h2 class="list-post-title">
-      <a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a>
-    </h2>
-    <div class="list-post-date">
-      <time>{{ post.date | date_to_string }}</time>
-    </div>
-  </div>
-  {% endfor %}
-  {% endif %}
-</div>
-<div class="unit whole paginator">
-	{% if paginator.previous_page %}
-	<a href="{{ paginator.previous_page_path }}" class="previous">Previous</a>
-	{% endif %}
-	<span>Page: {{ paginator.page }} of {{ paginator.total_pages }}</span>
-	{% if paginator.next_page %}
-	<a href="{{ paginator.next_page_path }}" class="next">Next</a>
-	{% endif %}
+<div>
+    <h2>Software and other thoughts</h2>
+    <p>
+I'm Matt Parsons. I've been writing Haskell professionally since
+2016, and that's the main reason that you may be interested in this website.
+You can find an index of my <a href="/programming/">programming posts</a>, though the condensed knowledge in Haskell programming is found in my book, <a href="https://leanpub.com/production-haskell">Production Haskell</a>.
+    </p>
+    <p>
+Since this domain lives on my real name, I'm planning on reorganizing the website to be more about my real self.
+Expect posts on other topics here.
+If this bothers you, then consider subscribing to <a href="https://overcomingsoftware.substack.com/">my Substack, 'Overcoming Software'</a>.
+    </p>
 </div>

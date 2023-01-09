@@ -6,7 +6,8 @@ permalink: /about/
 
 Hi! I’m Matt Parsons!
 I like to ride my bicycle, play guitar, and occasionally program a computer.
-I work as a software engineer for Mercury.
+I work as a software engineering manager for Mercury.
+I lead the Backend Developer Experience team, working on training, open source libraries, and improving our engineering workflows.
 
 I started learning a software in Spring 2014 in my "intro to Java" course at UGA.
 JavaScript introduced me to functional programming that summer, and Ruby on Rails pointed me towards Sandi Metz and Smalltalk-inspired object oriented design.

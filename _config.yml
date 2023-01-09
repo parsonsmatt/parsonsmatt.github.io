@@ -3,14 +3,14 @@
 # # # # # # # #
 
 # Basic
-name:               "Overcoming Software"
+name:               "parsonsmatt.org"
 
 # URL
 baseurl:            ""
 #baseurl:            "" #For Root Domain
 permalink:          /:year/:month/:day/:title.html
 
-gems:
+plugins:
     - jekyll-redirect-from
     - jekyll-paginate
     - jekyll-feed
@@ -31,10 +31,10 @@ highlighter: rouge
 
 # Navigation
 nav:
-  - name:           "About"
-    href:           "/about"
-  - name: "Tutorials"
-    href: "/tutorials"
+  - name: "About"
+    href: "/about"
+  - name: "Programming Posts"
+    href: "/programming"
   - name: "Production Haskell"
     href: "/production-haskell"
   - name: "Twitter"
