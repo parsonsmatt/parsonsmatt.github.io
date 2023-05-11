@@ -510,3 +510,5 @@ I've mentioned [`annotated-exception`](https://hackage.haskell.org/package/annot
 This library extends the `CallStack` machinery to any exception that is thrown by the library or passes through an exception handler.
 Additionally, you can provide additional metadata information on your exceptions, which makes debugging them much more useful.
 You can now transparently add, say, the logged in user ID to every single exception that gets thrown in a code block.
+
+The source code for this blog post is available [at this GitHub repository](https://github.com/parsonsmatt/callstack-examples).
