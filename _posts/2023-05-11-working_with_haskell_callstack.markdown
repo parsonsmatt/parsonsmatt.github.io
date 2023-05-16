@@ -116,7 +116,7 @@ withFrozenCallStack :: HasCallStack => (HasCallStack => a) -> a
 ```
 
 This function freezes the `CallStack` for the *argument* of the function.
-This is useful if you want to provide a wrapper around a function that manipulates or reports on the `CallStack` in some way, but you don't want that poluting any other `CallStack`.
+This is useful if you want to provide a wrapper around a function that manipulates or reports on the `CallStack` in some way, but you don't want that polluting any other `CallStack`.
 
 Let's call that before `getSrcLoc` and see what happens.
 
