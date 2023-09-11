@@ -6,7 +6,7 @@ categories: [music, cello]
 ---
 
 I've been learning cello again recently.
-The omnipresent advice for novices is to rent a cello from a reputable violin shop, which is great - my cello would be $2,700 new, but I'm renting it for $50/mo.
+The omnipresent advice for novices is to rent a cello from a reputable violin shop, which is great - my cello would be \$2,700 new, but I'm renting it for $50/mo.
 And I can tell I'll outgrow it, *and* I don't know how to properly evaluate an acoustic cello for great suitability yet.
 
 I've got a practice mute, but it's still rather loud - I can't practice at night or early in the morning without waking someone up in my house.
