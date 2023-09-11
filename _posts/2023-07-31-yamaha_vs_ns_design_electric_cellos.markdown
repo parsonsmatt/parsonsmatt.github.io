@@ -22,12 +22,12 @@ I had the opportunity to visit [Luther Strings](https://lutherstrings.com/) this
 # Avoid Cecilio 
 
 First of all, the prices on the Yamaha and NS Design are high - you may be tempted to shop elsewhere for your first instrument.
-The Cecilio seems like a good deal at $530, but it isn't.
+The Cecilio seems like a good deal at \$530, but it isn't.
 A friend of mine purchased one in college (budgets, hey).
 The electronics are awful - bad sound, noisy, connections are inconsistent and cut out.
 I lined it with tin foil and resoldered most of the joints, which helped.
 It wouldn't hold tune, so I installed geared bass tuners.
-The bridge needs to be shorter and the fingerboard needs to be planed, which I can't reasonably DIY and the luthiers want $100s to do it.
+The bridge needs to be shorter and the fingerboard needs to be planed, which I can't reasonably DIY and the luthiers want \$100s to do it.
 The strings are uncomfortable, too, and they don't sound good.
 It'll cost about as much to get the instrument in usable condition as it does to buy it.
 
@@ -42,7 +42,7 @@ They have body shapes that make it feel like a traditional cello - there's a sho
 The electronics are all active, and have an A/C adapter - they have headphone outputs and reverb built-in.
 They also have a hookup for an auxiliary input, which would allow you to plug an MP3 player and listen to a backing track while you play.
 
-The cheapest option is the <a target="_blank" href="https://www.amazon.com/Yamaha-SVC50SK-Silent-Compact-Outfit/dp/B002PMKZ1K/ref=sr_1_3?keywords=yamaha+svc&amp;link_code=qs&amp;qid=1690815317&amp;sr=8-3&amp;ufe=app_do%253Aamzn1.fos.17f26c18-b61b-4ce9-8a28-de351f41cffb&_encoding=UTF8&tag=productionhas-20&linkCode=ur2&linkId=ed5a623248b1bf0138563cd0a3d8e457&camp=1789&creative=9325">Yamaha SVC-50</a> at $2,100.
+The cheapest option is the <a target="_blank" href="https://www.amazon.com/Yamaha-SVC50SK-Silent-Compact-Outfit/dp/B002PMKZ1K/ref=sr_1_3?keywords=yamaha+svc&amp;link_code=qs&amp;qid=1690815317&amp;sr=8-3&amp;ufe=app_do%253Aamzn1.fos.17f26c18-b61b-4ce9-8a28-de351f41cffb&_encoding=UTF8&tag=productionhas-20&linkCode=ur2&linkId=ed5a623248b1bf0138563cd0a3d8e457&camp=1789&creative=9325">Yamaha SVC-50</a> at \$2,100.
 
 # NS Design
 
@@ -52,9 +52,9 @@ The shape is highly non-traditional - the neck is unobstructed throughout, and t
 You can play with an included adjustable tripod to find the right position, or you can purchase a frame/end-pin mount, or a strap system for standing upright.
 On the low end, the electronics are simple - a passive pickup, a switch for arco or pizzicato playing, a volume know, and a tone knob - much like you'd find on an electric guitar or bass.
 
-The cheapest option is the <a target="_blank" href="https://www.amazon.com/NS-Design-WAV4-Electric-Cello/dp/B06XS3NH1Q/ref=sr_1_1?crid=2DJ6PD8NMC0U9&amp;keywords=ns+design+wav4+cello&amp;qid=1690816029&amp;sprefix=ns+design+wav4+cell%252Caps%252C112&amp;sr=8-1&amp;ufe=app_do%253Aamzn1.fos.765d4786-5719-48b9-b588-eab9385652d5&_encoding=UTF8&tag=productionhas-20&linkCode=ur2&linkId=9bb93546242bc26a3fc5d4e53d8ddaaa&camp=1789&creative=9325">NS Design WAV4</a> at $1,259 (though [Shar Music has one for $999](https://www.sharmusic.com/products/ns-design-wav-cello-black?_pos=2&_sid=6b29ba9cb&_ss=r)).
-While this is significantly cheaper than the Yamaha, you'll probably want the [cello endpin stand at $385](https://thinkns.com/product/cello-end-pin-stand/), and maybe the [frame strap system at $259](https://thinkns.com/product/frame-strap-system/), or the [thumbstop for $116](https://thinkns.com/product/cello-thumbstop-neck-heel-rest/).
-The cost is now $1,759, and you still can't plug headphones directly into the instrument - for that, you need to go up to the CR series, which are around $4,000 (but have active electronics and a headphone jack).
+The cheapest option is the <a target="_blank" href="https://www.amazon.com/NS-Design-WAV4-Electric-Cello/dp/B06XS3NH1Q/ref=sr_1_1?crid=2DJ6PD8NMC0U9&amp;keywords=ns+design+wav4+cello&amp;qid=1690816029&amp;sprefix=ns+design+wav4+cell%252Caps%252C112&amp;sr=8-1&amp;ufe=app_do%253Aamzn1.fos.765d4786-5719-48b9-b588-eab9385652d5&_encoding=UTF8&tag=productionhas-20&linkCode=ur2&linkId=9bb93546242bc26a3fc5d4e53d8ddaaa&camp=1789&creative=9325">NS Design WAV4</a> at \$1,259 (though [Shar Music has one for \$999](https://www.sharmusic.com/products/ns-design-wav-cello-black?_pos=2&_sid=6b29ba9cb&_ss=r)).
+While this is significantly cheaper than the Yamaha, you'll probably want the [cello endpin stand at \$385](https://thinkns.com/product/cello-end-pin-stand/), and maybe the [frame strap system at \$259](https://thinkns.com/product/frame-strap-system/), or the [thumbstop for \$116](https://thinkns.com/product/cello-thumbstop-neck-heel-rest/).
+The cost is now \$1,759, and you still can't plug headphones directly into the instrument - for that, you need to go up to the CR series, which are around \$4,000 (but have active electronics and a headphone jack).
 
 # Comparison
 
@@ -63,11 +63,11 @@ However, they have a lot of overlap - and so deciding between them may be a chal
 
 ## Cost
 
-The NS Design WAV4 has a much lower entry price - at $999 from Shar, it's a fantastic deal, and even the $1,259 from other retailers is good.
+The NS Design WAV4 has a much lower entry price - at \$999 from Shar, it's a fantastic deal, and even the \$1,259 from other retailers is good.
 However, the endpin stand is expensive and necessary to get the mobility and feel of a traditional cello, which would be an important purchase if the intent is to practice *for* traditional cello.
 The WAV4 also only has passive electronics and an instrument output - you need an amplifier of some sort to drive headphones.
 
-The Yamaha is $2,100, but it is *fully loaded*.
+The Yamaha is \$2,100, but it is *fully loaded*.
 You buy it, and you'll be able to practice cello silently with a backing track *right now*.
 You don't need anything else.
 
@@ -82,7 +82,7 @@ You can move the cello with your knees to get different string angles and to aid
 The shoulder of the cello indicates when you'd need to shift to thumb position on a traditional cello.
 Unfortunately, I found the fingerboard to be oddly shaped, and the strings were a bit high.
 It was far better than the Cecilio I've played, but I do still feel like a proper setup from a luthier would help dramatically.
-I'd say it feels like a $1,000 cello with $1,000 of electronics.
+I'd say it feels like a \$1,000 cello with \$1,000 of electronics.
 
 The NS Design doesn't feel like a traditional cello at all.
 On the stock tripod, there's no chest or leg support.
