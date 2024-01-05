@@ -94,7 +94,7 @@ doWorkHelper users = do
   things'users <- for users $ \user -> do
     thing <- getSomething user
     pure (thing, user)
-  lookMaNoInputs thing'users
+  lookMaNoInputs things'users
 
 lookMaNoInputs :: [(Thing, User)] -> App ()
 lookMaNoInputs things'users =
