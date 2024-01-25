@@ -138,13 +138,14 @@ convert :: IO a -> Handler a
 convert = Handler . ExceptT . try
 ```
 
+**NOTE**: This `convert` function is a no-op. `try`'s `e` type is instantiated to `ServerError` here, and no `IO a` actions you pass will throw `ServerError`, meanwhile any `IOException` exception thrown by IO actions will not be caught by `try`. So `convert` is basically doing nothing.
+
 wrap it in the `NT` natural transformation newtype:
 
 ```haskell
 convert :: IO :~> Handler
 convert = NT . Handler . ExceptT . try
 ```
-
 
 and use it in `enter`:
 
@@ -153,4 +154,4 @@ app :: Application
 app = server (Proxy :: Proxy Api) (enter convert handler)
 ```
 
-Voila! You're throwing and catching exceptions in IO, and Servant is still getting the chance to handle them however it wants.
+Voila! You're throwing exceptions in IO, and Servant is still doing nothing with them.
