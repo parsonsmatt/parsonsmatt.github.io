@@ -96,7 +96,7 @@ Fortunately, we can do better.
 # pure on pure on pure
 
 Instead of returning values to a different scope, and then doing assertions against those values, we will return an *action* that does assertions, and then call it.
-The simple case is barely changes:
+The simple case barely changes:
 
 ```haskell
 spec :: Spec
