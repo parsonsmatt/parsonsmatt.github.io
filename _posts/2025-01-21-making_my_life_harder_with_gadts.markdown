@@ -16,7 +16,7 @@ However, there's one point in his post that I take issue with:
 I am *often* arguing against complexity in Haskell codebases.
 While Lucas's prediction about "misconceptions" may be true for others, it is not true for me.
 I have worked extensively with Haskell's most advanced features in large scale codebases.
-I've studied ["Types and Programming Languages,"](https://www.cis.upenn.edu/~bcpierce/tapl/) [the Idris book](https://www.manning.com/books/type-driven-development-with-idris), ["Type Theory and Formal Proof"](http://anggtwu.net/tmp/nederpelt_geuvers__type_theory_and_formal_proof_an_introduction.pdf), and many other resources on advanced type system.
+I've studied ["Types and Programming Languages,"](https://www.cis.upenn.edu/~bcpierce/tapl/) [the Idris book](https://www.manning.com/books/type-driven-development-with-idris), ["Type Theory and Formal Proof"](http://anggtwu.net/tmp/nederpelt_geuvers__type_theory_and_formal_proof_an_introduction.pdf), and many other resources on advanced type systems.
 I don't say this to indicate that I'm some kind of genius or authority, just that I'm not a rube who's looking up on the Blub Paradox.
 My argument for simplicity comes from the hard experience of having to rip these advanced features out, and the pleasant discovery that simpler alternatives are usually nicer in every respect.
 
