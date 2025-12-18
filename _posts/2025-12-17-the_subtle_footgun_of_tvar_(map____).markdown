@@ -5,7 +5,7 @@ layout: post
 categories: programming
 ---
 
-> Or, "How I learned to stop worrying and love the [`stm-containers`](https://hackage.haskell.org/package/stm-containers) package"
+> How coarse-grained STM containers can livelock under load
 
 Software Transactional Memory (STM) is one of Haskell's crown jewels.
 The promise is easy, lock-free concurrency with guaranteed transactional semantics and great performance.
@@ -99,7 +99,7 @@ doStuff tmap str = do
 The library also offers an interesting `focus` function, which allows you to combine operations at a single key into a single operation.
 
 If you're sharing a `Map` or `Set`-like container across many threads, then you almost certainly want to just use `stm-containers`.
-Don't think about it, just use `stm-containers`.
+If you stop reading here, and merely use `stm-containers` by default, then you'll avoid a lot of pain without having to invest much time or energy.
 `stm-containers` is faster and safer than a `TVar (Map k v)`.
 
 [In this PR to the `hs-temporal-sdk` library](https://github.com/MercuryTechnologies/hs-temporal-sdk/pull/279), I mechanically translated a few `TVar (HashMap _ _)` to `stm-containers` datatypes.
@@ -139,6 +139,7 @@ This change made a big difference to the performance of our metric collection co
 An `MVar (Map k v)` avoids the problem of livelock, but introduces another potential problem: deadlock.
 An `MVar` is a *locking* concurrency mechanism, where you can block other threads by `takeMVar` and making the `MVar` empty.
 This allows updating threads to lock the value, update the `MVar`, and unlock the value.
+However, if your code fails to fill up an `MVar`, or if two threads are waiting on mutually held `MVar`s, then your code cannot make progress, and will be deadlocked.
 
 One advantage that this has to a `TVar` is fairness.
 Threads that attempt to read or take from an `MVar` are enqueued, and guaranteed to operate in a first-in-first-out manner.
@@ -221,3 +222,5 @@ But if you only select a handful of columns, ideally only *those* columns are lo
 
 `STM` is a wonderful mechanism for concurrency, but it isn't foolproof.
 We are still responsible for selecting the right data structures for good performance.
+The core issue here is *coarse-grained transactional state*.
+Finer transactionality gives us better performance.
