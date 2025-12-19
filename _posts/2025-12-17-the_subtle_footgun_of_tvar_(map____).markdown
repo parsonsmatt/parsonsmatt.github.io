@@ -7,6 +7,9 @@ categories: programming
 
 > How coarse-grained STM containers can livelock under load
 
+* Edit history:
+    * 12-19: [@teofilC on the Haskell Discourse](https://discourse.haskell.org/t/the-subtle-footgun-of-tvar-map/13429/3) remarked a place where `TVar (Map _ _)` may be appropriate - I've modified the post to incorporate this.
+
 Software Transactional Memory (STM) is one of Haskell's crown jewels.
 The promise is easy, lock-free concurrency with guaranteed transactional semantics and great performance.
 Used correctly, you get all of these benefits.
@@ -117,7 +120,9 @@ These rely on *non-local assumptions* about your code structure - you *cannot* e
 Writing code that works great with a `TVar (Map k v)` in the small is quite easy, but guaranteeing that code won't break as it scales is challenging.
 
 There are many situations where going from `TVar (Map k v)` to `StmMap.Map k v` will make a huge improvement.
-There are no situations where going from `StmMap.Map k v` to `TVar (Map k v)` will make a significant improvement.
+
+There is one known situation where an `StmMap.Map k v` may run into a significant performance problem - if you need to get a snapshot of the `Map` atomically, `StmMap.Map k v` requires reading `O(n log n)` `TVar`s, and [GHC currently is quadratic in the count of `TVar`s in a transaction](https://gitlab.haskell.org/ghc/ghc/-/issues/24410).
+So if you find yourself doing `listT :: StmMap.Map k v -> ListT STM [(k, v)]`, then you may want to consider an alternative structure.
 
 # What about `IORef (Map k v)`?
 
@@ -125,14 +130,20 @@ An `IORef (Map k v)` eliminates the possibility of livelock.
 However, the `IORef` structure is not suitable for many writers.
 To ensure a consistent view of the `Map`, you need to use `atomicModifyIORef`.
 While a thread is doing an `atomicModifyIORef`, all other writes are blocked to the reference.
-This means that an `IORef (Map k v)` is suitable if there is only one thread writing to the `IORef`.
-If you have many writers, then threads will queue up and block on updating the entire `Map`.
+This means that an `IORef (Map k v)` is suitable if there are relatively few writes to the `IORef`, and the `IORef` write is mostly a complete replacement.
+If you have many writers doing small writes, then threads will queue up and block on updating the entire `Map`.
+
+In briefer code snippets,
+
+* Good: `atomicModifyIORef' (\oldMap -> (Map.union newMap oldMap, ()))`
+* Bad: `atomicModifyIORef' (\oldMap -> (Map.insert k v oldMap, ()))`
 
 `atomicModifyIORef` also requires the updating action to be *pure*.
 If you need the modification to be effectful, *and* have a consistent view of the data, then you need to use either `stm-containers` or an `MVar`.
 
 [In this PR to the `prometheus-haskell`](https://github.com/parsonsmatt/prometheus-haskell/pull/1) library, I demonstrate that an `IORef (Map k v)` has significantly worse performance than an `stm-containers` `Map k v` as concurrency scales up.
 This change made a big difference to the performance of our metric collection code.
+`IORef (Map k v)` is not suitable because there are many frequent writes that are only concerned with a single `k`, and reading is done non-atomically - the value of `k0` changing does not impact the value of `k1`.
 
 # What about `MVar (Map k v)`?
 
@@ -158,6 +169,9 @@ Instead, you'll want to batch updates to the `Map` and perform a whole replaceme
 However, this is exactly the same limitation as `IORef (Map k v)` or an `MVar (Map k v)`.
 If you only have a single `TVar (Map k v)` involved in your `STM` transactions, then you can simply switch to an `IORef` or `MVar` and enjoy increased performance.
 If you have multiple `TVar` in your transaction, then you are at risk of livelock, and should use `stm-containers`.
+
+If you *really need* `TVar` for `STM` transactionality, then I would highly recommend wrapping the `TVar (Map k v)` in a `newtype` that forbids write operations, and only expose the underlying `TVar` in a manner that allows for a single thread to do infrequent writes.
+This will avoid contention and livelock.
 
 # When is `TVar (Map k (TVar v))` safe?
 
