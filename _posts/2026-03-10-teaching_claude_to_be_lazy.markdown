@@ -1,5 +1,5 @@
 ---
-title: "My first month with Claude"
+title: "Teaching Claude to Be Lazy"
 date: 2026-03-10
 layout: post
 categories: programming
