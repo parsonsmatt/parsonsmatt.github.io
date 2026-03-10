@@ -13,7 +13,7 @@ And then GPT-2 came out.
 
 Over the last five years, people have been making wild claims about the utility of *present* AI.
 Not "the AI that you'll have *soon*," but the current generation stuff.
-And the results, franky, had been garbage.
+And the results, frankly, had been garbage.
 A sea of garbage coating the internet.
 I'd try using the tools, and when checking them against my own expertise or knowledge, they always fell short.
 
@@ -81,7 +81,7 @@ So get the LLM to help with *replacing themselves* - build a tool or skill to do
 My Claude sessions generally progress from "highly supervised, exploratory work" to "mostly unsupervised, automated work."
 Early sessions in a project often involve having Claude build tools - CLI scripts, libraries, interfaces - that it can use in later work to make the job easier.
 A surprisingly effective prompt here is "What tools would help you do this job better next time?"
-At the end of a session, I'll also have Claude review and update it's skill documentation with everything I told it to do differently.
+At the end of a session, I'll also have Claude review and update its skill documentation with everything I told it to do differently.
 
 So each work session with Claude produces:
 
@@ -89,7 +89,7 @@ So each work session with Claude produces:
 2. Often, updates to the skill to improve efficiency on further work
 3. Sometimes, a tool to deterministically do some chunk of the work.
 
-This process ends up reducing the highly non-deterministic LLM tool with a much more determinstic tool.
+This process ends up reducing the highly non-deterministic LLM tool with a much more deterministic tool.
 
 ## Mock Reviews and Refactoring
 
