@@ -353,33 +353,13 @@ We can make this safe by using a `CHECK` constraint to ensure that the correspon
 
 ```sql
 ALTER TABLE animal ADD CHECK (
-    ( type = 'cat'
-    AND cat_name     IS NOT NULL
-    AND cat_age      IS NOT NULL
-    AND cat_food     IS NOT NULL
-    AND dog_name     IS NULL
-    AND dog_owner_id IS NULL
-    AND bird_name    IS NULL
-    AND bird_song    IS NULL
-    ) OR 
-    ( type = 'dog'
-    AND dog_name     IS NOT NULL
-    AND dog_owner_id IS NOT NULL
-    AND cat_name     IS NULL
-    AND cat_age      IS NULL
-    AND cat_food     IS NULL
-    AND bird_name    IS NULL
-    AND bird_song    IS NULL
-    ) OR
-    ( type = 'bird'
-    AND bird_name IS NOT NULL
-    AND bird_song IS NOT NULL
-    AND dog_name     IS NULL
-    AND dog_owner_id IS NULL
-    AND cat_name     IS NULL
-    AND cat_age      IS NULL
-    AND cat_food     IS NULL
-    )
+        (type = 'cat') = (cat_name IS NOT NULL)
+    AND (type = 'cat') = (cat_age IS NOT NULL)
+    AND (type = 'cat') = (cat_food IS NOT NULL)
+    AND (type = 'dog') = (dog_name IS NOT NULL)
+    AND (type = 'dog') = (dog_owner_id IS NOT NULL)
+    AND (type = 'bird') = (bird_name IS NOT NULL)
+    AND (type = 'bird') = (bird_song IS NOT NULL)
 );
 ```
 
